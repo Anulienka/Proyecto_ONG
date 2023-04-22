@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentFirstBinding
 
@@ -25,6 +26,25 @@ class FirstFragment : Fragment() {
     ): View? {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+
+        //para errror de input usuario
+        binding.etUsuario.doOnTextChanged { text, start, before, count ->
+            if(text!!.length < 1){
+                binding.itUsuario.error = "Campo obligatorio"
+            }else{
+                binding.itUsuario.error = null
+            }
+        }
+
+        //para errror de input usuario
+        binding.etContrasena.doOnTextChanged { text, start, before, count ->
+            if(text!!.length < 1){
+                binding.itContrasena.error = "Campo obligatorio"
+            }else{
+                binding.itContrasena.error = null
+            }
+        }
+
         return binding.root
 
     }

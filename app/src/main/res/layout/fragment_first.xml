@@ -34,44 +34,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
 
-    <EditText
-        android:id="@+id/etUsuario"
-        android:layout_width="310dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="Usuario"
-        android:drawableStart="@drawable/ic_user"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/etContrasena"
-        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
-
-    <EditText
-        android:id="@+id/etContrasena"
-        android:layout_width="313dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="49dp"
-        android:ems="10"
-        android:hint="Contraseña"
-        android:drawableStart="@drawable/ic_lock"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/button_first"
-        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
-        app:layout_constraintHorizontal_bias="0.375"
-        app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
-
     <TextView
         android:id="@+id/tvBienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bienvenido!"
-        app:layout_constraintBottom_toTopOf="@+id/etUsuario"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toBottomOf="@+id/tvZabalketa"
-        app:layout_constraintVertical_bias="0.428" />
+        app:layout_constraintTop_toBottomOf="@+id/tvZabalketa" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glArriba"
@@ -105,6 +75,8 @@
         android:id="@+id/tvRegistrarUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="15dp"
         android:text="¿Todavía no estás registrado?"
         app:layout_constraintBottom_toTopOf="@+id/glAbajo"
         app:layout_constraintEnd_toStartOf="@+id/bRegistrarUsuario"
@@ -114,11 +86,56 @@
         android:id="@+id/bRegistrarUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
         android:layout_marginEnd="4dp"
-        android:shadowColor="#F7F7F8"
-        android:text="REGISTRATE!"
-        android:textColor="#FAFBFD"
+        android:background="@drawable/boton_transparente"
+        android:text="Registrate!"
+        android:textColor="#3D8FCD"
         app:layout_constraintBottom_toTopOf="@+id/glAbajo"
-        app:layout_constraintEnd_toStartOf="@+id/glDerecha" />
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintStart_toEndOf="@+id/tvRegistrarUsuario" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itUsuario"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:hint="Usuario"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/ic_error"
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda"
+        app:layout_constraintTop_toBottomOf="@+id/tvBienvenido"
+        app:startIconDrawable="@drawable/ic_user">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:maxLength="30" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itContrasena"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
+        android:hint="Contraseña"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda"
+        app:layout_constraintTop_toBottomOf="@+id/itUsuario"
+        app:startIconDrawable="@drawable/ic_lock">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etContrasena"
+            android:inputType="textPassword"
+            android:background="@drawable/custom_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
