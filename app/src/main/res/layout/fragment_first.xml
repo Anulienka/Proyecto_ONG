@@ -7,22 +7,118 @@
     tools:context=".FirstFragment">
 
     <TextView
-        android:id="@+id/textview_first"
+        android:id="@+id/tvZabalketa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_first_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="220dp"
+        android:text="Zabalketa"
+        android:textColor="#3D8FCD"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda"
+        app:layout_constraintTop_toTopOf="@+id/glArriba" />
 
     <Button
         android:id="@+id/button_first"
+        android:layout_width="327dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="168dp"
+        android:background="@drawable/boton_round"
+        android:backgroundTint="#4D5AA1"
+        android:text="Entrar"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
+
+    <EditText
+        android:id="@+id/etUsuario"
+        android:layout_width="310dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Usuario"
+        android:drawableStart="@drawable/ic_user"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/etContrasena"
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
+
+    <EditText
+        android:id="@+id/etContrasena"
+        android:layout_width="313dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="49dp"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:drawableStart="@drawable/ic_lock"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/button_first"
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
+
+    <TextView
+        android:id="@+id/tvBienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first" />
+        android:text="Bienvenido!"
+        app:layout_constraintBottom_toTopOf="@+id/etUsuario"
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda"
+        app:layout_constraintTop_toBottomOf="@+id/tvZabalketa"
+        app:layout_constraintVertical_bias="0.428" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glArriba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glAbajo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glIzquierda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDerecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <TextView
+        android:id="@+id/tvRegistrarUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Todavía no estás registrado?"
+        app:layout_constraintBottom_toTopOf="@+id/glAbajo"
+        app:layout_constraintEnd_toStartOf="@+id/bRegistrarUsuario"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
+
+    <Button
+        android:id="@+id/bRegistrarUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:shadowColor="#F7F7F8"
+        android:text="REGISTRATE!"
+        android:textColor="#FAFBFD"
+        app:layout_constraintBottom_toTopOf="@+id/glAbajo"
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.proyecto_ong
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +10,10 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.DatePicker
+import android.widget.TextView
 import com.example.proyecto_ong.databinding.ActivityMainBinding
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +35,28 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+
+        //nuestro codigo
+        //CALENDARIO
+        val selectDate = findViewById<TextView>(R.id.tvCalendario)
+        //cuando clicamos calendario
+        selectDate.setOnClickListener {
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val calendarPopup = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+
+                //esto para poner mes valido, si no pongo +1, se selecciona mes anterior
+                val month = monthOfYear + 1
+                selectDate.setText("$dayOfMonth/$month/$year")
+
+            },year,month,day)
+            //para que se puede seleccionar solo fecha que es hoy, que no se seleccione mañana
+            calendarPopup.datePicker.maxDate = c.timeInMillis
+            calendarPopup.show()
         }
     }
 

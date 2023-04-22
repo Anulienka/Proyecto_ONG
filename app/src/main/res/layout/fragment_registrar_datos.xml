@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistrarDatosFragment">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glArribaDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glAbajoDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glIzquierdaDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDerechoDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+
+    <LinearLayout
+        android:id="@+id/vlCheckBox"
+        android:layout_width="322dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechoDatos"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierdaDatos"
+        app:layout_constraintTop_toBottomOf="@+id/tvCalendario">
+
+
+        <CheckBox
+            android:id="@+id/cbLluvia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lluvia"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="207dp" />
+
+        <CheckBox
+            android:id="@+id/cbAgua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cortes de agua"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="265dp" />
+
+        <CheckBox
+            android:id="@+id/cbNiebla"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Niebla"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="145dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvDensidad"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Densidad de la niebla:"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechoDatos"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierdaDatos"
+        app:layout_constraintTop_toBottomOf="@+id/vlCheckBox" />
+
+    <Spinner
+        android:id="@+id/sDensidad"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechoDatos"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierdaDatos"
+        app:layout_constraintTop_toBottomOf="@+id/tvDensidad" />
+
+    <TextView
+        android:id="@+id/tvFranja"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Densidad de la niebla:"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechoDatos"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierdaDatos"
+        app:layout_constraintTop_toBottomOf="@+id/sDensidad" />
+
+    <Spinner
+        android:id="@+id/sFranja"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechoDatos"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierdaDatos"
+        app:layout_constraintTop_toBottomOf="@+id/tvFranja" />
+
+    <Button
+        android:id="@+id/bRegistrarDatos"
+        android:layout_width="325dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:text="Insertar Datos"
+        android:background="@drawable/boton_round"
+        app:layout_constraintBottom_toTopOf="@+id/glAbajoDatos"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechoDatos"
+        app:layout_constraintHorizontal_bias="0.0
+"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierdaDatos" />
+
+    <TextView
+        android:id="@+id/tvCalendario"
+        android:layout_width="314dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="50dp"
+        android:drawableEnd="@drawable/ic_calendary"
+        android:hint="Selecciona fecha"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechoDatos"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierdaDatos"
+        app:layout_constraintTop_toTopOf="@+id/glArribaDatos" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

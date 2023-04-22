@@ -10,7 +10,9 @@
         android:name="com.example.proyecto_ong.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
-
+        <action
+            android:id="@+id/action_FirstFragment_to_registrarUsuarioFragment"
+            app:destination="@id/registrarUsuarioFragment" />
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
@@ -20,9 +22,29 @@
         android:name="com.example.proyecto_ong.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
-
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_registrarDatosFragment2"
+            app:destination="@id/registrarDatosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrarUsuarioFragment"
+        android:name="com.example.proyecto_ong.RegistrarUsuarioFragment"
+        android:label="fragment_registrar_usuario"
+        tools:layout="@layout/fragment_registrar_usuario" >
+        <action
+            android:id="@+id/action_registrarUsuarioFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrarDatosFragment"
+        android:name="com.example.proyecto_ong.RegistrarDatosFragment"
+        android:label="fragment_registrar_datos"
+        tools:layout="@layout/fragment_registrar_datos" >
+        <action
+            android:id="@+id/action_registrarDatosFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>

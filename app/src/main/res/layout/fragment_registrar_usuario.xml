@@ -1,14 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrarUsuarioFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glArribaRegistrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glAbajoRegistrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glIzguierdaRegistrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDerechaRegistrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <Button
+        android:id="@+id/bRegistrar"
+        android:layout_width="327dp"
+        android:layout_height="48dp"
+        android:text="Registrar"
+        android:background="@drawable/boton_round"
+        app:layout_constraintBottom_toTopOf="@+id/glAbajoRegistrar"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
+        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
+        app:layout_constraintTop_toBottomOf="@+id/vlRegistrarUsuario" />
+
+    <LinearLayout
+        android:id="@+id/vlRegistrarUsuario"
+        android:layout_width="307dp"
+        android:layout_height="360dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
+        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
+        tools:layout_editor_absoluteY="170dp">
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="Nombre"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
+            app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
+            tools:layout_editor_absoluteY="179dp" />
+
+        <EditText
+            android:id="@+id/etContrasena1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="48dp"
+            android:ems="10"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
+            app:layout_constraintTop_toBottomOf="@+id/etNombre" />
+
+        <EditText
+            android:id="@+id/etContrasena2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="44dp"
+            android:ems="10"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
+            app:layout_constraintHorizontal_bias="0.571"
+            app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
+            app:layout_constraintTop_toBottomOf="@+id/etContrasena1" />
+
+        <TextView
+            android:id="@+id/tvRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Region"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="61dp"
+            tools:layout_editor_absoluteY="446dp" />
+
+        <Spinner
+            android:id="@+id/sRegionUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginTop="63dp"
+            app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
+            app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
+            app:layout_constraintTop_toBottomOf="@+id/etContrasena2" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
