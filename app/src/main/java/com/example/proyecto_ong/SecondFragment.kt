@@ -1,11 +1,14 @@
 package com.example.proyecto_ong
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_ong.databinding.FragmentSecondBinding
 
 /**
@@ -18,6 +21,7 @@ class SecondFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    lateinit var miRecyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +36,30 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.menu_listadatos, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                    R.id.miInsertar -> {
+                        //no se porque es registrarDatos Fragment2
+                        findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
+                        true
+                    }
+                    else -> false
+                }
+            }
+        },viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        miRecyclerView = binding.rvDatosUsuario
+        miRecyclerView.layoutManager = LinearLayoutManager(activity)
+        miRecyclerView.adapter=Adaptador((activity as MainActivity).condicionesMeteorologicos)
+
     }
 
     override fun onDestroyView() {

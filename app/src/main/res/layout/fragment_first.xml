@@ -4,26 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    tools:context=".FirstFragment"
+    android:background="#19214C63">
 
     <TextView
         android:id="@+id/tvZabalketa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
+        android:layout_marginBottom="2dp"
         android:text="Zabalketa"
         android:textColor="#3D8FCD"
         android:textSize="34sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvBienvenido"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
         app:layout_constraintTop_toTopOf="@+id/glArriba" />
 
     <Button
-        android:id="@+id/button_first"
-        android:layout_width="327dp"
-        android:layout_height="48dp"
+        android:id="@+id/bEntrar"
+        android:layout_width="310dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="168dp"
         android:background="@drawable/boton_round"
         android:backgroundTint="#4D5AA1"
@@ -31,14 +34,17 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda"
+        app:layout_constraintTop_toBottomOf="@+id/itContrasena" />
 
     <TextView
         android:id="@+id/tvBienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="Bienvenido!"
+        app:layout_constraintBottom_toTopOf="@+id/itUsuario"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
         app:layout_constraintTop_toBottomOf="@+id/tvZabalketa" />
@@ -96,15 +102,16 @@
         app:layout_constraintStart_toEndOf="@+id/tvRegistrarUsuario" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itUsuario"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/itUsuario"
         android:layout_width="310dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:hint="Usuario"
         app:endIconMode="clear_text"
         app:errorEnabled="true"
+        android:hint="Usuario"
         app:errorIconDrawable="@drawable/ic_error"
+        app:layout_constraintBottom_toTopOf="@+id/itContrasena"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
         app:layout_constraintTop_toBottomOf="@+id/tvBienvenido"
@@ -122,9 +129,13 @@
         android:id="@+id/itContrasena"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="310dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:hint="Contraseña"
         app:endIconMode="password_toggle"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/ic_error"
+        app:layout_constraintBottom_toTopOf="@+id/bEntrar"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
         app:layout_constraintTop_toBottomOf="@+id/itUsuario"
@@ -132,10 +143,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etContrasena"
-            android:inputType="textPassword"
-            android:background="@drawable/custom_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

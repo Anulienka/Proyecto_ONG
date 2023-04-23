@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    val condicionesMeteorologicos:MutableList<CondicionesMeteorologicos> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +33,9 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        cargarCondiciones()
 
-        //nuestro codigo
+       /* //nuestro codigo
         //CALENDARIO
         val selectDate = findViewById<TextView>(R.id.tvCalendario)
         //cuando clicamos calendario
@@ -57,6 +55,12 @@ class MainActivity : AppCompatActivity() {
             //para que se puede seleccionar solo fecha que es hoy, que no se seleccione mañana
             calendarPopup.datePicker.maxDate = c.timeInMillis
             calendarPopup.show()
+        }*/
+    }
+
+    fun cargarCondiciones(){
+        for (i in 1..16){
+            condicionesMeteorologicos.add(CondicionesMeteorologicos("dia$i", "niebla$i","franja$i", "lluvia$i", "agua"))
         }
     }
 

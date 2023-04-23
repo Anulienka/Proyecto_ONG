@@ -1,11 +1,9 @@
 package com.example.proyecto_ong
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentFirstBinding
 
@@ -52,10 +50,15 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
+        binding.bEntrar.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
+        binding.bRegistrarUsuario.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_registrarUsuarioFragment)
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
