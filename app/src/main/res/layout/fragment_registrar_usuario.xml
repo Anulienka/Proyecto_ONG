@@ -8,9 +8,9 @@
     tools:context=".RegistrarUsuarioFragment">
 
     <EditText
-        android:id="@+id/idContrasena"
+        android:id="@+id/etContrasena1"
         android:layout_width="310dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_contrasena_icon"
@@ -21,7 +21,7 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/etContrasena1"
+        app:layout_constraintBottom_toTopOf="@+id/etContrasena2"
         app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
@@ -58,7 +58,7 @@
     <EditText
         android:id="@+id/etNombre"
         android:layout_width="310dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="176dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/custom_input"
@@ -70,16 +70,17 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/idContrasena"
+        app:layout_constraintBottom_toTopOf="@+id/etContrasena1"
         app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
         app:layout_constraintTop_toTopOf="@+id/glArribaRegistrar" />
 
     <EditText
-        android:id="@+id/etContrasena1"
+        android:id="@+id/etContrasena2"
         android:layout_width="310dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_contrasena_icon"
         android:drawablePadding="10dp"
@@ -92,13 +93,13 @@
         app:layout_constraintBottom_toTopOf="@+id/sRegion"
         app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
         app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toBottomOf="@+id/idContrasena" />
+        app:layout_constraintTop_toBottomOf="@+id/etContrasena1" />
 
     <Button
         android:id="@+id/bRegistrar"
         android:layout_width="310dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/boton_round"
         android:text="Registrar"
         app:layout_constraintBottom_toTopOf="@+id/glAbajoRegistrar"
@@ -115,7 +116,7 @@
         app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toBottomOf="@+id/etContrasena1" />
+        app:layout_constraintTop_toBottomOf="@+id/etContrasena2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
