@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.DatePicker
 import android.widget.TextView
+import androidx.activity.viewModels
 import com.example.proyecto_ong.databinding.ActivityMainBinding
 import java.util.Calendar
 
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     val condicionesMeteorologicos:MutableList<CondicionesMeteorologicos> = mutableListOf()
+
+    /*val dataBase by lazy {BaseDatos.getDatabase(this)}
+    val miRepositorio by lazy { Repositorio(dataBase.miDAO()) }
+    val miViewModel:PeliculaViewModel by viewModels { PeliculaViewModelFactory(miRepositorio) }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
