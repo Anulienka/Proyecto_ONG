@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment"
-    android:background="#19214C63">
+    tools:context=".FirstFragment">
 
     <TextView
         android:id="@+id/tvZabalketa"
@@ -35,16 +34,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toBottomOf="@+id/itContrasena" />
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
 
     <TextView
         android:id="@+id/tvBienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Bienvenido!"
-        app:layout_constraintBottom_toTopOf="@+id/itUsuario"
+        app:layout_constraintBottom_toTopOf="@+id/etNombre"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
         app:layout_constraintTop_toBottomOf="@+id/tvZabalketa" />
@@ -101,52 +99,45 @@
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintStart_toEndOf="@+id/tvRegistrarUsuario" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/itUsuario"
+
+    <EditText
+        android:id="@+id/etUsername"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:endIconMode="clear_text"
-        app:errorEnabled="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_input"
+        android:drawableLeft="@drawable/custom_usuario_icon"
+        android:drawablePadding="10dp"
+        android:ems="10"
         android:hint="Usuario"
-        app:errorIconDrawable="@drawable/ic_error"
-        app:layout_constraintBottom_toTopOf="@+id/itContrasena"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toBottomOf="@+id/tvBienvenido"
-        app:startIconDrawable="@drawable/ic_user">
+        app:layout_constraintTop_toBottomOf="@+id/tvBienvenido" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_input"
-            android:maxLength="30" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itContrasena"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <EditText
+        android:id="@+id/etPassword"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:hint="Contraseña"
-        app:endIconMode="password_toggle"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/ic_error"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="73dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/custom_contrasena_icon"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/bEntrar"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toBottomOf="@+id/itUsuario"
-        app:startIconDrawable="@drawable/ic_lock">
+        app:layout_constraintTop_toBottomOf="@+id/etNombre" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etContrasena"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_input"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

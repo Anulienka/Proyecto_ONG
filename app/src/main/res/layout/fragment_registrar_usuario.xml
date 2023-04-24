@@ -7,6 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".RegistrarUsuarioFragment">
 
+    <EditText
+        android:id="@+id/idContrasena"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/custom_contrasena_icon"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/etContrasena1"
+        app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
+        app:layout_constraintTop_toBottomOf="@+id/etNombre" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glArribaRegistrar"
         android:layout_width="wrap_content"
@@ -35,97 +55,67 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itNombre"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <EditText
+        android:id="@+id/etNombre"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="176dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_input"
+        android:drawableLeft="@drawable/custom_usuario_icon"
+        android:drawablePadding="10dp"
+        android:ems="10"
         android:hint="Nombre"
-        app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/ic_error"
-        app:layout_constraintBottom_toTopOf="@+id/itContrasena1"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/idContrasena"
         app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/glArribaRegistrar" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_input"
-            android:maxLength="30" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itContrasena1"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <EditText
+        android:id="@+id/etContrasena1"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/ic_error"
-        app:layout_constraintBottom_toTopOf="@+id/itContrasena2"
-        app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
-        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toBottomOf="@id/itNombre">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etContrasena1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_input"
-            android:maxLength="30" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itContrasena2"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        app:endIconMode="clear_text"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/ic_error"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/custom_contrasena_icon"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="Confirmar contraseña"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/sRegion"
         app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
         app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toBottomOf="@id/itContrasena1">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etContrasena2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_input"
-            android:maxLength="30" />
-    </com.google.android.material.textfield.TextInputLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/idContrasena" />
 
     <Button
         android:id="@+id/bRegistrar"
         android:layout_width="310dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/boton_round"
         android:text="Registrar"
         app:layout_constraintBottom_toTopOf="@+id/glAbajoRegistrar"
         app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toBottomOf="@+id/sRegion" />
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar" />
 
     <Spinner
         android:id="@+id/sRegion"
         android:layout_width="310dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="52dp"
         app:layout_constraintBottom_toTopOf="@+id/bRegistrar"
         app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toBottomOf="@+id/itContrasena2" />
+        app:layout_constraintTop_toBottomOf="@+id/etContrasena1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

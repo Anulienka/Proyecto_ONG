@@ -2,10 +2,14 @@ package com.example.proyecto_ong
 
 import android.os.Bundle
 import android.view.*
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentFirstBinding
+import com.google.android.material.textfield.TextInputEditText
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -24,25 +28,6 @@ class FirstFragment : Fragment() {
     ): View? {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
-
-        //para errror de input usuario
-        binding.etUsuario.doOnTextChanged { text, start, before, count ->
-            if(text!!.length < 1){
-                binding.itUsuario.error = "Campo obligatorio"
-            }else{
-                binding.itUsuario.error = null
-            }
-        }
-
-        //para errror de input usuario
-        binding.etContrasena.doOnTextChanged { text, start, before, count ->
-            if(text!!.length < 1){
-                binding.itContrasena.error = "Campo obligatorio"
-            }else{
-                binding.itContrasena.error = null
-            }
-        }
-
         return binding.root
 
     }
@@ -51,12 +36,37 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.bEntrar.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            if(validarDatos()){
+                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            }
         }
 
         binding.bRegistrarUsuario.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_registrarUsuarioFragment)
         }
+    }
+
+    private fun validarDatos(): Boolean {
+       if(binding.etUsername.text.toString().isEmpty() || binding.etUsername.text.toString().length < 3){
+           showError(binding.etUsername, "El usuario debe que tener minimo 3 carácteres.")
+           return false
+       }else if (binding.etPassword.text.toString().isEmpty()){
+           showError(binding.etPassword, "Campo contraseña es obligatorio.")
+           return false
+       }
+        else{
+            //***** no funciona
+           if(binding.etUsername.text.toString() != "Anna" && binding.etPassword.text.toString() != "123"){
+               Toast.makeText(activity,"Usuario o contraseña invalido.", Toast.LENGTH_LONG).show()
+               return false
+           }
+       }
+        return true
+    }
+
+    private fun showError(input: EditText, s: String) {
+        input.setError(s)
+        input.requestFocus()
     }
 
 

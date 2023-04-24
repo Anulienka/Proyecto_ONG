@@ -35,27 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         cargarCondiciones()
 
-       /* //nuestro codigo
-        //CALENDARIO
-        val selectDate = findViewById<TextView>(R.id.tvCalendario)
-        //cuando clicamos calendario
-        selectDate.setOnClickListener {
-            val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
-
-            val calendarPopup = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-
-                //esto para poner mes valido, si no pongo +1, se selecciona mes anterior
-                val month = monthOfYear + 1
-                selectDate.setText("$dayOfMonth/$month/$year")
-
-            },year,month,day)
-            //para que se puede seleccionar solo fecha que es hoy, que no se seleccione mañana
-            calendarPopup.datePicker.maxDate = c.timeInMillis
-            calendarPopup.show()
-        }*/
     }
 
     fun cargarCondiciones(){
@@ -79,6 +58,7 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
