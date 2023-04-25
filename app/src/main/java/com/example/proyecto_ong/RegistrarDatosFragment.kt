@@ -44,11 +44,7 @@ class RegistrarDatosFragment : Fragment() {
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val currentDateandTime: String = sdf.format(Date())
         binding.tvCalendario.setText(currentDateandTime)
-
-        //si no esta marcado que hay niebla, se deshabilite spinner de densidad de niebla
-        if(!binding.cbNiebla.isChecked){
-            binding.sDensidad.isEnabled = false
-        }
+        binding.sDensidad.isEnabled = false
 
         //*** BOTON QUE NO NECESITO, PORQUE TENGO EN MENU
         /*binding.bRegistrarDatos.setOnClickListener {
@@ -90,6 +86,11 @@ class RegistrarDatosFragment : Fragment() {
             // Muestra el DatePickerDialog
             datePickerDialog.show()
 
+        }
+
+        binding.cbNiebla.setOnCheckedChangeListener { buttonView, isChecked ->
+            //si no esta marcado que hay niebla, se deshabilite spinner de densidad de niebla
+            binding.sDensidad.isEnabled = binding.cbNiebla.isChecked
         }
 
         val menuHost: MenuHost = requireActivity()
