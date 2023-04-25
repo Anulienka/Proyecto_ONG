@@ -1,8 +1,6 @@
 package com.example.proyecto_ong
 
-import android.app.DatePickerDialog
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,17 +8,13 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.DatePicker
-import android.widget.TextView
-import androidx.activity.viewModels
 import com.example.proyecto_ong.databinding.ActivityMainBinding
-import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    val condicionesMeteorologicos:MutableList<CondicionesMeteorologicos> = mutableListOf()
+    val condicionesMeteorologicos:MutableList<CondicionMeteorologicaClase> = mutableListOf()
 
     /*val dataBase by lazy {BaseDatos.getDatabase(this)}
     val miRepositorio by lazy { Repositorio(dataBase.miDAO()) }
@@ -44,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     fun cargarCondiciones(){
         for (i in 1..16){
-            condicionesMeteorologicos.add(CondicionesMeteorologicos("dia$i", "niebla$i","franja$i", "lluvia$i", "agua"))
+            condicionesMeteorologicos.add(CondicionMeteorologicaClase("dia$i", "niebla$i","franja$i", "lluvia$i", "agua"))
         }
     }
 
