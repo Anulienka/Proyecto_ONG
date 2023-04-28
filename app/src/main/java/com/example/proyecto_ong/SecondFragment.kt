@@ -36,7 +36,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val menuHost: MenuHost = requireActivity()
+        /*val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
@@ -54,7 +54,11 @@ class SecondFragment : Fragment() {
                     else -> false
                 }
             }
-        },viewLifecycleOwner, Lifecycle.State.RESUMED)
+        },viewLifecycleOwner, Lifecycle.State.RESUMED)*/
+
+        binding.bAnadirDatos.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
+        }
 
         miRecyclerView = binding.rvDatosUsuario
         miRecyclerView.layoutManager = LinearLayoutManager(activity)
