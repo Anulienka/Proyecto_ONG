@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.example.proyecto_ong.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,9 +18,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val condicionesMeteorologicos:MutableList<CondicionMeteorologicaClase> = mutableListOf()
 
-    /*val dataBase by lazy {BaseDatos.getDatabase(this)}
+    val dataBase by lazy {BaseDatos.getDatabase(this)}
     val miRepositorio by lazy { Repositorio(dataBase.miDAO()) }
-    val miViewModel:PeliculaViewModel by viewModels { PeliculaViewModelFactory(miRepositorio) }*/
+    val miViewModel:RegistroViewModel by viewModels { RegistroViewModelFactory(miRepositorio) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

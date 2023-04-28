@@ -3,15 +3,17 @@ package com.example.proyecto_ong
 import android.R
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentRegistrarDatosBinding
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,6 +24,9 @@ class RegistrarDatosFragment : Fragment() {
     var hayCortesAgua : Int = 0
     var hayNiebla : Int = 0
     var idDato:Int=-1
+
+    //acceso a BBDD
+    private val db = FirebaseFirestore.getInstance()
 
     private var _binding: FragmentRegistrarDatosBinding? = null
 
@@ -74,18 +79,15 @@ class RegistrarDatosFragment : Fragment() {
             if(binding.bRegistrarDatos.text == "Insertar Datos"){
                 // Después de guardar los datos, muestra un mensaje de éxito al usuario
                 Toast.makeText(context, "Datos se han registrado correctamente", Toast.LENGTH_SHORT).show()
-
-                // Navega de vuelta al fragmento de inicio de sesión
-                findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
             }
 
             if(binding.bRegistrarDatos.text == "Modificar Datos"){
                 // Después de modificar los datos, muestra un mensaje de éxito al usuario
                 Toast.makeText(context, "Datos se han modificado correctamente", Toast.LENGTH_SHORT).show()
 
-                // Navega de vuelta al fragmento de inicio de sesión
-                findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
             }
+            // Navega de vuelta al fragmento de inicio de sesión
+            findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
 
         }
 
@@ -113,26 +115,26 @@ class RegistrarDatosFragment : Fragment() {
         }
 
 
-        //MENU DE MODIFICAR Y BORRAR
-        /*val menuHost: MenuHost = requireActivity()
+        //MENU DE BORRAR
+        val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
-                if (idDato==-1) menuInflater.inflate(R.menu.menu_guardar,menu)
-                else menuInflater.inflate(R.menu.menu_modificar, menu)
+                if (idDato!=-1) menuInflater.inflate(R.menu.menu_modificar,menu)
+                //else menuInflater.inflate(R.menu.menu_listadatos, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // Handle the menu selection
                 return when (menuItem.itemId) {
-                    R.id.miGuardar -> {
-                        if(validarContenido()) guardar()
-                        true
-                    }
-                    R.id.miModificar -> {
-                        if(validarContenido()) modificar(idDato)
-                        true
-                    }
+                    /* R.id.miGuardar -> {
+                         if(validarContenido()) guardar()
+                         true
+                     }
+                     R.id.miModificar -> {
+                         if(validarContenido()) modificar(idDato)
+                         true
+                     }*/
                     R.id.miBorrar -> {
                         borrar(miCondicionMeteorologica)
                         true
@@ -141,7 +143,7 @@ class RegistrarDatosFragment : Fragment() {
                 }
             }
         },viewLifecycleOwner, Lifecycle.State.RESUMED)
-*/
+
     }
 
     private fun borrar(miCondicionMeteorologica: CondicionMeteorologica) {
@@ -153,7 +155,7 @@ class RegistrarDatosFragment : Fragment() {
     }
 
     private fun guardar() {
-        TODO("Not yet implemented")
+
     }
 
     private fun validarContenido(): Boolean {

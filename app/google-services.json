@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "943446097463",
+    "project_id": "annayagmur-ong",
+    "storage_bucket": "annayagmur-ong.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943446097463:android:d15c9861c5234a5a8409b2",
+        "android_client_info": {
+          "package_name": "com.example.proyecto_ong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943446097463-icapcsqca7ifokl416nharmcp4dt04du.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxVrlTZS9uG1dUeXABA1kD_ejkPqWLuQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943446097463-icapcsqca7ifokl416nharmcp4dt04du.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

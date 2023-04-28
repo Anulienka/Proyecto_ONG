@@ -7,29 +7,30 @@ import java.util.*
 @Dao
 interface CondicionMeteorologicaDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertarGenero(miGenero:Genero)
+    suspend fun insertarFranja(miFranja:Franja)
 
-    @Query ("SELECT * FROM tabla_generos ORDER BY id ASC")
-    fun mostrarTodosGeneros() : Flow<List<Genero>>
+    @Query ("SELECT * FROM tabla_franjas ORDER BY id ASC")
+    fun mostrarTodasFranjas() : Flow<List<Franja>>
 
-    @Query("SELECT * FROM tabla_generos where id like :id")
-    fun buscarGeneroPorId(id:Int):Flow<Genero>
+    @Query("SELECT * FROM tabla_franjas where id like :id")
+    fun buscarFranjaPorId(id:Int):Flow<Franja>
 
-    @Query("SELECT p.id, p.titulo, g.genero, p.estreno FROM tabla_generos as g, tabla_peliculas as p where p.genero like g.id")
-    fun mostrarTodasPeliculas():Flow<List<PeliculaClase>>
+    //HAY QUE MIRAR
+    @Query("SELECT r.id, r.fecha, r.niebla, r.agua, r.lluvia, r.densidad, f.nombre FROM tabla_registros as r, tabla_franjas as f where f.nombre like g.id")
+    fun mostrarTodosRegistros():Flow<List<CondicionMeteorologicaClase>>
 
-    @Query ("SELECT * FROM tabla_peliculas ORDER BY id ASC")
-    fun mostrarTodo() : Flow<List<Pelicula>>
+    @Query ("SELECT * FROM tabla_registros ORDER BY id ASC")
+    fun mostrarTodo() : Flow<List<CondicionMeteorologica>>
 
-    @Query("SELECT * FROM tabla_peliculas where id like :id")
-    fun buscarPorId(id:Int):Flow<Pelicula>
+    @Query("SELECT * FROM tabla_registros where id like :id")
+    fun buscarRegistroPorId(id:Int):Flow<CondicionMeteorologica>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertar(miPelicula:Pelicula)
+    suspend fun insertar(miRegistro:CondicionMeteorologica)
 
     @Delete
-    suspend fun borrar(miPelicula: Pelicula)
+    suspend fun borrar(miRegistro: CondicionMeteorologica)
 
     @Update
-    suspend fun modificar(miPelicula: Pelicula)
+    suspend fun modificar(miRegistro: CondicionMeteorologica)
 }

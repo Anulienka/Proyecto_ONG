@@ -5,42 +5,42 @@ import kotlinx.coroutines.flow.Flow
 import java.util.*
 
 class Repositorio (val miDAO: CondicionMeteorologicaDAO) {
-    val listaPeliculas: Flow<List<CondicionMeteorologica>> =miDAO.mostrarTodo()
-    val listaPeliculas2: Flow<List<CondicionMeteorologicaClase>> =miDAO.mostrarTodasPeliculas()
+    val listaRegistros: Flow<List<CondicionMeteorologica>> =miDAO.mostrarTodo()
+    val listaRegistrosClase: Flow<List<CondicionMeteorologicaClase>> =miDAO.mostrarTodosRegistros()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insertarGenero(miGenero: Genero){
-        miDAO.insertarGenero(miGenero)
+    suspend fun insertarFranja(miFranja: Franja){
+        miDAO.insertarFranja(miFranja)
     }
 
-    fun mostrarTodosGeneros(): Flow<List<Genero>>{
-        return miDAO.mostrarTodosGeneros()
+    fun mostrarTodasFranjas(): Flow<List<Franja>>{
+        return miDAO.mostrarTodasFranjas()
     }
 
-    fun buscarGeneroPorId(id:Int):Flow<Genero>{
-        return miDAO.buscarGeneroPorId(id)
+    fun buscarFranjaPorId(id:Int):Flow<Franja>{
+        return miDAO.buscarFranjaPorId(id)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insertar(miPelicula: Pelicula){
-        miDAO.insertar(miPelicula)
+    suspend fun insertarRegistro(miRegistro: CondicionMeteorologica){
+        miDAO.insertar(miRegistro)
     }
 
-    fun buscarPorId(id:Int):Flow<Pelicula>{
-        return miDAO.buscarPorId(id)
+    fun buscarRegistroPorId(id:Int):Flow<CondicionMeteorologica>{
+        return miDAO.buscarRegistroPorId(id)
     }
 
     @Suppress("RedundatSuspendModifier")
     @WorkerThread
-    suspend fun borrar(miPelicula: Pelicula){
-        miDAO.borrar(miPelicula)
+    suspend fun borrarRegistro(miRegistro: CondicionMeteorologica){
+        miDAO.borrar(miRegistro)
     }
 
     @Suppress("RedundatSuspendModifier")
     @WorkerThread
-    suspend fun modificar(miPelicula: Pelicula){
-        miDAO.modificar(miPelicula)
+    suspend fun modificarRegistro(miRegistro: CondicionMeteorologica){
+        miDAO.modificar(miRegistro)
     }
 }
