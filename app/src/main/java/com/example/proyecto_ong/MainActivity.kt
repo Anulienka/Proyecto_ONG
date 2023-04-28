@@ -8,6 +8,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.proyecto_ong.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     fun cargarCondiciones(){
         for (i in 1..16){
-            condicionesMeteorologicos.add(CondicionMeteorologicaClase("dia$i", "niebla$i","franja$i", "lluvia$i", "agua"))
+            condicionesMeteorologicos.add(CondicionMeteorologicaClase(i +1, "dia$i", 1,"franja$i", 0, 1))
         }
     }
 
@@ -53,8 +54,13 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+            R.id.miCreadora -> {
+                Toast.makeText(this,"Anna Lomenova, Yagmur Polat", Toast.LENGTH_LONG).show()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
         }
     }
 

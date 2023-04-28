@@ -130,19 +130,19 @@
         android:id="@+id/bRegistrarDatos"
         android:layout_width="310dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/boton_round"
         android:text="Insertar Datos"
         app:layout_constraintBottom_toTopOf="@+id/glAbajoDatos"
         app:layout_constraintEnd_toStartOf="@+id/glDerechoDatos"
-        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="@+id/glIzquierdaDatos" />
 
     <TextView
         android:id="@+id/tvCalendario"
         android:layout_width="314dp"
         android:layout_height="26dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:drawableEnd="@drawable/ic_calendario"
         android:hint=""
         android:textColor="#000000"

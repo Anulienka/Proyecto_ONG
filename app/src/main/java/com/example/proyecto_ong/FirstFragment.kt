@@ -38,6 +38,7 @@ class FirstFragment : Fragment() {
         binding.bEntrar.setOnClickListener {
             if(validarDatos()){
                 findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                //findNavController().navigate(R.id.action_FirstFragment_to_ONGFragment)
             }
         }
 

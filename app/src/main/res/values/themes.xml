@@ -6,13 +6,14 @@
         <item name="colorPrimaryVariant">#BF3D8FCD</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">#4CAF50</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
 
     <style name="Theme.Proyecto_ONG.NoActionBar">
         <item name="windowActionBar">false</item>

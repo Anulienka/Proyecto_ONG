@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_ong.databinding.FragmentSecondBinding
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
+
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
@@ -36,6 +34,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //en menu esta iconito para anadir datos
         /*val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -56,6 +55,8 @@ class SecondFragment : Fragment() {
             }
         },viewLifecycleOwner, Lifecycle.State.RESUMED)*/
 
+
+        //datos se anaden con boton
         binding.bAnadirDatos.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
         }

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_ONGFragment"
+            app:destination="@id/ONGFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -46,5 +49,38 @@
         <action
             android:id="@+id/action_registrarDatosFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ONGFragment"
+        android:name="com.example.proyecto_ong.ONGFragment"
+        android:label="fragment_o_n_g"
+        tools:layout="@layout/fragment_o_n_g" >
+        <action
+            android:id="@+id/action_ONGFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_ONGFragment_to_ONGListaFragment"
+            app:destination="@id/ONGListaFragment" />
+        <action
+            android:id="@+id/action_ONGFragment_to_ONGGraficosFragment"
+            app:destination="@id/ONGGraficosFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ONGListaFragment"
+        android:name="com.example.proyecto_ong.ONGListaFragment"
+        android:label="fragment_o_n_g_lista"
+        tools:layout="@layout/fragment_o_n_g_lista" >
+        <action
+            android:id="@+id/action_ONGListaFragment_to_ONGFragment"
+            app:destination="@id/ONGFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ONGGraficosFragment"
+        android:name="com.example.proyecto_ong.ONGGraficosFragment"
+        android:label="fragment_o_n_g_graficos"
+        tools:layout="@layout/fragment_o_n_g_graficos" >
+        <action
+            android:id="@+id/action_ONGGraficosFragment_to_ONGFragment"
+            app:destination="@id/ONGFragment" />
     </fragment>
 </navigation>

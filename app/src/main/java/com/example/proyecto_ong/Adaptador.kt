@@ -8,8 +8,11 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
+
+//PARA RECYCLEDVIEW
 class Adaptador(val condicionesMeteorologicos: MutableList<CondicionMeteorologicaClase>) : RecyclerView.Adapter<Adaptador.ViewHolder>() {
     inner class ViewHolder (v: View): RecyclerView.ViewHolder(v){
+        //datos de recycled view, de contenedor
         var tvDia: TextView
         var tvFranja: TextView
         var id:Int=-1

@@ -1,16 +1,20 @@
 package com.example.proyecto_ong
 
+import android.R
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.*
-import android.widget.*
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentRegistrarDatosBinding
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class RegistrarDatosFragment : Fragment() {
 
@@ -18,7 +22,6 @@ class RegistrarDatosFragment : Fragment() {
     var hayCortesAgua : Int = 0
     var hayNiebla : Int = 0
     var idDato:Int=-1
-
 
     private var _binding: FragmentRegistrarDatosBinding? = null
 
@@ -32,22 +35,38 @@ class RegistrarDatosFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRegistrarDatosBinding.inflate(inflater, container, false)
-        return binding.root    }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //SPINNER
+        var densidadNiebla = arrayOf("Poca", "Media", "Mucha")
+        val spinner = binding.sDensidad
+        val arrayAdapter = ArrayAdapter(requireContext(),R.layout.simple_spinner_item, densidadNiebla)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = arrayAdapter
+
+
+        if(idDato == -1){
+            binding.bRegistrarDatos.setText("Registrar Datos")
+        }
+        else{
+            binding.bRegistrarDatos.setText("Modificar Datos")
+        }
+
         //la de BD
         val miCondicionMeteorologica = CondicionMeteorologica()
 
-        //cuando se crea la vista
+        //formato de la fecha de registro
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val currentDateandTime: String = sdf.format(Date())
         binding.tvCalendario.setText(currentDateandTime)
         binding.sDensidad.isEnabled = false
 
         //*** BOTON QUE NO NECESITO, PORQUE TENGO EN MENU
-        /*binding.bRegistrarDatos.setOnClickListener {
+        binding.bRegistrarDatos.setOnClickListener {
 
             var fechaRegistrada = binding.tvCalendario.text
             validarCheckbox()
@@ -68,7 +87,7 @@ class RegistrarDatosFragment : Fragment() {
                 findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
             }
 
-        }*/
+        }
 
         // Agrega el listener para el text view de fecha de registracion de datos
         binding.tvCalendario.setOnClickListener {
@@ -93,7 +112,9 @@ class RegistrarDatosFragment : Fragment() {
             binding.sDensidad.isEnabled = binding.cbNiebla.isChecked
         }
 
-        val menuHost: MenuHost = requireActivity()
+
+        //MENU DE MODIFICAR Y BORRAR
+        /*val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
@@ -120,7 +141,7 @@ class RegistrarDatosFragment : Fragment() {
                 }
             }
         },viewLifecycleOwner, Lifecycle.State.RESUMED)
-
+*/
     }
 
     private fun borrar(miCondicionMeteorologica: CondicionMeteorologica) {
