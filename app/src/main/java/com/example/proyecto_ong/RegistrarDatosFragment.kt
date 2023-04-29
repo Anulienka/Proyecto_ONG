@@ -65,40 +65,58 @@ class RegistrarDatosFragment : Fragment() {
             totalFranjas=it.count()
         }
 
-        idRegistro=arguments?.getInt("id") ?:-1
-        //la de BD
-        var miRegistro =CondicionMeteorologica()
-        if(idRegistro == -1){
-            binding.bRegistrarDatos.setText("Registrar Datos")
-        }
-        else{
-            binding.bRegistrarDatos.setText("Modificar Datos")
-        }
-
-
-        //formato de la fecha de registro
+        //formato de la FECHA de registro
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val currentDateandTime: String = sdf.format(Date())
         binding.tvCalendario.setText(currentDateandTime)
         binding.sDensidad.isEnabled = false
 
-        //*** BOTON QUE NO NECESITO, PORQUE TENGO EN MENU
-        binding.bRegistrarDatos.setOnClickListener {
 
-            var fechaRegistrada = binding.tvCalendario.text
+        //busco registro
+        idRegistro=arguments?.getInt("id") ?:-1
+        //la de BD
+        var miRegistro =CondicionMeteorologica()
+        //si id registro no cambia, significa que hay que insertar datos
+        if(idRegistro == -1){
+            binding.bRegistrarDatos.setText("Registrar Datos")
+        }
+        // si se ha cambiado, se modifican los datos
+        else{
+            binding.bRegistrarDatos.setText("Modificar Datos")
+            //busco registro segun su id
+            (activity as MainActivity).miViewModel.buscarRegistroPorId(idRegistro)
+            (activity as MainActivity).miViewModel.miRegistro.observe(activity as MainActivity){ registro->
+                miRegistro=registro
+                //pongo sus datos en la vista
+                binding.tvCalendario.setText(miRegistro.fechaRegistro)
+                if (miRegistro.hayAgua == 1){
+                    binding.cbAgua.isChecked
+                }
+                if (miRegistro.hayLluvia == 1){
+                    binding.cbLluvia.isChecked
+                }
+                if (miRegistro.hayNiebla == 1){
+                    binding.cbNiebla.isChecked
+                }
+            }
+        }
+
+        //*** BOTON DE REGISTRAR Y MODIFICAR LOS REGISTROS
+        binding.bRegistrarDatos.setOnClickListener {
+            //segun si es checked o no tiene agua, lluvia, niebla valor 1 o 0
             validarCheckbox()
 
+            //comprueba que texto tiene boton y segun eso actua
             if(binding.bRegistrarDatos.text == "Insertar Datos"){
+                //inserta nuevo registro pasando ID de usuario
                 if (validarContenido()) guardar(usuarioID)
-                // Después de guardar los datos, muestra un mensaje de éxito al usuario
                 Toast.makeText(context, "Datos se han registrado correctamente", Toast.LENGTH_SHORT).show()
             }
 
-            if(binding.bRegistrarDatos.text == "Modificar Datos"){
+            if(binding.bRegistrarDatos.text == "Modificar Datos") {
+                //modifica el registro pasando su ID
                 if (validarContenido()) modificar(idRegistro)
-                // Después de modificar los datos, muestra un mensaje de éxito al usuario
                 Toast.makeText(context, "Datos se han modificado correctamente", Toast.LENGTH_SHORT).show()
-
             }
             // Navega de vuelta al fragmento de recycled view
             findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
@@ -217,12 +235,12 @@ class RegistrarDatosFragment : Fragment() {
         }
     }
 
-    fun setearSpiner(idGenero:Int){
+    fun setearSpiner(densidad: String){
         if(totalFranjas!=-1){
             for (i in 0 until totalFranjas) {
-                val option = binding.sFranja.adapter.getItemId(i).toInt()
-                if (option == idGenero) {
-                    binding.sFranja.setSelection(i)
+                val option = binding.sDensidad.adapter.toString()
+                if (option == densidad) {
+                    binding.sDensidad.setSelection(i)
                     break
                 }
             }

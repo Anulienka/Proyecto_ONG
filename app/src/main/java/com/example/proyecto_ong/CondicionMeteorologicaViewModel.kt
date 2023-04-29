@@ -24,7 +24,7 @@ class CondicionMeteorologicaViewModel(private val miRepositorio: Repositorio): V
     val listaRegistrosObjetosUsuario: LiveData<List<CondicionMeteorologicaClase>> = miRepositorio.listaRegistrosClaseUsuario.asLiveData()
 
     fun insertarUsuario(miUsuario: Usuario) = viewModelScope.launch {
-        miRegistro.insertarUsuario(miUsuario)
+        miRepositorio.insertarUsuario(miUsuario)
     }
 
     fun mostrarTodosUsuarios()= viewModelScope.launch {
@@ -32,7 +32,7 @@ class CondicionMeteorologicaViewModel(private val miRepositorio: Repositorio): V
     }
 
     fun buscarUsuarioPorId(id:Int) = viewModelScope.launch {
-        miUsuario = miRepositorio.buscarUsuarioPorID(id).asLiveData()
+        miUsuario = miRepositorio.buscarUsuarioPorId(id).asLiveData()
     }
 
     fun buscarUsuario(nombre: String, contrasena: String) = viewModelScope.launch {
