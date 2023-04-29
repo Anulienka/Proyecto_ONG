@@ -18,9 +18,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val condicionesMeteorologicos:MutableList<CondicionMeteorologicaClase> = mutableListOf()
 
+    //instancia de la BBDD y del repositorio
     val dataBase by lazy {BaseDatos.getDatabase(this)}
     val miRepositorio by lazy { Repositorio(dataBase.miDAO()) }
-    val miViewModel:RegistroViewModel by viewModels { RegistroViewModelFactory(miRepositorio) }
+
+    //instanciamos viewModel, a MainActivity tengo acceso desde toda la app
+    val miViewModel:CondicionMeteorologicaViewModel by viewModels {
+        CondicionMeteorologicaViewModelFactory(miRepositorio)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     fun cargarCondiciones(){
         for (i in 1..16){
-            condicionesMeteorologicos.add(CondicionMeteorologicaClase(i +1, "dia$i", 1,"franja$i", 0, 1))
+            condicionesMeteorologicos.add(CondicionMeteorologicaClase(i +1, "dia$i", 1, 0, 1))
         }
     }
 

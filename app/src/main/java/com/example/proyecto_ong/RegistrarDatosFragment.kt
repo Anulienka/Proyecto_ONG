@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -23,7 +22,8 @@ class RegistrarDatosFragment : Fragment() {
     var hayLluvia: Int = 0
     var hayCortesAgua : Int = 0
     var hayNiebla : Int = 0
-    var idDato:Int=-1
+    var idRegistro:Int=-1
+    var totalFranjas:Int=-1
 
     //acceso a BBDD
     private val db = FirebaseFirestore.getInstance()
@@ -46,23 +46,31 @@ class RegistrarDatosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //SPINNER
+        //SPINNER NIEBLA
         var densidadNiebla = arrayOf("Poca", "Media", "Mucha")
         val spinner = binding.sDensidad
         val arrayAdapter = ArrayAdapter(requireContext(),R.layout.simple_spinner_item, densidadNiebla)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = arrayAdapter
 
+        //SPINNER FRANJA
+        // ********* HAY QUE CAMBIAR POR OTRO(MAS FRANJAS)
+        (activity as MainActivity).miViewModel.mostrarTodasFranjas()
+        (activity as MainActivity).miViewModel.listaFranjas.observe(activity as MainActivity){
+            binding.sFranja.adapter= AdaptadorFranja(activity as MainActivity, it)
+            totalFranjas=it.count()
+        }
 
-        if(idDato == -1){
+        idRegistro=arguments?.getInt("id") ?:-1
+        //la de BD
+        var miRegistro =CondicionMeteorologica()
+        if(idRegistro == -1){
             binding.bRegistrarDatos.setText("Registrar Datos")
         }
         else{
             binding.bRegistrarDatos.setText("Modificar Datos")
         }
 
-        //la de BD
-        val miCondicionMeteorologica = CondicionMeteorologica()
 
         //formato de la fecha de registro
         val sdf = SimpleDateFormat("dd/MM/yyyy")
@@ -77,16 +85,18 @@ class RegistrarDatosFragment : Fragment() {
             validarCheckbox()
 
             if(binding.bRegistrarDatos.text == "Insertar Datos"){
+                if (validarContenido()) guardar()
                 // Después de guardar los datos, muestra un mensaje de éxito al usuario
                 Toast.makeText(context, "Datos se han registrado correctamente", Toast.LENGTH_SHORT).show()
             }
 
             if(binding.bRegistrarDatos.text == "Modificar Datos"){
+                if (validarContenido()) modificar(idRegistro)
                 // Después de modificar los datos, muestra un mensaje de éxito al usuario
                 Toast.makeText(context, "Datos se han modificado correctamente", Toast.LENGTH_SHORT).show()
 
             }
-            // Navega de vuelta al fragmento de inicio de sesión
+            // Navega de vuelta al fragmento de recycled view
             findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
 
         }
@@ -120,7 +130,7 @@ class RegistrarDatosFragment : Fragment() {
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // Add menu items here
-                if (idDato!=-1) menuInflater.inflate(R.menu.menu_modificar,menu)
+                if (idRegistro != -1) menuInflater.inflate(R.menu.menu_modificar,menu)
                 //else menuInflater.inflate(R.menu.menu_listadatos, menu)
             }
 
@@ -132,11 +142,11 @@ class RegistrarDatosFragment : Fragment() {
                          true
                      }
                      R.id.miModificar -> {
-                         if(validarContenido()) modificar(idDato)
+                         if(validarContenido()) modificar(idRegistro)
                          true
                      }*/
                     R.id.miBorrar -> {
-                        borrar(miCondicionMeteorologica)
+                        borrar(miRegistro)
                         true
                     }
                     else -> false
@@ -146,19 +156,45 @@ class RegistrarDatosFragment : Fragment() {
 
     }
 
-    private fun borrar(miCondicionMeteorologica: CondicionMeteorologica) {
-
+    private fun borrar(miRegistro: CondicionMeteorologica) {
+        (activity as MainActivity).miViewModel.borrarRegistro(miRegistro)
+        Toast.makeText(activity,"Registro eliminado", Toast.LENGTH_LONG).show()
+        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
     private fun modificar(idDato: Int) {
-
+        (activity as MainActivity).miViewModel.modificar(CondicionMeteorologica(
+            idRegistro,
+            fechaRegistro = binding.tvCalendario.text.toString(),
+            hayNiebla= hayNiebla,
+            hayAgua = hayCortesAgua,
+            hayLluvia = hayLluvia,
+            densidad =  binding.sDensidad.selectedItem.toString()
+        )
+        )
+        Toast.makeText(activity,"Registro modificado", Toast.LENGTH_LONG).show()
+        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
     private fun guardar() {
-
+        (activity as MainActivity).miViewModel.insertarRegistro(
+            CondicionMeteorologica(
+            fechaRegistro = binding.tvCalendario.text.toString(),
+            hayNiebla= hayNiebla,
+            hayAgua = hayCortesAgua,
+            hayLluvia = hayLluvia,
+            densidad =  binding.sDensidad.selectedItem.toString()
+        )
+        )
+        Toast.makeText(activity,"Registro insertado", Toast.LENGTH_LONG).show()
+        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
     private fun validarContenido(): Boolean {
+        if(binding.sFranja.selectedItem == null){
+            Toast.makeText(activity,"No hay franja seleccionada",Toast.LENGTH_LONG).show()
+            return false
+        }
         return true
     }
 
@@ -177,6 +213,17 @@ class RegistrarDatosFragment : Fragment() {
         }
     }
 
+    fun setearSpiner(idGenero:Int){
+        if(totalFranjas!=-1){
+            for (i in 0 until totalFranjas) {
+                val option = binding.sFranja.adapter.getItemId(i).toInt()
+                if (option == idGenero) {
+                    binding.sFranja.setSelection(i)
+                    break
+                }
+            }
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

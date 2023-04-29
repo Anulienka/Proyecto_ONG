@@ -4,9 +4,27 @@ import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 
+
+//Repositorio va a ser una clase que se va a encargar de manejar las diferentes BBDD que use nuestra aplicación.
+// Por ejemplo, podríamos tener una BBDD en local y otra en la nube.
 class Repositorio (val miDAO: CondicionMeteorologicaDAO) {
     val listaRegistros: Flow<List<CondicionMeteorologica>> =miDAO.mostrarTodo()
     val listaRegistrosClase: Flow<List<CondicionMeteorologicaClase>> =miDAO.mostrarTodosRegistros()
+
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun insertarUsuario(miUsuario: Usuario){
+        miDAO.insertarUsuario(miUsuario)
+    }
+
+    fun mostrarTodosUsuarios(): Flow<List<Usuario>>{
+        return miDAO.mostrarTodosUsuarios()
+    }
+
+    fun buscarUsuarioPorId(id:Int):Flow<Usuario>{
+        return miDAO.buscarUsuarioPorId(id)
+    }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

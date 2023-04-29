@@ -4,8 +4,20 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 
+//El DAO será la clase donde mapeemos todas nuestras querys a funciones.
+//DAO ejecuta los query que tiene encima
 @Dao
 interface CondicionMeteorologicaDAO {
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertarUsuario(miUsuario: Usuario)
+
+    @Query ("SELECT * FROM tabla_usuarios ORDER BY id ASC")
+    fun mostrarTodosUsuarios() : Flow<List<Usuario>>
+
+    @Query("SELECT * FROM tabla_usuarios where id like :id")
+    fun buscarUsuarioPorId(id:Int):Flow<Usuario>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertarFranja(miFranja:Franja)
 
@@ -16,8 +28,9 @@ interface CondicionMeteorologicaDAO {
     fun buscarFranjaPorId(id:Int):Flow<Franja>
 
     //HAY QUE MIRAR
-    @Query("SELECT r.id, r.fecha, r.niebla, r.agua, r.lluvia, r.densidad, f.nombre FROM tabla_registros as r, tabla_franjas as f where f.nombre like g.id")
+    @Query("SELECT r.id, r.fecha, r.niebla, r.agua, r.lluvia, r.densidad FROM tabla_registros as r")
     fun mostrarTodosRegistros():Flow<List<CondicionMeteorologicaClase>>
+
 
     @Query ("SELECT * FROM tabla_registros ORDER BY id ASC")
     fun mostrarTodo() : Flow<List<CondicionMeteorologica>>
@@ -33,4 +46,9 @@ interface CondicionMeteorologicaDAO {
 
     @Update
     suspend fun modificar(miRegistro: CondicionMeteorologica)
+
+
+    //CROSS TABLE
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertRegistroFranjaCrossRef(crossRef: RegistroFranjaCrossRef)
 }

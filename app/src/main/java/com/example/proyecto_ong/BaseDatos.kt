@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(CondicionMeteorologica::class,Franja::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(CondicionMeteorologica::class,Franja::class, Usuario::class), version = 1, exportSchema = false)
 abstract class BaseDatos:RoomDatabase() {
     abstract fun miDAO():CondicionMeteorologicaDAO
 

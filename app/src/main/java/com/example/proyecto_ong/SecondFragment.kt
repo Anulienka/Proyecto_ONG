@@ -61,14 +61,18 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
         }
 
-        miRecyclerView = binding.rvDatosUsuario
-        miRecyclerView.layoutManager = LinearLayoutManager(activity)
-        miRecyclerView.adapter=Adaptador((activity as MainActivity).condicionesMeteorologicos)
+        (activity as MainActivity).miViewModel.listaRegistrosObjetos.observe(activity as MainActivity){
+                registros->
+            miRecyclerView = binding.rvRegistros
+            miRecyclerView.layoutManager = LinearLayoutManager(activity)
+            miRecyclerView.adapter=Adaptador(registros as MutableList<CondicionMeteorologicaClase>)
+        }
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        (activity as MainActivity).miViewModel.listaRegistrosObjetos.removeObservers(activity as MainActivity)
     }
 }

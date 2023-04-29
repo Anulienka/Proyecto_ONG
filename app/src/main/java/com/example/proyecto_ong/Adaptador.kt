@@ -14,11 +14,11 @@ class Adaptador(val condicionesMeteorologicos: MutableList<CondicionMeteorologic
     inner class ViewHolder (v: View): RecyclerView.ViewHolder(v){
         //datos de recycled view, de contenedor
         var tvDia: TextView
-        var tvFranja: TextView
+        //var tvFranja: TextView
         var id:Int=-1
         init{
             tvDia=v.findViewById(R.id.tvFechaView)
-            tvFranja=v.findViewById(R.id.tvFranjaView)
+            //tvFranja=v.findViewById(R.id.tvFranjaView)
             v.setOnClickListener{
                 val bundle= bundleOf("id" to id)
                 v.findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment, bundle)
@@ -32,8 +32,8 @@ class Adaptador(val condicionesMeteorologicos: MutableList<CondicionMeteorologic
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvDia.text="Fecha: ${condicionesMeteorologicos[position].dia}"
-        holder.tvFranja.text="Franja: ${condicionesMeteorologicos[position].franja}"
+        holder.tvDia.text="Fecha: ${condicionesMeteorologicos[position].fecha}"
+        //holder.tvFranja.text="Franja: ${condicionesMeteorologicos[position].franja}"
         holder.id=position
     }
 
