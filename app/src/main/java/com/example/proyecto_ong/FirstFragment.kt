@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentFirstBinding
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.flow.Flow
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -37,8 +38,27 @@ class FirstFragment : Fragment() {
 
         binding.bEntrar.setOnClickListener {
             if(validarDatos()){
-                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-                //findNavController().navigate(R.id.action_FirstFragment_to_ONGFragment)
+
+                var miUsuario = Usuario()
+                (activity as MainActivity).miViewModel.buscarUsuario(binding.etUsername.text.toString(), binding.etPassword.text.toString())
+                (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity){ usuario->
+                    miUsuario=usuario
+                    //si no existe usuario, se muestra el mensaje
+                    if(miUsuario == null){
+                        Toast.makeText(activity,"Usuario no existe", Toast.LENGTH_LONG).show()
+                    }
+                    //si tiene rol de usuario, se le muestra SecondFragment con su registros
+                    else if (miUsuario.rol == "usuario"){
+                        //asigno id de Usuario a idUsuarioApp que esta en MainActivity y asi tengo acceso de cada fragmento
+                        (activity as MainActivity).idUsuarioApp = miUsuario.id
+                        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                    }
+                    //si tiene rol de administrador, se le muestra lista de registros
+                    else{
+                        (activity as MainActivity).idUsuarioApp = miUsuario.id
+                        findNavController().navigate(R.id.action_FirstFragment_to_ONGFragment)
+                        }
+                }
             }
         }
 
@@ -51,16 +71,10 @@ class FirstFragment : Fragment() {
        if(binding.etUsername.text.toString().isEmpty() || binding.etUsername.text.toString().length < 3){
            showError(binding.etUsername, "El usuario debe que tener minimo 3 carácteres.")
            return false
-       }else if (binding.etPassword.text.toString().isEmpty()){
+       }
+       if (binding.etPassword.text.toString().isEmpty()){
            showError(binding.etPassword, "Campo contraseña es obligatorio.")
            return false
-       }
-        else{
-            //***** no funciona
-           if(binding.etUsername.text.toString() != "Anna" && binding.etPassword.text.toString() != "123"){
-               Toast.makeText(activity,"Usuario o contraseña invalido.", Toast.LENGTH_LONG).show()
-               return false
-           }
        }
         return true
     }

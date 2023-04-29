@@ -61,7 +61,7 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
         }
 
-        (activity as MainActivity).miViewModel.listaRegistrosObjetos.observe(activity as MainActivity){
+        (activity as MainActivity).miViewModel.listaRegistrosObjetosUsuario.observe(activity as MainActivity){
                 registros->
             miRecyclerView = binding.rvRegistros
             miRecyclerView.layoutManager = LinearLayoutManager(activity)

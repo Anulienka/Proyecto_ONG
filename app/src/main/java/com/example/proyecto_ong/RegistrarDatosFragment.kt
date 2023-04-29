@@ -25,6 +25,7 @@ class RegistrarDatosFragment : Fragment() {
     var idRegistro:Int=-1
     var totalFranjas:Int=-1
 
+
     //acceso a BBDD
     private val db = FirebaseFirestore.getInstance()
 
@@ -45,6 +46,9 @@ class RegistrarDatosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //USUARIO
+        var usuarioID = (activity as MainActivity).idUsuarioApp
 
         //SPINNER NIEBLA
         var densidadNiebla = arrayOf("Poca", "Media", "Mucha")
@@ -85,7 +89,7 @@ class RegistrarDatosFragment : Fragment() {
             validarCheckbox()
 
             if(binding.bRegistrarDatos.text == "Insertar Datos"){
-                if (validarContenido()) guardar()
+                if (validarContenido()) guardar(usuarioID)
                 // Después de guardar los datos, muestra un mensaje de éxito al usuario
                 Toast.makeText(context, "Datos se han registrado correctamente", Toast.LENGTH_SHORT).show()
             }
@@ -169,22 +173,22 @@ class RegistrarDatosFragment : Fragment() {
             hayNiebla= hayNiebla,
             hayAgua = hayCortesAgua,
             hayLluvia = hayLluvia,
-            densidad =  binding.sDensidad.selectedItem.toString()
+            densidad =  binding.sDensidad.selectedItem.toString(),
         )
         )
         Toast.makeText(activity,"Registro modificado", Toast.LENGTH_LONG).show()
         findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
-    private fun guardar() {
+    private fun guardar(id: Int) {
         (activity as MainActivity).miViewModel.insertarRegistro(
             CondicionMeteorologica(
             fechaRegistro = binding.tvCalendario.text.toString(),
             hayNiebla= hayNiebla,
             hayAgua = hayCortesAgua,
             hayLluvia = hayLluvia,
-            densidad =  binding.sDensidad.selectedItem.toString()
-        )
+            densidad =  binding.sDensidad.selectedItem.toString(),
+                idUsuario = id)
         )
         Toast.makeText(activity,"Registro insertado", Toast.LENGTH_LONG).show()
         findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)

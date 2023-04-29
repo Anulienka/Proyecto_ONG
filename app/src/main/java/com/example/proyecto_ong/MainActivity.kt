@@ -18,9 +18,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val condicionesMeteorologicos:MutableList<CondicionMeteorologicaClase> = mutableListOf()
 
+    var idUsuarioApp : Int = -1
+
     //instancia de la BBDD y del repositorio
     val dataBase by lazy {BaseDatos.getDatabase(this)}
-    val miRepositorio by lazy { Repositorio(dataBase.miDAO()) }
+    val miRepositorio by lazy { Repositorio(dataBase.miDAO(),idUsuarioApp) }
+
+
 
     //instanciamos viewModel, a MainActivity tengo acceso desde toda la app
     val miViewModel:CondicionMeteorologicaViewModel by viewModels {
@@ -39,15 +43,15 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        cargarCondiciones()
+        //cargarCondiciones()
 
     }
 
-    fun cargarCondiciones(){
+    /*fun cargarCondiciones(){
         for (i in 1..16){
             condicionesMeteorologicos.add(CondicionMeteorologicaClase(i +1, "dia$i", 1, 0, 1))
         }
-    }
+    }*/
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

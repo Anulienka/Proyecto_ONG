@@ -18,6 +18,9 @@ interface CondicionMeteorologicaDAO {
     @Query("SELECT * FROM tabla_usuarios where id like :id")
     fun buscarUsuarioPorId(id:Int):Flow<Usuario>
 
+    @Query("SELECT * FROM tabla_usuarios where nombre like :nombre and contrasena like :contrasena")
+    fun buscarUsuario(nombre: String, contrasena: String): Flow<Usuario>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertarFranja(miFranja:Franja)
 
@@ -28,12 +31,15 @@ interface CondicionMeteorologicaDAO {
     fun buscarFranjaPorId(id:Int):Flow<Franja>
 
     //HAY QUE MIRAR
-    @Query("SELECT r.id, r.fecha, r.niebla, r.agua, r.lluvia, r.densidad FROM tabla_registros as r")
+    @Query("SELECT r.id, r.fecha, r.niebla, r.agua, r.lluvia, r.densidad, idUsuario FROM tabla_registros as r")
     fun mostrarTodosRegistros():Flow<List<CondicionMeteorologicaClase>>
 
 
     @Query ("SELECT * FROM tabla_registros ORDER BY id ASC")
     fun mostrarTodo() : Flow<List<CondicionMeteorologica>>
+
+    @Query("SELECT * FROM tabla_registros where idUsuario like :id")
+    fun mostrarRegistrosUsuario(id:Int):Flow<List<CondicionMeteorologicaClase>>
 
     @Query("SELECT * FROM tabla_registros where id like :id")
     fun buscarRegistroPorId(id:Int):Flow<CondicionMeteorologica>
