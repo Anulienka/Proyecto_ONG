@@ -33,12 +33,32 @@ class RegistrarUsuarioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.bRegistrar.setOnClickListener {
-            if(validarDatosUsuario()){
-                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-            }
+            if(validarDatosUsuario()) registrarUsuario()
         }
 
 
+    }
+
+    private fun registrarUsuario() {
+        (activity as MainActivity).miViewModel.insertarUsuario(
+            Usuario(
+                nombre = binding.etNombre.text.toString(),
+                contrasena = binding.etContrasena1.text.toString(),
+                region = binding.sRegion.selectedItem.toString())
+        )
+        Toast.makeText(activity,"Usuario se ha registrado correctamente", Toast.LENGTH_LONG).show()
+
+        //busco usuario en BD para recoger su ID
+        var miUsuario = Usuario()
+        (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString(), binding.etContrasena1.text.toString())
+        (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
+            miUsuario = usuario
+            //asigno id a idUsuarioApp
+            (activity as MainActivity).idUsuarioApp = miUsuario.id
+        }
+
+        //voy a second fragment, donde aparece lista de lod registros de usuario
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
     private fun validarDatosUsuario(): Boolean {
@@ -55,9 +75,27 @@ class RegistrarUsuarioFragment : Fragment() {
             showError(binding.etContrasena2, "Contreseñas no son iguales.")
             return false
         }
-        return true
 
-        //FALTA BUSCAR SI USUARIO YA EXISTE
+        //BUSCA SI USUARIO YA EXISTE
+        if(existeUsuario()){
+            return false
+        }
+
+        //si se cumple todo, retorna true
+        return true
+    }
+
+    private fun existeUsuario(): Boolean {
+        var usuarioExiste = true
+        var miUsuario = Usuario()
+        (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString(), binding.etContrasena1.text.toString())
+        (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
+            miUsuario = usuario
+            if (miUsuario == null){
+                usuarioExiste = false
+            }
+        }
+        return usuarioExiste
     }
 
     private fun showError(input: EditText, s: String) {
