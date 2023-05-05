@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentFirstBinding
@@ -33,6 +30,14 @@ class RegistrarUsuarioFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //SPINNER REGIONES
+        var densidadNiebla = arrayOf("Veladero", "Sivingalito", "Pucuta", "Chaquemarca")
+        val spinner = binding.sRegion
+        val arrayAdapter = ArrayAdapter(requireContext(),
+            android.R.layout.simple_spinner_item, densidadNiebla)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = arrayAdapter
 
         //REGISTRA USUARIO
         binding.bRegistrar.setOnClickListener {

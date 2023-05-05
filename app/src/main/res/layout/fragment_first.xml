@@ -10,7 +10,7 @@
         android:id="@+id/tvZabalketa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
+        android:layout_marginBottom="12dp"
         android:text="Zabalketa"
         android:textColor="#3D8FCD"
         android:textSize="34sp"
@@ -18,36 +18,29 @@
         app:layout_constraintBottom_toTopOf="@+id/tvBienvenido"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toTopOf="@+id/glArriba" />
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda" />
 
     <Button
         android:id="@+id/bEntrar"
         android:layout_width="310dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="108dp"
         android:background="@drawable/boton_round"
         android:backgroundTint="#4D5AA1"
         android:text="Entrar"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/glAbajo"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        tools:layout_editor_absoluteY="522dp" />
 
     <TextView
         android:id="@+id/tvBienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
         android:text="Bienvenido!"
-        app:layout_constraintBottom_toTopOf="@+id/etUsername"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toBottomOf="@+id/tvZabalketa" />
+        tools:layout_editor_absoluteY="338dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glArriba"
@@ -106,7 +99,6 @@
         android:id="@+id/etUsername"
         android:layout_width="310dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
         android:background="@drawable/custom_input"
         android:drawableLeft="@drawable/custom_usuario_icon"
         android:drawablePadding="10dp"
@@ -116,17 +108,15 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toBottomOf="@+id/tvBienvenido" />
+        tools:layout_editor_absoluteY="373dp" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="310dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_contrasena_icon"
         android:drawablePadding="10dp"
@@ -136,11 +126,10 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/bEntrar"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+        tools:layout_editor_absoluteY="439dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

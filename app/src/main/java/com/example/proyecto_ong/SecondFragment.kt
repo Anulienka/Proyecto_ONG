@@ -34,31 +34,9 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //en menu esta iconito para anadir datos
-        /*val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
-                menuInflater.inflate(R.menu.menu_listadatos, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                return when (menuItem.itemId) {
-                    R.id.miInsertar -> {
-                        //no se porque es registrarDatos Fragment2
-                        findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
-                        true
-                    }
-                    else -> false
-                }
-            }
-        },viewLifecycleOwner, Lifecycle.State.RESUMED)*/
-
-
         //datos se anaden con boton
         binding.bAnadirDatos.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
+            //findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
         }
 
         //se recogen datos de BD para llenar RecyclerView

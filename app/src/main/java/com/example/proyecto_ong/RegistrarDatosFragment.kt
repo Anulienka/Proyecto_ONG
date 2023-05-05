@@ -1,29 +1,28 @@
 package com.example.proyecto_ong
 
-import android.R
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
-import android.view.*
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import com.google.type.DateTime
+import java.sql.Time
+import java.text.SimpleDateFormat
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 import com.example.proyecto_ong.databinding.FragmentRegistrarDatosBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
-import java.util.*
-
 
 class RegistrarDatosFragment : Fragment() {
 
-    var hayLluvia: Int = 0
-    var hayCortesAgua : Int = 0
-    var hayNiebla : Int = 0
-    var idRegistro:Int=-1
-    var totalFranjas:Int=-1
+    private var _binding: FragmentRegistrarDatosBinding? = null
+    private val binding get() = _binding!!
 
     //USUARIO
     var usuarioID = (activity as MainActivity).idUsuarioApp
@@ -31,17 +30,11 @@ class RegistrarDatosFragment : Fragment() {
     //acceso a BBDD
     private val db = FirebaseFirestore.getInstance()
 
-    private var _binding: FragmentRegistrarDatosBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         _binding = FragmentRegistrarDatosBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,79 +43,21 @@ class RegistrarDatosFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //SPINNER NIEBLA
-        var densidadNiebla = arrayOf("Poca", "Media", "Mucha")
+        var densidadNiebla = arrayOf("Intensa", "Normal", "Poco intensa")
         val spinner = binding.sDensidad
-        val arrayAdapter = ArrayAdapter(requireContext(),R.layout.simple_spinner_item, densidadNiebla)
+        val arrayAdapter = ArrayAdapter(requireContext(),
+            android.R.layout.simple_spinner_item, densidadNiebla)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = arrayAdapter
-
-        //SPINNER FRANJA
-        //recoge todads las franjas que estan en BD
-        (activity as MainActivity).miViewModel.mostrarTodasFranjas()
-        //llena spinner con franjas
-        (activity as MainActivity).miViewModel.listaFranjas.observe(activity as MainActivity){
-            binding.sFranja.adapter= AdaptadorFranja(activity as MainActivity, it)
-            totalFranjas=it.count()
-        }
 
         //formato de la FECHA de registro
         val sdf = SimpleDateFormat("dd/MM/yyyy")
         val currentDateandTime: String = sdf.format(Date())
+
+        //default HORA y FECHA
         binding.tvCalendario.setText(currentDateandTime)
-        binding.sDensidad.isEnabled = false
-
-
-        //busco registro
-        idRegistro=arguments?.getInt("id") ?:-1
-        //la de BD
-        var miRegistro =CondicionMeteorologica()
-        //si id registro no cambia, significa que hay que insertar datos
-        if(idRegistro == -1){
-            binding.bRegistrarDatos.setText("Registrar Datos")
-        }
-        // si se ha cambiado, se modifican los datos
-        else{
-            binding.bRegistrarDatos.setText("Modificar Datos")
-            //busco registro segun su id
-            (activity as MainActivity).miViewModel.buscarRegistroPorId(idRegistro)
-            (activity as MainActivity).miViewModel.miRegistro.observe(activity as MainActivity){ registro->
-                miRegistro=registro
-                //pongo sus datos en la vista
-                binding.tvCalendario.setText(miRegistro.fechaRegistro)
-                if (miRegistro.hayAgua == 1){
-                    binding.cbAgua.isChecked
-                }
-                if (miRegistro.hayLluvia == 1){
-                    binding.cbLluvia.isChecked
-                }
-                if (miRegistro.hayNiebla == 1){
-                    binding.cbNiebla.isChecked
-                }
-            }
-        }
-
-        //*** BOTON DE REGISTRAR Y MODIFICAR LOS REGISTROS
-        binding.bRegistrarDatos.setOnClickListener {
-            //segun si es checked o no tiene agua, lluvia, niebla valor 1 o 0
-            validarCheckbox()
-
-            //comprueba que texto tiene boton y segun eso actua
-            if(binding.bRegistrarDatos.text == "Insertar Datos"){
-                //inserta nuevo registro pasando ID de usuario
-                if (validarContenido()) guardar()
-                Toast.makeText(context, "Datos se han registrado correctamente", Toast.LENGTH_SHORT).show()
-            }
-
-            if(binding.bRegistrarDatos.text == "Modificar Datos") {
-                //modifica el registro pasando su ID
-                if (validarContenido()) modificar(idRegistro)
-                Toast.makeText(context, "Datos se han modificado correctamente", Toast.LENGTH_SHORT).show()
-            }
-            // Navega de vuelta al fragmento de recycled view
-            // *************** AQUI QUITAR
-           findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
-
-        }
+        val defaultHora = String.format("%02d:%02d", "00", "00")
+        binding.tvHora.setText(defaultHora)
 
         // Agrega el listener para el text view de fecha de registracion de datos
         binding.tvCalendario.setOnClickListener {
@@ -139,126 +74,23 @@ class RegistrarDatosFragment : Fragment() {
 
             // Muestra el DatePickerDialog
             datePickerDialog.show()
-
-        }
-
-        binding.cbNiebla.setOnCheckedChangeListener { buttonView, isChecked ->
-            //si no esta marcado que hay niebla, se deshabilite spinner de densidad de niebla
-            binding.sDensidad.isEnabled = binding.cbNiebla.isChecked
         }
 
 
-        //MENU
-        // *************** AQUI QUITAR
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
-                if (idRegistro != -1) menuInflater.inflate(R.menu.menu_modificar,menu)
-                else menuInflater.inflate(R.menu.menu_listadatos, menu)
-            }
+        // Agrega el listener para el text view de fecha de registracion de datos
+        binding.tvHora.setOnClickListener {
+            val currentTime = Calendar.getInstance()
+            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+            val minute = currentTime.get(Calendar.MINUTE)
+            val timePickerDialog = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+                binding.tvHora.text = selectedTime
+            }, hour, minute, false)
+            timePickerDialog.show()
+        }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                return when (menuItem.itemId) {
-                   R.id.miGuardar -> {
-                         if(validarContenido()) guardar()
-                         true
-                     }
-                     R.id.miModificar -> {
-                         if(validarContenido()) modificar(idRegistro)
-                         true
-                     }
-                    R.id.miBorrar -> {
-                        borrar(miRegistro)
-                        true
-                    }
-                    else -> false
-                }
-            }
-        },viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-    }
-
-    private fun borrar(miRegistro: CondicionMeteorologica) {
-        (activity as MainActivity).miViewModel.borrarRegistro(miRegistro)
-        Toast.makeText(activity,"Registro eliminado", Toast.LENGTH_LONG).show()
-        // *************** AQUI QUITAR
         findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+
     }
-
-    private fun modificar(idDato: Int) {
-        (activity as MainActivity).miViewModel.modificar(CondicionMeteorologica(
-            idRegistro,
-            fechaRegistro = binding.tvCalendario.text.toString(),
-            hayNiebla= hayNiebla,
-            hayAgua = hayCortesAgua,
-            hayLluvia = hayLluvia,
-            densidad =  binding.sDensidad.selectedItem.toString(),
-            idUsuario = usuarioID,
-            idFranja = binding.sFranja.selectedItemId.toInt()
-        )
-        )
-        Toast.makeText(activity,"Registro modificado", Toast.LENGTH_LONG).show()
-        // *************** AQUI QUITAR
-        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
-    }
-
-    private fun guardar() {
-        (activity as MainActivity).miViewModel.insertarRegistro(
-            CondicionMeteorologica(
-            fechaRegistro = binding.tvCalendario.text.toString(),
-            hayNiebla= hayNiebla,
-            hayAgua = hayCortesAgua,
-            hayLluvia = hayLluvia,
-            densidad =  binding.sDensidad.selectedItem.toString(),
-                idUsuario = usuarioID,
-            idFranja = binding.sFranja.selectedItemId.toInt())
-        )
-        Toast.makeText(activity,"Registro insertado", Toast.LENGTH_LONG).show()
-        // *************** AQUI QUITAR
-        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
-    }
-
-    private fun validarContenido(): Boolean {
-        if(binding.sFranja.selectedItem == null){
-            Toast.makeText(activity,"No hay franja seleccionada",Toast.LENGTH_LONG).show()
-            return false
-        }
-        return true
-    }
-
-    private fun validarCheckbox() {
-        if (binding.cbLluvia.isChecked) {
-            //hay lluvia
-            hayLluvia = 1
-        }
-        if (binding.cbAgua.isChecked) {
-            //hay lluvia
-            hayCortesAgua = 1
-        }
-        if (binding.cbNiebla.isChecked) {
-            //hay lluvia
-            hayNiebla = 1
-        }
-    }
-
-    fun setearSpiner(densidad: String){
-        if(totalFranjas!=-1){
-            for (i in 0 until totalFranjas) {
-                val option = binding.sDensidad.adapter.toString()
-                if (option == densidad) {
-                    binding.sDensidad.setSelection(i)
-                    break
-                }
-            }
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-
 }

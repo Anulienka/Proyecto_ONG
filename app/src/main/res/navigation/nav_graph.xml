@@ -42,15 +42,6 @@
             app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
-        android:id="@+id/registrarDatosFragment"
-        android:name="com.example.proyecto_ong.RegistrarDatosFragment"
-        android:label="fragment_registrar_datos"
-        tools:layout="@layout/fragment_registrar_datos" >
-        <action
-            android:id="@+id/action_registrarDatosFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/ONGFragment"
         android:name="com.example.proyecto_ong.ONGFragment"
         android:label="fragment_o_n_g"
@@ -83,4 +74,14 @@
             android:id="@+id/action_ONGGraficosFragment_to_ONGFragment"
             app:destination="@id/ONGFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/registrarDatosFragment"
+        android:name="com.example.proyecto_ong.RegistrarDatosFragment"
+        android:label="fragment_registrar_datos"
+        tools:layout="@layout/fragment_registrar_datos" >
+        <action
+            android:id="@+id/action_registrarDatosFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+
 </navigation>
