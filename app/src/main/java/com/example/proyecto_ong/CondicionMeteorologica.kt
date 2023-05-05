@@ -14,7 +14,8 @@ data class CondicionMeteorologica (
     @NonNull @ColumnInfo(name="agua") val hayAgua:Int=0,
     @NonNull @ColumnInfo(name="lluvia") val hayLluvia:Int=0,
     @ColumnInfo(name="densidad") val densidad:String="",
-    @NonNull @ColumnInfo(name="idUsuario") val idUsuario:Int= 0){}
+    @NonNull @ColumnInfo(name="idUsuario") val idUsuario:Int= 0,
+    @NonNull @ColumnInfo(name="idFranja") val idFranja:Int=0){}
 
 
 

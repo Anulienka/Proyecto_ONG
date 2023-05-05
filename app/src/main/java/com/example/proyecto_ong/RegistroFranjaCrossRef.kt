@@ -1,3 +1,4 @@
+/*
 package com.example.proyecto_ong
 
 import androidx.room.Entity
@@ -6,4 +7,4 @@ import androidx.room.Entity
 data class RegistroFranjaCrossRef(
     val id_registro: Int,
     val id_franja: Int
-)
+)*/

@@ -1,6 +1,5 @@
 package com.example.proyecto_ong
 
-import RegistroConFranja
 import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,8 +20,8 @@ class CondicionMeteorologicaViewModel(private val miRepositorio: Repositorio): V
     lateinit var listaFranjas: LiveData<List<Franja>>
     lateinit var miFranja: LiveData<Franja>
     val listaRegistros: LiveData<List<CondicionMeteorologica>> = miRepositorio.listaRegistros.asLiveData()
-    val listaRegistrosObjetos: LiveData<List<RegistroConFranja>> = miRepositorio.listaRegistrosClase.asLiveData()
-    val listaRegistrosObjetosUsuario: LiveData<List<RegistroConFranja>> = miRepositorio.listaRegistrosClaseUsuario.asLiveData()
+    val listaRegistrosObjetos: LiveData<List<CondicionMeteorologicaClase>> = miRepositorio.listaRegistrosClase.asLiveData()
+    val listaRegistrosObjetosUsuario: LiveData<List<CondicionMeteorologicaClase>> = miRepositorio.listaRegistrosClaseUsuario.asLiveData()
 
     fun insertarUsuario(miUsuario: Usuario) = viewModelScope.launch {
         miRepositorio.insertarUsuario(miUsuario)

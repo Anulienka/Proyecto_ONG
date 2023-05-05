@@ -1,6 +1,6 @@
 package com.example.proyecto_ong
 
-import RegistroConFranja
+
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import java.util.*
@@ -10,7 +10,8 @@ import java.util.*
 @Dao
 interface CondicionMeteorologicaDAO {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    //USUARIO
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertarUsuario(miUsuario: Usuario)
 
     @Query ("SELECT * FROM tabla_usuarios")
@@ -22,6 +23,8 @@ interface CondicionMeteorologicaDAO {
     @Query("SELECT * FROM tabla_usuarios WHERE nombre like :nombre AND contrasena like :contrasena")
     fun buscarUsuario(nombre: String, contrasena: String): Flow<Usuario>
 
+
+    //FRANJA
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertarFranja(miFranja:Franja)
 
@@ -32,6 +35,7 @@ interface CondicionMeteorologicaDAO {
     fun buscarFranjaPorId(id:Int):Flow<Franja>
 
 
+    //REGISTRO
     @Query ("SELECT * FROM tabla_registros ORDER BY id ASC")
     fun mostrarTodo(): Flow<List<CondicionMeteorologica>>
 
@@ -47,8 +51,13 @@ interface CondicionMeteorologicaDAO {
     @Update
     suspend fun modificar(miRegistro: CondicionMeteorologica)
 
+    @Query("SELECT r.id, r.fecha, r.niebla, r.agua, r.lluvia, r.densidad, r.idUsuario, r.idFranja, f.nombre FROM tabla_registros as r, tabla_franjas as f where r.idFranja like f.id")
+    fun mostrarTodosRegistros():Flow<List<CondicionMeteorologicaClase>>
 
-    //CROSS TABLE
+    @Query("SELECT r.id, r.fecha, r.niebla, r.agua, r.lluvia, r.densidad, r.idUsuario, r.idFranja, f.nombre  FROM tabla_registros as r, tabla_franjas as f where r.idFranja like f.id AND r.idUsuario like :id")
+    fun mostrarRegistrosUsuario(id: Int):Flow<List<CondicionMeteorologicaClase>>
+
+/*    //CROSS TABLE
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRegistroFranjaCrossRef(crossRef: RegistroFranjaCrossRef)
 
@@ -57,5 +66,5 @@ interface CondicionMeteorologicaDAO {
     fun mostrarRegistrosFranja():Flow<List<RegistroConFranja>>
 
     @Query("SELECT * FROM tabla_registros where idUsuario like :id")
-    fun mostrarRegistrosUsuario(id:Int):Flow<List<RegistroConFranja>>
+    fun mostrarRegistrosUsuario(id:Int):Flow<List<RegistroConFranja>>*/
 }

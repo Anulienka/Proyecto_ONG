@@ -1,3 +1,4 @@
+/*
 import com.example.proyecto_ong.CondicionMeteorologica
 import com.example.proyecto_ong.Franja
 import com.example.proyecto_ong.RegistroFranjaCrossRef
@@ -17,4 +18,4 @@ data class RegistroConFranja(
         associateBy = Junction(RegistroFranjaCrossRef::class)
     )
     val franjas: List<Franja>
-)
+)*/

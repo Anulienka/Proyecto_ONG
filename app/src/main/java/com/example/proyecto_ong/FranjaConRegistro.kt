@@ -1,3 +1,4 @@
+/*
 package com.plcoding.multipleroomtables.entities.relations
 
 import androidx.room.Embedded
@@ -16,4 +17,4 @@ data class FranjaConRegistro(
         associateBy = Junction(RegistroFranjaCrossRef::class)
     )
     val registros: List<CondicionMeteorologica>
-)
+)*/

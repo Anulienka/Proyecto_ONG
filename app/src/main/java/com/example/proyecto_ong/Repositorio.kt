@@ -1,6 +1,5 @@
 package com.example.proyecto_ong
 
-import RegistroConFranja
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -13,8 +12,8 @@ import java.util.*
 class Repositorio(val miDAO: CondicionMeteorologicaDAO, id: Int) {
 
     val listaRegistros: Flow<List<CondicionMeteorologica>> =miDAO.mostrarTodo()
-    val listaRegistrosClase: Flow<List<RegistroConFranja>> =miDAO.mostrarRegistrosFranja()
-    val listaRegistrosClaseUsuario: Flow<List<RegistroConFranja>> =miDAO.mostrarRegistrosUsuario(id)
+    val listaRegistrosClase: Flow<List<CondicionMeteorologicaClase>> =miDAO.mostrarTodosRegistros()
+    val listaRegistrosClaseUsuario: Flow<List<CondicionMeteorologicaClase>> =miDAO.mostrarRegistrosUsuario(id)
 
     //USUARIO
     @Suppress("RedundantSuspendModifier")
@@ -36,7 +35,6 @@ class Repositorio(val miDAO: CondicionMeteorologicaDAO, id: Int) {
     }
 
 
-
     //FRANJA
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
@@ -51,7 +49,6 @@ class Repositorio(val miDAO: CondicionMeteorologicaDAO, id: Int) {
     fun buscarFranjaPorId(id:Int):Flow<Franja>{
         return miDAO.buscarFranjaPorId(id)
     }
-
 
 
     //REGISTRO
