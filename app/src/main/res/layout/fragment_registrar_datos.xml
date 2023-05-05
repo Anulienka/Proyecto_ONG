@@ -1,34 +1,321 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrarDatosFragment">
 
-    <TextView
-        android:id="@+id/tvCalendario"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glArriba"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_calendario"
-        android:hint="Seleccion fecha"
-        android:textColor="#000000"
-        android:textSize="18dp" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
-
-    <TextView
-        android:id="@+id/tvHora"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glAbajo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:drawableEnd="@drawable/ic_time"
-        android:focusable="false"
-        android:text="Selecciona hora"
-        android:textSize="18sp" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
 
-    <Spinner
-        android:id="@+id/sDensidad"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glIzquierda"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glDerecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <ScrollView
+        android:layout_width="369dp"
+        android:layout_height="652dp"
+        app:layout_constraintBottom_toTopOf="@+id/glAbajo"
+        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
+        app:layout_constraintStart_toStartOf="@+id/glIzquierda"
+        app:layout_constraintTop_toTopOf="@+id/glArriba">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvCalendario"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:drawableEnd="@drawable/ic_calendario"
+                android:hint="Seleccion fecha de registro"
+                android:textColor="#000000"
+                android:textSize="18dp" />
+
+
+            <TextView
+                android:id="@+id/tvNiebla"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:text="Niebla"
+                android:textAlignment="center"
+                android:textColor="#2196F3"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/llNiebla"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbNiebla"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:text="Niebla"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="95dp"
+                    tools:layout_editor_absoluteY="145dp" />
+
+                <Spinner
+                    android:id="@+id/sDensidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="2"
+                    tools:layout_editor_absoluteX="273dp"
+                    tools:layout_editor_absoluteY="150dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="18dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:text="Selecciona franja horaria"
+                android:textColor="@color/black"
+                />
+
+            <LinearLayout
+                android:id="@+id/llHorario1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbHorario1"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="6:00 a 9:00"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/cbHorario2"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="9:00 a 12:00"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llHorario2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+                <CheckBox
+                    android:id="@+id/cbHorario3"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="12:00 a 14:00"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/cbHorario4"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="15:00 a 18:00"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llHorario3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbHorario5"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="18:00 a 21:00"
+                    android:textSize="18sp" />
+
+                <CheckBox
+                    android:id="@+id/cbHorario6"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="21:00 a 24:00"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llHorario4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbHorario7"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="24:00 a 6:00"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvLluvia"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:text="Lluvia"
+                android:textAlignment="center"
+                android:textColor="#2196F3"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/llLluvia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cblluvia"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:paddingStart="5dp"
+                android:text="Luvia"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvHora"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_time"
+                android:focusable="false"
+                android:hint="Selecciona duración"
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvAgua"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:text="Cortes de agua"
+                android:textAlignment="center"
+                android:textColor="#2196F3"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/llAgua"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbAgua"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="Cortes de agua"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvAqua"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:drawableEnd="@drawable/ic_time"
+                    android:focusable="false"
+                    android:hint="Selecciona duracion"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvIncidencias"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:text="Incidencias"
+                android:textAlignment="center"
+                android:textColor="#2196F3"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etComentario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe comentario de incidencia"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

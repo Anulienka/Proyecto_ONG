@@ -95,7 +95,6 @@ class RegistrarUsuarioFragment : Fragment() {
             Toast.makeText(activity,"Usuario ya existe.", Toast.LENGTH_LONG).show()
             return false
         }
-
         //si se cumplen requisitos, retorna true
         return true
     }
@@ -103,11 +102,9 @@ class RegistrarUsuarioFragment : Fragment() {
 
     private fun existeUsuario(): Boolean {
         var usuarioExiste = true
-        var miUsuario = Usuario()
         (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString(), binding.etContrasena1.text.toString())
         (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
-            miUsuario = usuario
-            if (miUsuario == null){
+            if (usuario == null){
                 usuarioExiste = false
             }
         }

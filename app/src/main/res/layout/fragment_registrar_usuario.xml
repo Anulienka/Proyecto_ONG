@@ -102,6 +102,7 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/boton_round"
         android:text="Registrar"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/glAbajoRegistrar"
         app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
         app:layout_constraintHorizontal_bias="0.473"
