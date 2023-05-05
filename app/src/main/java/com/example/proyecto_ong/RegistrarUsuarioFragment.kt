@@ -41,6 +41,7 @@ class RegistrarUsuarioFragment : Fragment() {
     }
 
     private fun registrarUsuario() {
+
         (activity as MainActivity).miViewModel.insertarUsuario(
             Usuario(
                 nombre = binding.etNombre.text.toString(),

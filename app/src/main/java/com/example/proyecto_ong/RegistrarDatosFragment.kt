@@ -57,7 +57,6 @@ class RegistrarDatosFragment : Fragment() {
         spinner.adapter = arrayAdapter
 
         //SPINNER FRANJA
-        // ********* HAY QUE CAMBIAR POR OTRO(MAS FRANJAS)
         //recoge todads las franjas que estan en BD
         (activity as MainActivity).miViewModel.mostrarTodasFranjas()
         //llena spinner con franjas
@@ -121,7 +120,7 @@ class RegistrarDatosFragment : Fragment() {
             }
             // Navega de vuelta al fragmento de recycled view
             // *************** AQUI QUITAR
-           //findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+           findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
 
         }
 
@@ -151,33 +150,33 @@ class RegistrarDatosFragment : Fragment() {
 
         //MENU
         // *************** AQUI QUITAR
-//        val menuHost: MenuHost = requireActivity()
-//        menuHost.addMenuProvider(object : MenuProvider {
-//            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-//                // Add menu items here
-//                if (idRegistro != -1) menuInflater.inflate(R.menu.menu_modificar,menu)
-//                else menuInflater.inflate(R.menu.menu_listadatos, menu)
-//            }
-//
-//            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-//                // Handle the menu selection
-//                return when (menuItem.itemId) {
-//                   R.id.miGuardar -> {
-//                         if(validarContenido()) guardar()
-//                         true
-//                     }
-//                     R.id.miModificar -> {
-//                         if(validarContenido()) modificar(idRegistro)
-//                         true
-//                     }
-//                    R.id.miBorrar -> {
-//                        borrar(miRegistro)
-//                        true
-//                    }
-//                    else -> false
-//                }
-//            }
-//        },viewLifecycleOwner, Lifecycle.State.RESUMED)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                if (idRegistro != -1) menuInflater.inflate(R.menu.menu_modificar,menu)
+                else menuInflater.inflate(R.menu.menu_listadatos, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                   R.id.miGuardar -> {
+                         if(validarContenido()) guardar()
+                         true
+                     }
+                     R.id.miModificar -> {
+                         if(validarContenido()) modificar(idRegistro)
+                         true
+                     }
+                    R.id.miBorrar -> {
+                        borrar(miRegistro)
+                        true
+                    }
+                    else -> false
+                }
+            }
+        },viewLifecycleOwner, Lifecycle.State.RESUMED)
 
     }
 
@@ -185,7 +184,7 @@ class RegistrarDatosFragment : Fragment() {
         (activity as MainActivity).miViewModel.borrarRegistro(miRegistro)
         Toast.makeText(activity,"Registro eliminado", Toast.LENGTH_LONG).show()
         // *************** AQUI QUITAR
-        //findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
     private fun modificar(idDato: Int) {
@@ -202,7 +201,7 @@ class RegistrarDatosFragment : Fragment() {
         )
         Toast.makeText(activity,"Registro modificado", Toast.LENGTH_LONG).show()
         // *************** AQUI QUITAR
-        //findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
     private fun guardar() {
@@ -218,7 +217,7 @@ class RegistrarDatosFragment : Fragment() {
         )
         Toast.makeText(activity,"Registro insertado", Toast.LENGTH_LONG).show()
         // *************** AQUI QUITAR
-        //findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
     private fun validarContenido(): Boolean {

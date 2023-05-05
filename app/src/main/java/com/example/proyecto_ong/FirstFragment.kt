@@ -42,22 +42,26 @@ class FirstFragment : Fragment() {
                 var miUsuario = Usuario()
                 (activity as MainActivity).miViewModel.buscarUsuario(binding.etUsername.text.toString(), binding.etPassword.text.toString())
                 (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity){ usuario->
-                    miUsuario=usuario
+                    if(usuario == null){
                     //si no existe usuario, se muestra el mensaje
-                    if(miUsuario == null){
-                        Toast.makeText(activity,"Usuario no existe", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity,"Usuario no existe", Toast.LENGTH_LONG).show()
                     }
-                    //si tiene rol de usuario, se le muestra SecondFragment con su registros
-                    else if (miUsuario.rol == "usuario"){
-                        //asigno id de Usuario a idUsuarioApp que esta en MainActivity y asi tengo acceso de cada fragmento
-                        (activity as MainActivity).idUsuarioApp = miUsuario.id
-                        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-                    }
-                    //si tiene rol de administrador, se le muestra lista de registros
                     else{
-                        (activity as MainActivity).idUsuarioApp = miUsuario.id
-                        findNavController().navigate(R.id.action_FirstFragment_to_ONGFragment)
+                        miUsuario=usuario
+                        //si tiene rol de usuario, se le muestra SecondFragment con su registros
+                        if (miUsuario.rol == "usuario"){
+                            //asigno id de Usuario a idUsuarioApp que esta en MainActivity y asi tengo acceso de cada fragmento
+                            (activity as MainActivity).idUsuarioApp = miUsuario.id
+                            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
                         }
+                        //si tiene rol de administrador, se le muestra lista de registros
+                        else{
+                            (activity as MainActivity).idUsuarioApp = miUsuario.id
+                            findNavController().navigate(R.id.action_FirstFragment_to_ONGFragment)
+                        }
+                    }
+
+
                 }
             }
         }
