@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = arrayOf(CondicionMeteorologica::class,Franja::class, Usuario::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(CondicionMeteorologica::class,Franja::class, Usuario::class, RegistroFranjaCrossRef::class), version = 1, exportSchema = false)
 abstract class BaseDatos:RoomDatabase() {
     abstract fun miDAO():CondicionMeteorologicaDAO
 
@@ -35,13 +35,13 @@ abstract class BaseDatos:RoomDatabase() {
                 super.onCreate(db)
                     // Insertar los datos iniciales
                     val franjasIniciales = listOf(
-                        Franja(nombreFranja = "terror"),
-                        Franja(nombreFranja = "terror"),
-                        Franja(nombreFranja = "terror"),
-                        Franja(nombreFranja = "terror"),
-                        Franja(nombreFranja = "terror")
+                        Franja(nombreFranja = "primera"),
+                        Franja(nombreFranja = "segunada"),
+                        Franja(nombreFranja = "tercera"),
+                        Franja(nombreFranja = "cuarta"),
+                        Franja(nombreFranja = "quinta")
                     )
-                    // Inserta las películas iniciales en la base de datos
+                    // Inserta las franjas iniciales en la base de datos
                     val viewModelScope = CoroutineScope(Dispatchers.IO)
                     viewModelScope.launch {
                         // Realizar la operación en segundo plano (p. ej., poblar la base de datos)

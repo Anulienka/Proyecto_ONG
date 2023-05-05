@@ -1,5 +1,6 @@
 package com.example.proyecto_ong
 
+import RegistroConFranja
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.Flow
@@ -10,12 +11,12 @@ import java.util.*
 //Repositorio va a ser una clase que se va a encargar de manejar las diferentes BBDD que use nuestra aplicación.
 // Por ejemplo, podríamos tener una BBDD en local y otra en la nube.
 class Repositorio(val miDAO: CondicionMeteorologicaDAO, id: Int) {
+
     val listaRegistros: Flow<List<CondicionMeteorologica>> =miDAO.mostrarTodo()
-    val listaRegistrosClase: Flow<List<CondicionMeteorologicaClase>> =miDAO.mostrarTodosRegistros()
-    val listaRegistrosClaseUsuario: Flow<List<CondicionMeteorologicaClase>> =miDAO.mostrarRegistrosUsuario(id)
+    val listaRegistrosClase: Flow<List<RegistroConFranja>> =miDAO.mostrarRegistrosFranja()
+    val listaRegistrosClaseUsuario: Flow<List<RegistroConFranja>> =miDAO.mostrarRegistrosUsuario(id)
 
-
-
+    //USUARIO
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertarUsuario(miUsuario: Usuario){
@@ -34,6 +35,9 @@ class Repositorio(val miDAO: CondicionMeteorologicaDAO, id: Int) {
         return miDAO.buscarUsuario(nombre, contrasena)
     }
 
+
+
+    //FRANJA
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertarFranja(miFranja: Franja){
@@ -48,6 +52,9 @@ class Repositorio(val miDAO: CondicionMeteorologicaDAO, id: Int) {
         return miDAO.buscarFranjaPorId(id)
     }
 
+
+
+    //REGISTRO
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertarRegistro(miRegistro: CondicionMeteorologica){

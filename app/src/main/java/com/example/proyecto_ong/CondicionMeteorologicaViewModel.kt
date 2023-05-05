@@ -1,5 +1,6 @@
 package com.example.proyecto_ong
 
+import RegistroConFranja
 import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -8,20 +9,20 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 //Para conseguir que los datos se mantengan usamos un viewModel.
-// Su principal ventaja es que almacena en caché el estado y lo conserva durante los cambios de configuración.
+//Su principal ventaja es que almacena en caché el estado y lo conserva durante los cambios de configuración.
 //definir los datos que queremos que persistan y la lógica de negocio de estas.
 //hay irán los datos que vamos a usar en nuestra aplicación, en este caso todos los métodos de consultas a la BBDD.
 class CondicionMeteorologicaViewModel(private val miRepositorio: Repositorio): ViewModel() {
 
     //LiveData, que es un dato observable
+    lateinit var miRegistro: LiveData<CondicionMeteorologica>
     lateinit var listaUsuarios: LiveData<List<Usuario>>
     lateinit var miUsuario: LiveData<Usuario>
     lateinit var listaFranjas: LiveData<List<Franja>>
     lateinit var miFranja: LiveData<Franja>
     val listaRegistros: LiveData<List<CondicionMeteorologica>> = miRepositorio.listaRegistros.asLiveData()
-    lateinit var miRegistro: LiveData<CondicionMeteorologica>
-    val listaRegistrosObjetos: LiveData<List<CondicionMeteorologicaClase>> = miRepositorio.listaRegistrosClase.asLiveData()
-    val listaRegistrosObjetosUsuario: LiveData<List<CondicionMeteorologicaClase>> = miRepositorio.listaRegistrosClaseUsuario.asLiveData()
+    val listaRegistrosObjetos: LiveData<List<RegistroConFranja>> = miRepositorio.listaRegistrosClase.asLiveData()
+    val listaRegistrosObjetosUsuario: LiveData<List<RegistroConFranja>> = miRepositorio.listaRegistrosClaseUsuario.asLiveData()
 
     fun insertarUsuario(miUsuario: Usuario) = viewModelScope.launch {
         miRepositorio.insertarUsuario(miUsuario)

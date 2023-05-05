@@ -29,6 +29,7 @@ class ONGListaFragment : Fragment(R.layout.fragment_o_n_g_lista) {
         super.onViewCreated(view, savedInstanceState)
 
 
+        //se recogen datos de BD para llenar RecyclerView
         (activity as MainActivity).miViewModel.listaRegistrosObjetos.observe(activity as MainActivity){
                 registros->
             miRecyclerView = binding.rvRegistros

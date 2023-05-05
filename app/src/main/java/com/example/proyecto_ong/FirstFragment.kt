@@ -84,7 +84,6 @@ class FirstFragment : Fragment() {
         input.requestFocus()
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

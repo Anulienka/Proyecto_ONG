@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
@@ -32,11 +34,10 @@ class RegistrarUsuarioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //REGISTRA USUARIO
         binding.bRegistrar.setOnClickListener {
             if(validarDatosUsuario()) registrarUsuario()
         }
-
-
     }
 
     private fun registrarUsuario() {
@@ -44,7 +45,9 @@ class RegistrarUsuarioFragment : Fragment() {
             Usuario(
                 nombre = binding.etNombre.text.toString(),
                 contrasena = binding.etContrasena1.text.toString(),
-                region = binding.sRegion.selectedItem.toString())
+                region = binding.sRegion.selectedItem.toString(),
+                //todos usuarios que se registran tienen rol USUARIO
+                rol = "usuario")
         )
         Toast.makeText(activity,"Usuario se ha registrado correctamente", Toast.LENGTH_LONG).show()
 
@@ -74,16 +77,23 @@ class RegistrarUsuarioFragment : Fragment() {
         }else if(binding.etContrasena1.text.toString() != binding.etContrasena2.text.toString()){
             showError(binding.etContrasena2, "Contreseñas no son iguales.")
             return false
-        }
-
-        //BUSCA SI USUARIO YA EXISTE
-        if(existeUsuario()){
+        }else if(binding.sRegion.selectedItem == null) {
+            showErrorSpinner(binding.sRegion, "Campo region es obligatorio.")
             return false
         }
 
-        //si se cumple todo, retorna true
+
+        //BUSCA SI USUARIO YA EXISTE
+        if(existeUsuario()){
+            //usuario existe y retorna false
+            Toast.makeText(activity,"Usuario ya existe.", Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        //si se cumplen requisitos, retorna true
         return true
     }
+
 
     private fun existeUsuario(): Boolean {
         var usuarioExiste = true
@@ -101,6 +111,13 @@ class RegistrarUsuarioFragment : Fragment() {
     private fun showError(input: EditText, s: String) {
         input.setError(s)
         input.requestFocus()
+    }
+
+
+    private fun showErrorSpinner(sRegion: Spinner, s: String) {
+        val errorText = sRegion.selectedView as TextView
+        errorText.setError(s)
+        errorText.requestFocus()
     }
 
     override fun onDestroyView() {

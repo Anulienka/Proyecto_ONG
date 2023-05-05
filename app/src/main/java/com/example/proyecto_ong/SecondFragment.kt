@@ -61,10 +61,12 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
         }
 
+        //se recogen datos de BD para llenar RecyclerView
         (activity as MainActivity).miViewModel.listaRegistrosObjetosUsuario.observe(activity as MainActivity){
                 registros->
             miRecyclerView = binding.rvRegistros
             miRecyclerView.layoutManager = LinearLayoutManager(activity)
+            //adaptador de RecyclerView
             miRecyclerView.adapter=Adaptador(registros as MutableList<CondicionMeteorologicaClase>)
         }
 

@@ -1,5 +1,6 @@
 package com.example.proyecto_ong
 
+import RegistroConFranja
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import java.util.*
@@ -9,16 +10,16 @@ import java.util.*
 @Dao
 interface CondicionMeteorologicaDAO {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertarUsuario(miUsuario: Usuario)
 
-    @Query ("SELECT * FROM tabla_usuarios ORDER BY id ASC")
+    @Query ("SELECT * FROM tabla_usuarios")
     fun mostrarTodosUsuarios() : Flow<List<Usuario>>
 
-    @Query("SELECT * FROM tabla_usuarios where id like :id")
+    @Query("SELECT * FROM tabla_usuarios WHERE id like :id")
     fun buscarUsuarioPorId(id:Int):Flow<Usuario>
 
-    @Query("SELECT * FROM tabla_usuarios where nombre like :nombre and contrasena like :contrasena")
+    @Query("SELECT * FROM tabla_usuarios WHERE nombre like :nombre AND contrasena like :contrasena")
     fun buscarUsuario(nombre: String, contrasena: String): Flow<Usuario>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -27,21 +28,14 @@ interface CondicionMeteorologicaDAO {
     @Query ("SELECT * FROM tabla_franjas ORDER BY id ASC")
     fun mostrarTodasFranjas() : Flow<List<Franja>>
 
-    @Query("SELECT * FROM tabla_franjas where id like :id")
+    @Query("SELECT * FROM tabla_franjas WHERE id like :id")
     fun buscarFranjaPorId(id:Int):Flow<Franja>
-
-    //HAY QUE MIRAR
-    @Query("SELECT r.id, r.fecha, r.niebla, r.agua, r.lluvia, r.densidad, idUsuario FROM tabla_registros as r")
-    fun mostrarTodosRegistros():Flow<List<CondicionMeteorologicaClase>>
 
 
     @Query ("SELECT * FROM tabla_registros ORDER BY id ASC")
-    fun mostrarTodo() : Flow<List<CondicionMeteorologica>>
+    fun mostrarTodo(): Flow<List<CondicionMeteorologica>>
 
-    @Query("SELECT * FROM tabla_registros where idUsuario like :id")
-    fun mostrarRegistrosUsuario(id:Int):Flow<List<CondicionMeteorologicaClase>>
-
-    @Query("SELECT * FROM tabla_registros where id like :id")
+      @Query("SELECT * FROM tabla_registros where id like :id")
     fun buscarRegistroPorId(id:Int):Flow<CondicionMeteorologica>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -57,4 +51,11 @@ interface CondicionMeteorologicaDAO {
     //CROSS TABLE
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRegistroFranjaCrossRef(crossRef: RegistroFranjaCrossRef)
+
+    @Transaction
+    @Query("SELECT * FROM tabla_registros")
+    fun mostrarRegistrosFranja():Flow<List<RegistroConFranja>>
+
+    @Query("SELECT * FROM tabla_registros where idUsuario like :id")
+    fun mostrarRegistrosUsuario(id:Int):Flow<List<RegistroConFranja>>
 }

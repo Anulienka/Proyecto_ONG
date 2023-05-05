@@ -59,7 +59,9 @@ class RegistrarDatosFragment : Fragment() {
 
         //SPINNER FRANJA
         // ********* HAY QUE CAMBIAR POR OTRO(MAS FRANJAS)
+        //recoge todads las franjas que estan en BD
         (activity as MainActivity).miViewModel.mostrarTodasFranjas()
+        //llena spinner con franjas
         (activity as MainActivity).miViewModel.listaFranjas.observe(activity as MainActivity){
             binding.sFranja.adapter= AdaptadorFranja(activity as MainActivity, it)
             totalFranjas=it.count()
@@ -119,7 +121,8 @@ class RegistrarDatosFragment : Fragment() {
                 Toast.makeText(context, "Datos se han modificado correctamente", Toast.LENGTH_SHORT).show()
             }
             // Navega de vuelta al fragmento de recycled view
-            findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+            // *************** AQUI QUITAR
+           findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
 
         }
 
@@ -147,7 +150,8 @@ class RegistrarDatosFragment : Fragment() {
         }
 
 
-        //MENU DE BORRAR
+        //MENU
+        // *************** AQUI QUITAR
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -159,14 +163,14 @@ class RegistrarDatosFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // Handle the menu selection
                 return when (menuItem.itemId) {
-                    /* R.id.miGuardar -> {
-                         if(validarContenido()) guardar()
+                   R.id.miGuardar -> {
+                         if(validarContenido()) guardar(usuarioID)
                          true
                      }
                      R.id.miModificar -> {
                          if(validarContenido()) modificar(idRegistro)
                          true
-                     }*/
+                     }
                     R.id.miBorrar -> {
                         borrar(miRegistro)
                         true
@@ -181,6 +185,7 @@ class RegistrarDatosFragment : Fragment() {
     private fun borrar(miRegistro: CondicionMeteorologica) {
         (activity as MainActivity).miViewModel.borrarRegistro(miRegistro)
         Toast.makeText(activity,"Registro eliminado", Toast.LENGTH_LONG).show()
+        // *************** AQUI QUITAR
         findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
@@ -195,6 +200,7 @@ class RegistrarDatosFragment : Fragment() {
         )
         )
         Toast.makeText(activity,"Registro modificado", Toast.LENGTH_LONG).show()
+        // *************** AQUI QUITAR
         findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
@@ -209,7 +215,8 @@ class RegistrarDatosFragment : Fragment() {
                 idUsuario = id)
         )
         Toast.makeText(activity,"Registro insertado", Toast.LENGTH_LONG).show()
-        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+        // *************** AQUI QUITAR
+        //findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
     }
 
     private fun validarContenido(): Boolean {
