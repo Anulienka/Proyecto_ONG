@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 //PARA RECYCLEDVIEW
-class Adaptador(val condicionesMeteorologicos: MutableList<CondicionMeteorologicaClase>) : RecyclerView.Adapter<Adaptador.ViewHolder>() {
+class Adaptador(val registro: MutableList<Registro>) : RecyclerView.Adapter<Adaptador.ViewHolder>() {
     inner class ViewHolder (v: View): RecyclerView.ViewHolder(v){
         //datos de recycled view, de contenedor
         var tvDia: TextView
@@ -32,12 +32,11 @@ class Adaptador(val condicionesMeteorologicos: MutableList<CondicionMeteorologic
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvDia.text="Fecha: ${condicionesMeteorologicos[position].fecha}"
-        //holder.tvFranja.text="Franja: ${condicionesMeteorologicos[position].franja}"
+        holder.tvDia.text="Fecha: ${registro[position].fecha}"
         holder.id=position
     }
 
     override fun getItemCount(): Int {
-        return condicionesMeteorologicos.count()
+        return registro.count()
     }
 }

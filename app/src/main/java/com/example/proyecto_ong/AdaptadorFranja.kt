@@ -16,14 +16,14 @@ class AdaptadorFranja (context: Context, val franjas: List<Franja>): ArrayAdapte
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getView(position, convertView, parent)
         val textView = view.findViewById<TextView>(android.R.id.text1)
-        textView.text = franjas[position].nombreFranja
+        textView.text = franjas[position].hora
         return view
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getDropDownView(position, convertView, parent)
         val textView = view.findViewById<TextView>(android.R.id.text1)
-        textView.text = franjas[position].nombreFranja
+        textView.text = franjas[position].hora
         return view
 
     }

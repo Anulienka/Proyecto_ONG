@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentFirstBinding
 import com.example.proyecto_ong.databinding.FragmentRegistrarUsuarioBinding
+import kotlinx.coroutines.launch
 
 class RegistrarUsuarioFragment : Fragment() {
 
@@ -41,32 +43,27 @@ class RegistrarUsuarioFragment : Fragment() {
 
         //REGISTRA USUARIO
         binding.bRegistrar.setOnClickListener {
-            if(validarDatosUsuario()) registrarUsuario()
+            if(validarDatosUsuario()) {
+                lifecycleScope.launch {
+                    registrarUsuario()
+                }
+            }
         }
     }
 
-    private fun registrarUsuario() {
+    private suspend fun registrarUsuario() {
 
-        (activity as MainActivity).miViewModel.insertarUsuario(
-            Usuario(
-                nombre = binding.etNombre.text.toString(),
-                contrasena = binding.etContrasena1.text.toString(),
-                region = binding.sRegion.selectedItem.toString(),
-                //todos usuarios que se registran tienen rol USUARIO
-                rol = "usuario")
-        )
+        (activity as MainActivity).miViewModel.insertarUsuario(binding.etNombre.text.toString(),binding.etContrasena1.text.toString(),binding.sRegion.selectedItem.toString())
         Toast.makeText(activity,"Usuario se ha registrado correctamente", Toast.LENGTH_LONG).show()
 
+
         //busco usuario en BD para recoger su ID
-        var miUsuario = Usuario()
         (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString(), binding.etContrasena1.text.toString())
-        (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
-            miUsuario = usuario
-            //asigno id a idUsuarioApp
-            (activity as MainActivity).idUsuarioApp = miUsuario.id
+        val miUsuario: Usuario = (activity as MainActivity).miViewModel.miUsuario
+        if (miUsuario != null){
+            (activity as MainActivity).idUsuarioApp = miUsuario.id.toString()
         }
 
-        //voy a second fragment, donde aparece lista de lod registros de usuario
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
@@ -88,26 +85,30 @@ class RegistrarUsuarioFragment : Fragment() {
             return false
         }
 
-
+        var existeUsuario = false
         //BUSCA SI USUARIO YA EXISTE
-        if(existeUsuario()){
+        lifecycleScope.launch {
+             existeUsuario = existeUsuario()
+        }
+        if (existeUsuario){
             //usuario existe y retorna false
             Toast.makeText(activity,"Usuario ya existe.", Toast.LENGTH_LONG).show()
             return false
         }
-        //si se cumplen requisitos, retorna true
+
         return true
     }
 
 
-    private fun existeUsuario(): Boolean {
+    private suspend fun existeUsuario(): Boolean {
+        //busco en BD si existe usuario
         var usuarioExiste = true
         (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString(), binding.etContrasena1.text.toString())
-        (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
-            if (usuario == null){
-                usuarioExiste = false
-            }
+        val miUsuario: Usuario = (activity as MainActivity).miViewModel.miUsuario
+        if (miUsuario == null){
+            usuarioExiste = false
         }
+
         return usuarioExiste
     }
 

@@ -16,19 +16,22 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    val condicionesMeteorologicos:MutableList<CondicionMeteorologicaClase> = mutableListOf()
+    val registros:MutableList<Registro> = mutableListOf()
 
-    var idUsuarioApp : Int = -1
+    var idUsuarioApp : String = "0"
 
     //instancia de la BBDD y del repositorio
-    val dataBase by lazy {BaseDatos.getDatabase(this)}
-    val miRepositorio by lazy { Repositorio(dataBase.miDAO(),idUsuarioApp) }
+   // val dataBase by lazy {BaseDatos.getDatabase(this)}
 
+    //QUE????
+    val miRepositorio by lazy { Repositorio(idUsuarioApp) }
 
 
     //instanciamos viewModel, a MainActivity tengo acceso desde toda la app
-    val miViewModel:CondicionMeteorologicaViewModel by viewModels {
-        CondicionMeteorologicaViewModelFactory(miRepositorio)
+
+    //QUE????
+    val miViewModel:RegistroViewModel by viewModels {
+        RegistroViewModel.RegistroViewModelFactory(miRepositorio)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,26 +46,14 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        //cargarCondiciones()
-
     }
 
-    /*fun cargarCondiciones(){
-        for (i in 1..16){
-            condicionesMeteorologicos.add(CondicionMeteorologicaClase(i +1, "dia$i", 1, 0, 1))
-        }
-    }*/
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.miCreadora -> {
                 Toast.makeText(this,"Anna Lomenova, Yagmur Polat", Toast.LENGTH_LONG).show()

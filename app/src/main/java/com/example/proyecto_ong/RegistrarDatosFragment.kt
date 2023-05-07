@@ -27,9 +27,6 @@ class RegistrarDatosFragment : Fragment() {
     //USUARIO
     var usuarioID = (activity as MainActivity).idUsuarioApp
 
-    //acceso a BBDD
-    private val db = FirebaseFirestore.getInstance()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

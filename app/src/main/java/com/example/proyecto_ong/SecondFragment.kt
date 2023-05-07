@@ -3,9 +3,6 @@ package com.example.proyecto_ong
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +33,7 @@ class SecondFragment : Fragment() {
 
         //datos se anaden con boton
         binding.bAnadirDatos.setOnClickListener {
-            //findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
+            findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
         }
 
         //se recogen datos de BD para llenar RecyclerView
@@ -45,7 +42,7 @@ class SecondFragment : Fragment() {
             miRecyclerView = binding.rvRegistros
             miRecyclerView.layoutManager = LinearLayoutManager(activity)
             //adaptador de RecyclerView
-            miRecyclerView.adapter=Adaptador(registros as MutableList<CondicionMeteorologicaClase>)
+            miRecyclerView.adapter=Adaptador(registros as MutableList<Registro>)
         }
 
     }
@@ -53,6 +50,6 @@ class SecondFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        (activity as MainActivity).miViewModel.listaRegistrosObjetos.removeObservers(activity as MainActivity)
+        //(activity as MainActivity).miViewModel.listaRegistrosObjetos.removeObservers(activity as MainActivity)
     }
 }

@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentFirstBinding
-import com.google.android.material.textfield.TextInputEditText
-import kotlinx.coroutines.flow.Flow
+import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -37,39 +36,35 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.bEntrar.setOnClickListener {
-            if(validarDatos()){
-
-                var miUsuario = Usuario()
-                (activity as MainActivity).miViewModel.buscarUsuario(binding.etUsername.text.toString(), binding.etPassword.text.toString())
-                (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity){ usuario->
-                    if(usuario == null){
-                    //si no existe usuario, se muestra el mensaje
-                    Toast.makeText(activity,"Usuario no existe", Toast.LENGTH_LONG).show()
-                    }
-                    else{
-                        miUsuario=usuario
-                        //si tiene rol de usuario, se le muestra SecondFragment con su registros
-                        if (miUsuario.rol == "usuario"){
-                            //asigno id de Usuario a idUsuarioApp que esta en MainActivity y asi tengo acceso de cada fragmento
-                            (activity as MainActivity).idUsuarioApp = miUsuario.id
-                            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-                        }
-                        //si tiene rol de administrador, se le muestra lista de registros
-                        else{
-                            (activity as MainActivity).idUsuarioApp = miUsuario.id
-                            findNavController().navigate(R.id.action_FirstFragment_to_ONGFragment)
-                        }
-                    }
-
-
+            if(validarDatos()) {
+                //Las funciones suspendidas solo pueden ser llamadas desde otras funciones suspendidas
+                // o dentro de un bloque de corutina
+                lifecycleScope.launch {
+                    buscarUsuario()
                 }
             }
-        }
+            }
 
         binding.bRegistrarUsuario.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_registrarUsuarioFragment)
         }
     }
+
+    suspend fun buscarUsuario() {
+
+        (activity as MainActivity).miViewModel.buscarUsuario(binding.etUsername.text.toString(), binding.etPassword.text.toString())
+        val miUsuario: Usuario? = (activity as MainActivity).miViewModel.miUsuario
+        if(miUsuario == null){
+            //si no existe usuario, se muestra el mensaje
+            Toast.makeText(activity,"Usuario no existe", Toast.LENGTH_LONG).show()
+        }
+        else{
+            //si existe, se asigna a idUsuario id de usuario que usa la app
+            (activity as MainActivity).idUsuarioApp = miUsuario.id.toString()
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
+    }
+
 
     private fun validarDatos(): Boolean {
        if(binding.etUsername.text.toString().isEmpty() || binding.etUsername.text.toString().length < 3){
