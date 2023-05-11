@@ -50,6 +50,6 @@ class SecondFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        //(activity as MainActivity).miViewModel.listaRegistrosObjetos.removeObservers(activity as MainActivity)
+        (activity as MainActivity).miViewModel.listaRegistrosObjetosUsuario.removeObservers(activity as MainActivity)
     }
 }

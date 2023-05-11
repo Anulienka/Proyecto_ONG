@@ -16,7 +16,7 @@ class Repositorio(id: String) {
 
     //USUARIO
 
-    suspend fun insertarUsuario(nombre:String, contrasena: String, region:String){
+    fun insertarUsuario(nombre:String, contrasena: String, region:String){
         miDAO.insertarUsuario(nombre, contrasena, region)
     }
 

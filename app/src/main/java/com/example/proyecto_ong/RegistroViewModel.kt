@@ -16,7 +16,7 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
 
     //val listaRegistros: LiveData<List<Registro>> = miRepositorio.listaRegistros.asLiveData()
     //val listaRegistrosObjetos: LiveData<List<Registro>> = miRepositorio.listaRegistrosClase.asLiveData()
-    //val listaRegistrosObjetosUsuario: LiveData<List<Registro>> = miRepositorio.listaRegistrosClaseUsuario.asLiveData()
+    val listaRegistrosObjetosUsuario: LiveData<List<Registro>> = miRepositorio.listaRegistrosClaseUsuario.asLiveData()
 
 
     //---------->FIREBASE

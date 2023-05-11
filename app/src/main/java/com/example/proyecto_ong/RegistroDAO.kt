@@ -4,6 +4,7 @@ package com.example.proyecto_ong
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.tasks.await
@@ -16,6 +17,8 @@ class RegistroDAO {
     private val db = FirebaseFirestore.getInstance()
 
     //USUARIO
+
+    //***  FUNCIONA INSERTAR ***
     fun insertarUsuario(nombre:String, contrasena: String, region:String){
 
         val usuario = hashMapOf(
@@ -43,7 +46,8 @@ class RegistroDAO {
         val useruarioRef = db.collection("usuarios")
         val query = useruarioRef.whereEqualTo("nombre", nombre).whereEqualTo("contrasena", contrasena).limit(1)
 
-        val querySnapshot = query.get().await()
+        val querySnapshot =  query.get().await()
+
         return if (!querySnapshot.isEmpty) {
             val documentSnapshot = querySnapshot.documents[0]
             val id = documentSnapshot.getString("id")
@@ -80,7 +84,7 @@ class RegistroDAO {
 
 
     //REGISTRO
-
+    //-----------------------> esto hay que poner diferente, no hay todos los datos
     fun mostrarRegistrosUsuario(id: String):Flow<List<Registro>>{
 
         // Creamos el MutableStateFlow que contendrá la lista actualizada

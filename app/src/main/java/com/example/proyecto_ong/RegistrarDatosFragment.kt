@@ -1,5 +1,6 @@
 package com.example.proyecto_ong
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -36,6 +37,7 @@ class RegistrarDatosFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,13 +50,16 @@ class RegistrarDatosFragment : Fragment() {
         spinner.adapter = arrayAdapter
 
         //formato de la FECHA de registro
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val currentDateandTime: String = sdf.format(Date())
+        //val sdf = SimpleDateFormat("dd/MM/yyyy")
+        //val currentDateandTime: String = sdf.format(Date())
+        //dafault fecha
+        //binding.tvCalendario.setText(currentDateandTime)
 
-        //default HORA y FECHA
-        binding.tvCalendario.setText(currentDateandTime)
-        val defaultHora = String.format("%02d:%02d", "00", "00")
-        binding.tvHora.setText(defaultHora)
+//        //default hora
+//        val defaultHora = String.format("%02d:%02d", "00", "00")
+//        binding.tvHoraAqua.setText(defaultHora)
+//        binding.tvHoraLluvia.setText(defaultHora)
+
 
         // Agrega el listener para el text view de fecha de registracion de datos
         binding.tvCalendario.setOnClickListener {
@@ -74,14 +79,28 @@ class RegistrarDatosFragment : Fragment() {
         }
 
 
-        // Agrega el listener para el text view de fecha de registracion de datos
-        binding.tvHora.setOnClickListener {
+        // Agrega el listener para el text view de hora de registracion de datos
+        //AGUA
+        binding.tvHoraAqua.setOnClickListener {
             val currentTime = Calendar.getInstance()
             val hour = currentTime.get(Calendar.HOUR_OF_DAY)
             val minute = currentTime.get(Calendar.MINUTE)
             val timePickerDialog = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
-                binding.tvHora.text = selectedTime
+                binding.tvHoraAqua.text = selectedTime
+            }, hour, minute, false)
+            timePickerDialog.show()
+        }
+
+        // Agrega el listener para el text view de hora de registracion de datos
+        //LLUVIA
+        binding.tvHoraLluvia.setOnClickListener {
+            val currentTime = Calendar.getInstance()
+            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+            val minute = currentTime.get(Calendar.MINUTE)
+            val timePickerDialog = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+                binding.tvHoraLluvia.text = selectedTime
             }, hour, minute, false)
             timePickerDialog.show()
         }

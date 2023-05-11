@@ -16,9 +16,9 @@ import kotlinx.coroutines.launch
 class RegistrarUsuarioFragment : Fragment() {
 
     //anado binding de fragmento
+    //para acceder a las variables
     private var _binding: FragmentRegistrarUsuarioBinding? = null
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +42,7 @@ class RegistrarUsuarioFragment : Fragment() {
         spinner.adapter = arrayAdapter
 
         //REGISTRA USUARIO
+        //**funciona
         binding.bRegistrar.setOnClickListener {
             if(validarDatosUsuario()) {
                 lifecycleScope.launch {
@@ -58,6 +59,8 @@ class RegistrarUsuarioFragment : Fragment() {
 
 
         //busco usuario en BD para recoger su ID
+
+        //************ NO FUNCIONA
         (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString(), binding.etContrasena1.text.toString())
         val miUsuario: Usuario = (activity as MainActivity).miViewModel.miUsuario
         if (miUsuario != null){
