@@ -35,7 +35,9 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="369dp"
         android:layout_height="652dp"
         app:layout_constraintBottom_toTopOf="@+id/glAbajo"
@@ -101,12 +103,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="18dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Selecciona franja horaria"
                 android:textColor="@color/black"
-                />
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:id="@+id/llHorario1"
@@ -224,35 +225,35 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/llLluvia"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cblluvia"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:paddingStart="5dp"
-                android:text="Luvia"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tvHoraLluvia"
+            <LinearLayout
+                android:id="@+id/llLluvia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:drawableEnd="@drawable/ic_time"
-                android:focusable="false"
-                android:hint="Selecciona duración"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <CheckBox
+                    android:id="@+id/cblluvia"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="Luvia"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvHoraLluvia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:drawableEnd="@drawable/ic_time"
+                    android:focusable="false"
+                    android:hint="Selecciona duración"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvAgua"
@@ -310,12 +311,24 @@
                 android:id="@+id/etComentario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Escribe comentario de incidencia"/>
+                android:hint="Escribe comentario de incidencia" />
 
+            <Button
+                android:id="@+id/bRegistrarDatos"
+                android:layout_width="310dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/boton_round"
+                android:text="Registrar datos"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
+
+
     </ScrollView>
+
+    >
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
