@@ -4,10 +4,11 @@ package com.example.proyecto_ong
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObjects
+import com.parse.ParseObject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.tasks.await
+
 
 //El DAO será la clase donde mapeamos todas nuestras querys a funciones.
 class RegistroDAO {
@@ -21,23 +22,11 @@ class RegistroDAO {
     //***  FUNCIONA INSERTAR ***
     fun insertarUsuario(nombre:String, contrasena: String, region:String){
 
-        val usuario = hashMapOf(
-            "name" to nombre,
-            "contrasena" to contrasena,
-            "region" to region
-        )
-
-        // Agrega el objeto a la base de datos y obtiene su ID
-        val usuariosRef = db.collection("usuarios")
-        //anade nuevo document a collection usuarios
-        val nuevoDoc = usuariosRef.document()
-        //recoge su id
-        val nuevoId = nuevoDoc.id
-        //anade propiedades a documento creado
-        nuevoDoc.set(usuario)
-
-        // Actualiza el ID del objeto en la base de datos con el ID generado automáticamente
-        nuevoDoc.update("id", nuevoId)
+        val gameScore = ParseObject("GameScore")
+        gameScore.put("nombre", nombre)
+        gameScore.put("contrasena", contrasena)
+        gameScore.put("region", region)
+        gameScore.saveInBackground()
     }
 
 

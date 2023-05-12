@@ -85,6 +85,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.6.0'
 
     implementation 'com.google.gms:google-services:4.3.15'
-
+    //parse
+    implementation "com.github.parse-community.Parse-SDK-Android:parse:4.2.0"
 
 }
