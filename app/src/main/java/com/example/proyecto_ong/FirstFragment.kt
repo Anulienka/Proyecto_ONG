@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentFirstBinding
@@ -37,11 +38,7 @@ class FirstFragment : Fragment() {
 
         binding.bEntrar.setOnClickListener {
             if(validarDatos()) {
-                //Las funciones suspendidas solo pueden ser llamadas desde otras funciones suspendidas
-                // o dentro de un bloque de corutina
-                lifecycleScope.launch {
-                    buscarUsuario()
-                }
+                buscarUsuario()
             }
             }
 
@@ -50,18 +47,27 @@ class FirstFragment : Fragment() {
         }
     }
 
-    suspend fun buscarUsuario() {
+   fun buscarUsuario() {
 
-        (activity as MainActivity).miViewModel.buscarUsuario(binding.etUsername.text.toString(), binding.etPassword.text.toString())
+        (activity as MainActivity).miViewModel.buscarUsuario(binding.etUsername.text.toString())
         val miUsuario: Usuario? = (activity as MainActivity).miViewModel.miUsuario
         if(miUsuario == null){
             //si no existe usuario, se muestra el mensaje
             Toast.makeText(activity,"Usuario no existe", Toast.LENGTH_LONG).show()
         }
-        else{
-            //si existe, se asigna a idUsuario id de usuario que usa la app
-            (activity as MainActivity).idUsuarioApp = miUsuario.id.toString()
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        else {
+            if (binding.etUsername.text.toString() == miUsuario.nombre && binding.etPassword.text.toString() == miUsuario.contrasena) {
+                //si existe, se asigna a idUsuario id de usuario que usa la app
+                (activity as MainActivity).idUsuarioApp = miUsuario.id
+                //***** FALTA PONER USUARIO EN FICHERO
+
+                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
+            }else{
+                Toast.makeText(activity,"Contraseña no esta correcta", Toast.LENGTH_LONG).show()
+                //selecciona la contrasena
+                binding.etPassword.selectAll()
+            }
         }
     }
 

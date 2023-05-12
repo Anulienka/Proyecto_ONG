@@ -42,32 +42,29 @@ class RegistrarUsuarioFragment : Fragment() {
         spinner.adapter = arrayAdapter
 
         //REGISTRA USUARIO
-        //**funciona
         binding.bRegistrar.setOnClickListener {
             if(validarDatosUsuario()) {
-                lifecycleScope.launch {
                     registrarUsuario()
-                }
             }
         }
     }
 
-    private suspend fun registrarUsuario() {
+    private fun registrarUsuario() {
 
         (activity as MainActivity).miViewModel.insertarUsuario(binding.etNombre.text.toString(),binding.etContrasena1.text.toString(),binding.sRegion.selectedItem.toString())
         Toast.makeText(activity,"Usuario se ha registrado correctamente", Toast.LENGTH_LONG).show()
 
-
         //busco usuario en BD para recoger su ID
-
-        //************ NO FUNCIONA
-        (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString(), binding.etContrasena1.text.toString())
-        val miUsuario: Usuario = (activity as MainActivity).miViewModel.miUsuario
-        if (miUsuario != null){
-            (activity as MainActivity).idUsuarioApp = miUsuario.id.toString()
+        (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
+        val miUsuario: Usuario? = (activity as MainActivity).miViewModel.miUsuario
+        if(miUsuario == null){
+            //si no existe usuario, se muestra el mensaje
+            Toast.makeText(activity,"Usuario no existe", Toast.LENGTH_LONG).show()
+        }else{
+            (activity as MainActivity).idUsuarioApp = miUsuario.id
+            findNavController().navigate(R.id.action_registrarUsuarioFragment_to_SecondFragment)
         }
 
-        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
     private fun validarDatosUsuario(): Boolean {
@@ -90,28 +87,22 @@ class RegistrarUsuarioFragment : Fragment() {
 
         var existeUsuario = false
         //BUSCA SI USUARIO YA EXISTE
-        lifecycleScope.launch {
-             existeUsuario = existeUsuario()
-        }
         if (existeUsuario){
             //usuario existe y retorna false
             Toast.makeText(activity,"Usuario ya existe.", Toast.LENGTH_LONG).show()
             return false
         }
-
         return true
     }
 
-
-    private suspend fun existeUsuario(): Boolean {
+    private fun existeUsuario(): Boolean {
         //busco en BD si existe usuario
         var usuarioExiste = true
-        (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString(), binding.etContrasena1.text.toString())
-        val miUsuario: Usuario = (activity as MainActivity).miViewModel.miUsuario
+        (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
+        val miUsuario: Usuario? = (activity as MainActivity).miViewModel.miUsuario
         if (miUsuario == null){
             usuarioExiste = false
         }
-
         return usuarioExiste
     }
 
@@ -119,7 +110,6 @@ class RegistrarUsuarioFragment : Fragment() {
         input.setError(s)
         input.requestFocus()
     }
-
 
     private fun showErrorSpinner(sRegion: Spinner, s: String) {
         val errorText = sRegion.selectedView as TextView

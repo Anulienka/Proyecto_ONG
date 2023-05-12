@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo3"
     tools:context=".RegistrarDatosFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -56,6 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:drawableEnd="@drawable/ic_calendario"
                 android:hint="Seleccion fecha de registro"
                 android:textColor="#000000"
@@ -96,7 +99,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="2"
                     tools:layout_editor_absoluteX="273dp"
-                    tools:layout_editor_absoluteY="150dp" />
+                    tools:layout_editor_absoluteY="150dp"/>
 
             </LinearLayout>
 
@@ -104,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="Selecciona franja horaria"
                 android:textColor="@color/black"
                 android:textSize="18dp" />
@@ -113,7 +116,8 @@
                 android:id="@+id/llHorario1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
                 <CheckBox
                     android:id="@+id/cbHorario1"
@@ -204,8 +208,9 @@
 
                 <CheckBox
                     android:id="@+id/cbHorario7"
-                    android:layout_width="match_parent"
+                    android:layout_width="313dp"
                     android:layout_height="60dp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:paddingStart="5dp"
@@ -218,7 +223,7 @@
                 android:id="@+id/tvLluvia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="Lluvia"
                 android:textAlignment="center"
                 android:textColor="#2196F3"
@@ -229,7 +234,8 @@
                 android:id="@+id/llLluvia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
                 <CheckBox
                     android:id="@+id/cblluvia"
@@ -249,6 +255,7 @@
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_time"
                     android:focusable="false"
+                    android:layout_marginEnd="10dp"
                     android:hint="Selecciona duración"
                     android:textColor="#000000"
                     android:textSize="18sp" />
@@ -264,13 +271,15 @@
                 android:textAlignment="center"
                 android:textColor="#2196F3"
                 android:textSize="24sp"
+                android:layout_marginEnd="10dp"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/llAgua"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
                 <CheckBox
                     android:id="@+id/cbAgua"
@@ -286,6 +295,7 @@
                     android:id="@+id/tvHoraAqua"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_time"
@@ -311,13 +321,89 @@
                 android:id="@+id/etComentario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Escribe comentario de incidencia" />
+                android:hint="Escribe comentario de incidencia"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/tvCaudalimetro"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:text="Caudalímetro"
+                android:textAlignment="center"
+                android:textColor="#419F45"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/llCaudalimetro"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="00"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvm3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:hint="m3"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="00"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvlitros"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:hint="litros"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="00"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvml"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:hint="ml"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/bRegistrarDatos"
                 android:layout_width="310dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="32dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:textSize="18dp"
                 android:background="@drawable/boton_round"
                 android:text="Registrar datos"
                 android:textAlignment="center" />

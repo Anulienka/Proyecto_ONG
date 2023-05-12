@@ -16,4 +16,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_app_id">oMLf5GYzR531CTzwebMFqoKRofIi0KvuOHaNc7dB</string>
+    <string name="back4app_client_key">gzA5P0WrdbfUpCctFyQTk4Coz2WfGv94zMd6nk2p</string>
 </resources>

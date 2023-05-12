@@ -1,6 +1,7 @@
 package com.example.proyecto_ong
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 import java.util.*
 
 //Para conseguir que los datos se mantengan usamos un viewModel.
@@ -11,28 +12,29 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
 
     //LiveData, que es un dato observable
     lateinit var miRegistro: LiveData<Registro>
-    lateinit var miUsuario: Usuario
+    var miUsuario: Usuario? = null
     lateinit var listaFranjas: List<Franja>
-
-    //val listaRegistros: LiveData<List<Registro>> = miRepositorio.listaRegistros.asLiveData()
-    //val listaRegistrosObjetos: LiveData<List<Registro>> = miRepositorio.listaRegistrosClase.asLiveData()
-    val listaRegistrosObjetosUsuario: LiveData<List<Registro>> = miRepositorio.listaRegistrosClaseUsuario.asLiveData()
+    //var listaRegistros: LiveData<List<Registro>> =miRepositorio.listaRegistros
 
 
-    //---------->FIREBASE
     //**** USUARIO ****
-    suspend fun insertarUsuario(nombre: String, contrasena: String, region: String) {
+
+    fun insertarUsuario(nombre: String, contrasena: String, region: String){
         miRepositorio.insertarUsuario(nombre, contrasena, region)
     }
 
-    suspend fun buscarUsuario(nombre: String, contrasena: String) {
-        miUsuario = miRepositorio.buscarUsuario(nombre, contrasena)!!
+    fun buscarUsuario(nombre: String) {
+        miUsuario = miRepositorio.buscarUsuario(nombre)
     }
 
-    fun mostrarTodasFranjas() {
-        listaFranjas = miRepositorio.mostrarTodasFranjas()
-    }
 
+//    fun mostrarRegistrosUsuario() =viewModelScope.launch {
+//        listaRegistros= miRepositorio.mostrarRegistrosUsuario()
+//    }
+
+    suspend fun mostrarFranjas(){
+        listaFranjas= miRepositorio.mostrarFranjas()
+    }
 
     class RegistroViewModelFactory(private val miRepositorio: Repositorio) :
         ViewModelProvider.Factory {

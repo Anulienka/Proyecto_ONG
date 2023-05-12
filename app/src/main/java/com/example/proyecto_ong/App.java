@@ -8,10 +8,10 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId("com.example.proyecto_ong")
+                .applicationId(getString(R.string.back4app_app_id))
                 // if defined
-                //.clientKey("YOUR_CLIENT_KEY")
-                .server("http://localhost:1337/parse/")
+                .clientKey(getString(R.string.back4app_client_key))
+                .server(getString(R.string.back4app_server_url))
                 .build()
         );
     }

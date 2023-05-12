@@ -18,17 +18,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     val registros:MutableList<Registro> = mutableListOf()
 
-    var idUsuarioApp : String = "0"
-
-    //instancia de la BBDD y del repositorio
-   // val dataBase by lazy {BaseDatos.getDatabase(this)}
+   var idUsuarioApp : String = "0"
 
     //QUE????
-    val miRepositorio by lazy { Repositorio(idUsuarioApp) }
+    //val miRepositorio by lazy { Repositorio(idUsuarioApp) }
 
+    val miRepositorio by lazy { Repositorio(BBDDParse()) }
 
     //instanciamos viewModel, a MainActivity tengo acceso desde toda la app
-
     //QUE????
     val miViewModel:RegistroViewModel by viewModels {
         RegistroViewModel.RegistroViewModelFactory(miRepositorio)
@@ -40,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+        //setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
