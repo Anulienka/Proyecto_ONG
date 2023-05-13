@@ -1,5 +1,7 @@
 package com.example.proyecto_ong
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
@@ -36,39 +38,67 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.bEntrar.setOnClickListener {
             if(validarDatos()) {
-                buscarUsuario()
+                if(usuarioEstaLogeado()){
+                    //si esta logeado, directamente va a 2 fragmento
+                    findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                }
+                else{
+                    //si no esta logeado, se hace proceso de login
+                    buscarUsuario()
+                }
             }
-            }
+        }
 
         binding.bRegistrarUsuario.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_registrarUsuarioFragment)
         }
     }
 
-   fun buscarUsuario() {
 
+    fun buscarUsuario() {
+        var miUsuario = Usuario()
         (activity as MainActivity).miViewModel.buscarUsuario(binding.etUsername.text.toString())
-        val miUsuario: Usuario? = (activity as MainActivity).miViewModel.miUsuario
-        if(miUsuario == null){
-            //si no existe usuario, se muestra el mensaje
-            Toast.makeText(activity,"Usuario no existe", Toast.LENGTH_LONG).show()
-        }
-        else {
+        (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity){ usuario->
+        miUsuario = usuario
             if (binding.etUsername.text.toString() == miUsuario.nombre && binding.etPassword.text.toString() == miUsuario.contrasena) {
-                //si existe, se asigna a idUsuario id de usuario que usa la app
-                (activity as MainActivity).idUsuarioApp = miUsuario.id
-                //***** FALTA PONER USUARIO EN FICHERO
-
+                //guarda nombre y contrasena de usuario en fichcero credenciales
+                guardarPreferencias(miUsuario)
                 findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-
             }else{
                 Toast.makeText(activity,"Contraseña no esta correcta", Toast.LENGTH_LONG).show()
                 //selecciona la contrasena
                 binding.etPassword.selectAll()
             }
+    }
+    }
+
+    private fun guardarPreferencias(miUsuario: Usuario) {
+
+        val sharedPreferences = requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        // Guarda los datos de inicio de sesión
+        editor.putString("nombre_usuario", miUsuario.nombre)
+        editor.putString("contrasena", miUsuario.contrasena)
+        editor.putString("id", miUsuario.id)
+        editor.apply()
+    }
+
+    private fun usuarioEstaLogeado(): Boolean {
+        val sharedPreferences = requireContext().getSharedPreferences("credensiales", Context.MODE_PRIVATE)
+
+        // Recupera los datos de inicio de sesión
+        val nombreUsuario = sharedPreferences.getString("nombre_usuario", "")
+        val contrasena = sharedPreferences.getString("contrasena", "")
+
+        //si no devuelve nada, no esta logeado
+        if(nombreUsuario.equals("") && contrasena.equals("")){
+            return false
         }
+        return true
     }
 
 

@@ -60,7 +60,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:drawableEnd="@drawable/ic_calendario"
-                android:hint="Seleccion fecha de registro"
+                android:hint="Selecciona fecha de registro"
                 android:textColor="#000000"
                 android:textSize="18dp" />
 
@@ -112,112 +112,10 @@
                 android:textColor="@color/black"
                 android:textSize="18dp" />
 
-            <LinearLayout
-                android:id="@+id/llHorario1"
+            <Spinner
+                android:id="@+id/sFranjas"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-
-                <CheckBox
-                    android:id="@+id/cbHorario1"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:paddingStart="5dp"
-                    android:text="6:00 a 9:00"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/cbHorario2"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:paddingStart="5dp"
-                    android:text="9:00 a 12:00"
-                    android:textSize="18sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llHorario2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-
-                <CheckBox
-                    android:id="@+id/cbHorario3"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:paddingStart="5dp"
-                    android:text="12:00 a 14:00"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/cbHorario4"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:paddingStart="5dp"
-                    android:text="15:00 a 18:00"
-                    android:textSize="18sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llHorario3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cbHorario5"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:paddingStart="5dp"
-                    android:text="18:00 a 21:00"
-                    android:textSize="18sp" />
-
-                <CheckBox
-                    android:id="@+id/cbHorario6"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:paddingStart="5dp"
-                    android:text="21:00 a 24:00"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llHorario4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cbHorario7"
-                    android:layout_width="313dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:paddingStart="5dp"
-                    android:text="24:00 a 6:00"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
+                android:layout_height="60dp"/>
 
             <TextView
                 android:id="@+id/tvLluvia"
@@ -300,7 +198,7 @@
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_time"
                     android:focusable="false"
-                    android:hint="Selecciona duracion"
+                    android:hint="Selecciona duración"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -347,6 +245,7 @@
                 android:layout_marginEnd="10dp">
 
                 <EditText
+                    android:id="@+id/etM3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -363,6 +262,7 @@
                     android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/etLitros"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -379,6 +279,7 @@
                     android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/etMl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

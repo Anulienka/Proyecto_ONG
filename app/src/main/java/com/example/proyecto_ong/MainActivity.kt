@@ -16,17 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    val registros:MutableList<Registro> = mutableListOf()
-
-   var idUsuarioApp : String = "0"
-
-    //QUE????
-    //val miRepositorio by lazy { Repositorio(idUsuarioApp) }
 
     val miRepositorio by lazy { Repositorio(BBDDParse()) }
 
     //instanciamos viewModel, a MainActivity tengo acceso desde toda la app
-    //QUE????
     val miViewModel:RegistroViewModel by viewModels {
         RegistroViewModel.RegistroViewModelFactory(miRepositorio)
     }
@@ -39,9 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         //setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        val navController = findNavController(R.id.nav_host_fragment_content_main)
+//        appBarConfiguration = AppBarConfiguration(navController.graph)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
 
     }
 

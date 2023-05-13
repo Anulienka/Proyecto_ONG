@@ -3,13 +3,14 @@ package com.example.proyecto_ong
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.TextView
+import android.widget.*
 import androidx.navigation.fragment.findNavController
 import com.google.type.DateTime
 import java.sql.Time
@@ -25,9 +26,6 @@ class RegistrarDatosFragment : Fragment() {
     private var _binding: FragmentRegistrarDatosBinding? = null
     private val binding get() = _binding!!
 
-    //USUARIO
-    var usuarioID = (activity as MainActivity).idUsuarioApp
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +35,7 @@ class RegistrarDatosFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SimpleDateFormat")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,18 +46,6 @@ class RegistrarDatosFragment : Fragment() {
             android.R.layout.simple_spinner_item, densidadNiebla)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = arrayAdapter
-
-        //formato de la FECHA de registro
-        //val sdf = SimpleDateFormat("dd/MM/yyyy")
-        //val currentDateandTime: String = sdf.format(Date())
-        //dafault fecha
-        //binding.tvCalendario.setText(currentDateandTime)
-
-//        //default hora
-//        val defaultHora = String.format("%02d:%02d", "00", "00")
-//        binding.tvHoraAqua.setText(defaultHora)
-//        binding.tvHoraLluvia.setText(defaultHora)
-
 
         // Agrega el listener para el text view de fecha de registracion de datos
         binding.tvCalendario.setOnClickListener {
@@ -106,7 +92,140 @@ class RegistrarDatosFragment : Fragment() {
         }
 
 
-        findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+        //SPINER FRANJAS
+        (activity as MainActivity).miViewModel.mostrarFranjas()
+        (activity as MainActivity).miViewModel.listaFranjas.observe(activity as MainActivity){
+            binding.sFranjas.adapter= AdaptadorFranja(activity as MainActivity, it)
+        }
+
+        binding.cbNiebla.setOnCheckedChangeListener { buttonView, isChecked ->
+            //si no esta marcado que hay niebla, se deshabilite spinner de densidad de niebla
+            binding.sDensidad.isEnabled = binding.cbNiebla.isChecked
+        }
+
+        binding.cblluvia.setOnCheckedChangeListener { buttonView, isChecked ->
+            //si no esta marcado que hay lluvia, se deshabilite textView de hora
+            binding.tvLluvia.isEnabled = binding.cblluvia.isChecked
+        }
+
+        binding.cbAgua.setOnCheckedChangeListener { buttonView, isChecked ->
+            //si no esta marcado que hay cortes de agua, se deshabilite textView de hora
+            binding.tvAgua.isEnabled = binding.cbAgua.isChecked
+        }
+
+        binding.bRegistrarDatos.setOnClickListener{
+            if(validarDatos()){
+                adjustarDatosGuardarDatos()
+
+            }
+        }
 
     }
+
+    private fun adjustarDatosGuardarDatos() {
+        var niebla: String
+        var lluvia: String
+        var agua: String
+
+        if(!binding.cbNiebla.isChecked){
+            niebla = ""
+        }
+        else{
+            niebla = binding.sDensidad.selectedItem.toString()
+        }
+
+        if(!binding.cblluvia.isChecked){
+            lluvia = ""
+        }
+        else{
+            lluvia = binding.tvLluvia.text.toString()
+        }
+
+        if(!binding.cbAgua.isChecked){
+            agua = ""
+        }
+        else{
+            agua = binding.tvAgua.text.toString()
+        }
+
+        guardarRegistro(niebla, lluvia, agua)
+    }
+
+    private fun guardarRegistro(niebla: String, lluvia: String, agua: String ) {
+        try {
+            (activity as MainActivity).miViewModel.insertarRegistro(Registro(
+                fecha = binding.tvCalendario.text.toString(),
+                niebla = niebla,
+                lluvia = lluvia,
+                agua = agua,
+                incidencias = binding.etComentario.text.toString(),
+                m3 = binding.etM3.text.toString().toDouble(),
+                litros = binding.etLitros.text.toString().toDouble(),
+                ml = binding.etMl.text.toString().toDouble(),
+                idUsuario = usuarioid().toString()
+            ))
+            Toast.makeText(activity,"Datos se han insertado correctamente", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+        }
+        catch (e:Exception){
+            Toast.makeText(activity as MainActivity,e.message,Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun usuarioid(): String? {
+        val sharedPreferences = requireContext().getSharedPreferences("credensiales", Context.MODE_PRIVATE)
+        // Recupera los datos de inicio de sesión
+        val id = sharedPreferences.getString("id", "")
+        return id
+    }
+
+
+    fun borrar(miRegistro:Registro){
+        try {
+            (activity as MainActivity).miViewModel.borrarRegistro(miRegistro)
+            Toast.makeText(activity,"Registro se ha eliminado correctamente", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+        }
+        catch (e:Exception){
+            Toast.makeText(activity as MainActivity,e.message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun validarDatos(): Boolean {
+        if(binding.tvCalendario.text.toString() == "Selecciona fecha de registro" ) {
+            showErrorTextView(binding.tvCalendario, "Campo fecha es obligatorio.")
+            return false
+        }
+
+        if(binding.sFranjas.selectedItem == null){
+            showErrorSpinner(binding.sFranjas, "Campo fecha es obligatorio.")
+            return false
+        }
+
+        if(binding.cblluvia.isChecked && binding.tvLluvia.text.toString() == "Selecciona duración"){
+            showErrorTextView(binding.tvCalendario, "Duración de lluvia es obligatoria.")
+            return false
+        }
+
+        if(binding.cbAgua.isChecked && binding.tvAgua.text.toString() == "Selecciona duración"){
+            showErrorTextView(binding.tvCalendario, "Duración de cortes de agua es obligatoria.")
+            return false
+        }
+
+        return true
+    }
+
+
+    private fun showErrorTextView(tv: TextView, e: String) {
+        tv.text = e
+        tv.setTextColor(Color.RED)
+        tv.requestFocus()
+    }
+
+    private fun showErrorSpinner(sRegion: Spinner, s: String) {
+        val errorText = sRegion.selectedView as TextView
+        errorText.setError(s)
+        errorText.requestFocus()
+    }
+
 }

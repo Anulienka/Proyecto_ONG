@@ -1,17 +1,18 @@
 package com.example.proyecto_ong
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Transformation
 import android.widget.*
-import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.lifecycleScope
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.proyecto_ong.databinding.FragmentFirstBinding
 import com.example.proyecto_ong.databinding.FragmentRegistrarUsuarioBinding
-import kotlinx.coroutines.launch
 
 class RegistrarUsuarioFragment : Fragment() {
 
@@ -50,21 +51,37 @@ class RegistrarUsuarioFragment : Fragment() {
     }
 
     private fun registrarUsuario() {
+        try {
+            (activity as MainActivity).miViewModel.insertarUsuario(Usuario(
+                nombre = binding.etNombre.text.toString(),
+                contrasena = binding.etContrasena1.text.toString(),
+                region = binding.sRegion.selectedItem.toString()))
 
-        (activity as MainActivity).miViewModel.insertarUsuario(binding.etNombre.text.toString(),binding.etContrasena1.text.toString(),binding.sRegion.selectedItem.toString())
-        Toast.makeText(activity,"Usuario se ha registrado correctamente", Toast.LENGTH_LONG).show()
-
-        //busco usuario en BD para recoger su ID
-        (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
-        val miUsuario: Usuario? = (activity as MainActivity).miViewModel.miUsuario
-        if(miUsuario == null){
-            //si no existe usuario, se muestra el mensaje
-            Toast.makeText(activity,"Usuario no existe", Toast.LENGTH_LONG).show()
-        }else{
-            (activity as MainActivity).idUsuarioApp = miUsuario.id
-            findNavController().navigate(R.id.action_registrarUsuarioFragment_to_SecondFragment)
+            var miUsuario = Usuario()
+            //busco usuario en BD para recoger su ID
+            (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
+            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity){ usuario->
+                miUsuario = usuario
+                //asigno id de usuario registrado
+                guardarPreferencias(miUsuario)
+                Toast.makeText(activity,"Usuario se ha registrado correctamente", Toast.LENGTH_LONG).show()
+                findNavController().navigate(R.id.action_registrarUsuarioFragment_to_SecondFragment)
+            }
         }
+        catch (e:Exception){
+            Toast.makeText(activity as MainActivity,e.message,Toast.LENGTH_LONG).show()
+        }
+    }
 
+    private fun guardarPreferencias(miUsuario: Usuario) {
+
+        val sharedPreferences = requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+            editor.putString("nombre_usuario", miUsuario.nombre)
+            editor.putString("contrasena", miUsuario.contrasena)
+            editor.putString("id", miUsuario.id)
+            editor.apply()
     }
 
     private fun validarDatosUsuario(): Boolean {
@@ -85,9 +102,8 @@ class RegistrarUsuarioFragment : Fragment() {
             return false
         }
 
-        var existeUsuario = false
         //BUSCA SI USUARIO YA EXISTE
-        if (existeUsuario){
+        if (existeUsuario()){
             //usuario existe y retorna false
             Toast.makeText(activity,"Usuario ya existe.", Toast.LENGTH_LONG).show()
             return false
@@ -98,9 +114,11 @@ class RegistrarUsuarioFragment : Fragment() {
     private fun existeUsuario(): Boolean {
         //busco en BD si existe usuario
         var usuarioExiste = true
+        //buaco si existe usuario con mismo nombre
         (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
-        val miUsuario: Usuario? = (activity as MainActivity).miViewModel.miUsuario
+        val miUsuario = (activity as MainActivity).miViewModel.miUsuario
         if (miUsuario == null){
+            //si no devuelve nada, usuario no existe
             usuarioExiste = false
         }
         return usuarioExiste
