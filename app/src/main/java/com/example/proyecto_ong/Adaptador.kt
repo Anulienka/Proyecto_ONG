@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 //PARA RECYCLEDVIEW
-class Adaptador(val registro: MutableList<Registro>) : RecyclerView.Adapter<Adaptador.ViewHolder>() {
+class Adaptador(var registros: List<Registro>) : RecyclerView.Adapter<Adaptador.ViewHolder>() {
     inner class ViewHolder (v: View): RecyclerView.ViewHolder(v){
         //datos de recycled view, de contenedor
         var tvDia: TextView
@@ -26,17 +26,21 @@ class Adaptador(val registro: MutableList<Registro>) : RecyclerView.Adapter<Adap
         }
     }
 
+    fun actualizarRegistros(nuevosRegistros: List<Registro>) {
+        registros = nuevosRegistros
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v= LayoutInflater.from(parent.context).inflate(R.layout.cadrdview_contenedor, parent,false)
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvDia.text="Fecha: ${registro[position].fecha}"
+        holder.tvDia.text="Fecha: ${registros[position].fecha}"
         holder.id=position
     }
 
     override fun getItemCount(): Int {
-        return registro.count()
+        return registros.count()
     }
 }

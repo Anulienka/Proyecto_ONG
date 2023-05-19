@@ -35,10 +35,10 @@ class RegistrarUsuarioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //SPINNER REGIONES
-        var densidadNiebla = arrayOf("Veladero", "Sivingalito", "Pucuta", "Chaquemarca")
+        var regiones = arrayOf("Veladero", "Sivingalito", "Pucuta", "Chaquemarca")
         val spinner = binding.sRegion
         val arrayAdapter = ArrayAdapter(requireContext(),
-            android.R.layout.simple_spinner_item, densidadNiebla)
+            android.R.layout.simple_spinner_item, regiones)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = arrayAdapter
 
@@ -52,13 +52,14 @@ class RegistrarUsuarioFragment : Fragment() {
 
     private fun registrarUsuario() {
         try {
+            //primero inserta usuario
             (activity as MainActivity).miViewModel.insertarUsuario(Usuario(
                 nombre = binding.etNombre.text.toString(),
                 contrasena = binding.etContrasena1.text.toString(),
                 region = binding.sRegion.selectedItem.toString()))
 
             var miUsuario = Usuario()
-            //busco usuario en BD para recoger su ID
+            //luego busco usuario en BD para recoger su ID
             (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
             (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity){ usuario->
                 miUsuario = usuario
@@ -77,7 +78,6 @@ class RegistrarUsuarioFragment : Fragment() {
 
         val sharedPreferences = requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-
             editor.putString("nombre_usuario", miUsuario.nombre)
             editor.putString("contrasena", miUsuario.contrasena)
             editor.putString("id", miUsuario.id)
@@ -105,7 +105,7 @@ class RegistrarUsuarioFragment : Fragment() {
         //BUSCA SI USUARIO YA EXISTE
         if (existeUsuario()){
             //usuario existe y retorna false
-            Toast.makeText(activity,"Usuario ya existe.", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity,"Usuario con mismo nombre ya existe.", Toast.LENGTH_LONG).show()
             return false
         }
         return true
@@ -113,16 +113,22 @@ class RegistrarUsuarioFragment : Fragment() {
 
     private fun existeUsuario(): Boolean {
         //busco en BD si existe usuario
-        var usuarioExiste = true
+        var usuarioExiste = false
         //buaco si existe usuario con mismo nombre
-        (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
-        val miUsuario = (activity as MainActivity).miViewModel.miUsuario
-        if (miUsuario == null){
-            //si no devuelve nada, usuario no existe
-            usuarioExiste = false
+        var miUsuario = Usuario()
+        try {
+            //******* no funciona
+            (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
+            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
+                miUsuario = usuario
+                usuarioExiste = true
+            }
+        } catch (e: Exception) {
+            Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
         }
         return usuarioExiste
     }
+
 
     private fun showError(input: EditText, s: String) {
         input.setError(s)

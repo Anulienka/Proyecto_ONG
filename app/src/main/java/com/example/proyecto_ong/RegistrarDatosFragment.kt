@@ -39,6 +39,11 @@ class RegistrarDatosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.sDensidad.isEnabled = false
+        binding.tvLluvia.isEnabled = false
+        binding.tvAgua.isEnabled = true
+
+
         //SPINNER NIEBLA
         var densidadNiebla = arrayOf("Intensa", "Normal", "Poco intensa")
         val spinner = binding.sDensidad
@@ -72,9 +77,10 @@ class RegistrarDatosFragment : Fragment() {
             val hour = currentTime.get(Calendar.HOUR_OF_DAY)
             val minute = currentTime.get(Calendar.MINUTE)
             val timePickerDialog = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+                val selectedTime = String.format("%02d:%02d AM", hourOfDay, minute)
                 binding.tvHoraAqua.text = selectedTime
-            }, hour, minute, false)
+            }, hour, minute, true)
+
             timePickerDialog.show()
         }
 
@@ -85,7 +91,7 @@ class RegistrarDatosFragment : Fragment() {
             val hour = currentTime.get(Calendar.HOUR_OF_DAY)
             val minute = currentTime.get(Calendar.MINUTE)
             val timePickerDialog = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                val selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+                val selectedTime = String.format("%02d:%02d AM", hourOfDay, minute)
                 binding.tvHoraLluvia.text = selectedTime
             }, hour, minute, false)
             timePickerDialog.show()
@@ -192,22 +198,22 @@ class RegistrarDatosFragment : Fragment() {
     }
 
     private fun validarDatos(): Boolean {
-        if(binding.tvCalendario.text.toString() == "Selecciona fecha de registro" ) {
+        if(binding.tvCalendario.text.toString() == "" ) {
             showErrorTextView(binding.tvCalendario, "Campo fecha es obligatorio.")
             return false
         }
 
-        if(binding.sFranjas.selectedItem == null){
-            showErrorSpinner(binding.sFranjas, "Campo fecha es obligatorio.")
+        if(binding.cbNiebla.isChecked && binding.sFranjas.selectedItem == null){
+            showErrorSpinner(binding.sFranjas, "Campo fecha horaria es obligatorio si havia niebla.")
             return false
         }
 
-        if(binding.cblluvia.isChecked && binding.tvLluvia.text.toString() == "Selecciona duración"){
+        if(binding.cblluvia.isChecked && binding.tvLluvia.text.toString() == ""){
             showErrorTextView(binding.tvCalendario, "Duración de lluvia es obligatoria.")
             return false
         }
 
-        if(binding.cbAgua.isChecked && binding.tvAgua.text.toString() == "Selecciona duración"){
+        if(binding.cbAgua.isChecked && binding.tvAgua.text.toString() == ""){
             showErrorTextView(binding.tvCalendario, "Duración de cortes de agua es obligatoria.")
             return false
         }

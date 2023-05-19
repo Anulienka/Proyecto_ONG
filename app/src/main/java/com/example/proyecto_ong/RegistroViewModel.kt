@@ -14,7 +14,7 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
     lateinit var miRegistro: LiveData<Registro>
     lateinit var miUsuario: LiveData<Usuario>
     var listaFranjas: LiveData<List<Franja>> = miRepositorio.listaFranjas
-    //var listaRegistros: LiveData<List<Registro>> =miRepositorio.listaRegistros
+    var listaRegistros: LiveData<List<Registro>> =miRepositorio.listaRegistros
 
 
     //**** USUARIO ****
@@ -23,15 +23,15 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
     }
 
     fun buscarUsuario(nombre: String) =viewModelScope.launch{
-        miUsuario = miRepositorio.buscarUsuario(nombre).asLiveData()
+        miUsuario = miRepositorio.buscarUsuario(nombre)
     }
 
 
     //**** REGISTROS ****
 
-//    fun mostrarRegistrosUsuario() =viewModelScope.launch {
-//        listaRegistros= miRepositorio.mostrarRegistrosUsuario()
-//    }
+    fun mostrarRegistrosUsuario() =viewModelScope.launch {
+        listaRegistros= miRepositorio.mostrarRegistrosUsuario()
+    }
 
     fun insertarRegistro(miRegistro: Registro){
         miRepositorio.insertarRegistro(miRegistro)

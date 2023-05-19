@@ -56,11 +56,12 @@
                 android:id="@+id/tvCalendario"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:drawableEnd="@drawable/ic_calendario"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:drawableEnd="@drawable/ic_calendario"
                 android:hint="Selecciona fecha de registro"
+                android:paddingTop="20dp"
                 android:textColor="#000000"
                 android:textSize="18dp" />
 
@@ -72,7 +73,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Niebla"
                 android:textAlignment="center"
-                android:textColor="#2196F3"
+                android:textColor="#7F888F"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -107,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:text="Selecciona franja horaria"
                 android:textColor="@color/black"
                 android:textSize="18dp" />
@@ -124,7 +125,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Lluvia"
                 android:textAlignment="center"
-                android:textColor="#2196F3"
+                android:textColor="#28802C"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -149,12 +150,14 @@
                     android:id="@+id/tvHoraLluvia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_time"
                     android:focusable="false"
-                    android:layout_marginEnd="10dp"
                     android:hint="Selecciona duración"
+                    android:paddingTop="6dp"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -194,11 +197,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_time"
                     android:focusable="false"
                     android:hint="Selecciona duración"
+                    android:paddingTop="6dp"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
@@ -211,7 +216,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Incidencias"
                 android:textAlignment="center"
-                android:textColor="#2196F3"
+                android:textColor="#F44336"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -231,7 +236,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Caudalímetro"
                 android:textAlignment="center"
-                android:textColor="#419F45"
+                android:textColor="#0E0E0E"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 

@@ -56,14 +56,14 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
         }
 
-//        //se recogen datos de BD para llenar RecyclerView
-//        (activity as MainActivity).miViewModel.registros.observe(activity as MainActivity){
-//                registros->
-//            miRecyclerView = binding.rvRegistros
-//            miRecyclerView.layoutManager = LinearLayoutManager(activity)
-//            //adaptador de RecyclerView
-//            miRecyclerView.adapter=Adaptador(registros as MutableList<Registro>)
-//        }
+        //se recogen datos de BD para llenar RecyclerView
+        (activity as MainActivity).miViewModel.mostrarRegistrosUsuario()
+        (activity as MainActivity).miViewModel.listaRegistros.observe(activity as MainActivity){
+            miRecyclerView = binding.rvRegistros
+            miRecyclerView.layoutManager = LinearLayoutManager(activity)
+            //adaptador de RecyclerView
+            miRecyclerView.adapter= Adaptador(it)
+        }
 
     }
 

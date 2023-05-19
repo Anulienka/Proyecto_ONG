@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 // Por ejemplo, podríamos tener una BBDD en local y otra en la nube.
 class Repositorio(val miBBDD: BBDDParse) {
 
-    //val listaRegistros = miDAO.mostrarRegistrosUsuario()
+    val listaRegistros = miBBDD.mostrarRegistrosUsuario()
     val listaFranjas =miBBDD.mostrarFranjas()
 
     //USUARIO
@@ -17,7 +17,7 @@ class Repositorio(val miBBDD: BBDDParse) {
         miBBDD.insertarUsuario(miUsuario)
     }
 
-    fun buscarUsuario(nombre: String): Flow<Usuario>{
+    fun buscarUsuario(nombre: String): LiveData<Usuario>{
         return miBBDD.buscarUsuario(nombre)
     }
 
@@ -25,11 +25,11 @@ class Repositorio(val miBBDD: BBDDParse) {
         miBBDD.insertarRegistro(miRegistro)
     }
 
-//    @Suppress("RedundantSuspendModifier")
-//    @WorkerThread
-//    suspend fun mostrarRegistrosUsuario():LiveData<List<Registro>>{
-//        return miDAO.mostrarRegistrosUsuario()
-//    }
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun mostrarRegistrosUsuario():LiveData<List<Registro>>{
+        return miBBDD.mostrarRegistrosUsuario()
+    }
 
     @Suppress("RedundatSuspendModifier")
     @WorkerThread

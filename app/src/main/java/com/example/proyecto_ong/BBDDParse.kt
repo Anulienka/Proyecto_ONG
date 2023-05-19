@@ -1,6 +1,7 @@
 package com.example.proyecto_ong
 
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.callbackFlow
 //El DAO será la clase donde mapeamos todas nuestras querys a funciones.
 class BBDDParse {
 
-    //FUNCIONA
     fun insertarUsuario(miUsuario: Usuario) {
         val registroUsuario = ParseObject("Usuarios")
         registroUsuario.put("nombre", miUsuario.nombre)
@@ -31,39 +31,31 @@ class BBDDParse {
         }
     }
 
-    fun buscarUsuario(nombre: String): Flow<Usuario> = callbackFlow {
-
+    fun buscarUsuario(nombre: String): LiveData<Usuario> {
+        val miUSuario = MutableLiveData<Usuario>()
         val query = ParseQuery.getQuery<ParseObject>("Usuarios")
         query.whereEqualTo("nombre", nombre)
 
-        query.findInBackground { objetos, error ->
+        query.getFirstInBackground { objeto, error ->
             if (error == null) {
                 // Itera sobre los objetos obtenidos de Parse y los envía uno a uno al Flow
-                for (objeto in objetos) {
+                val usuario = Usuario(
                     // Parse los datos del objeto y crea un objeto Usuario
-                    val id = objeto.objectId
-                    val nombre = objeto.getString("nombre")
-                    val contrasena = objeto.getString("contrasena")
-                    val region = objeto.getString("region")
+                    objeto.objectId,
+                    objeto.getString("nombre") ?: "",
+                    objeto.getString("contrasena") ?: "",
+                    objeto.getString("region") ?: ""
+                )
 
-                    val usuario = Usuario(id, nombre.toString(), contrasena.toString(),
-                        region.toString()
-                    )
-
-                    // Envía el objeto Usuario al Flow
-                    trySend(usuario).isSuccess
-                }
-
-                // Cierra el canal de flujo después de enviar todos los objetos
-                close()
+                miUSuario.postValue(usuario)
             } else {
-                throw Exception(error)
+               //throw Exception(error)
             }
         }
-        awaitClose()
+        return miUSuario
     }
 
-        /* fun mostrarRegistrosUsuario(): LiveData<List<Registro>> {
+    fun mostrarRegistrosUsuario(): LiveData<List<Registro>> {
         val misRegistros: MutableLiveData<List<Registro>> = MutableLiveData()
         // Configure Query
         val query = ParseQuery.getQuery<ParseObject>("Registros")
@@ -72,17 +64,24 @@ class BBDDParse {
         query.findInBackground { objects, e ->
             if (e == null) {
                 // Adding objects into the Array
-                val peliculas = objects.map { i ->
-                    Registro(i.objectId,
-                        i.getString("titulo") ?: "",
-                        i.getString("genero") ?: "",
-                        i.getInt("estreno"))
+                val registro = objects.map { i ->
+                    Registro(
+                        i.objectId,
+                        i.getString("fecha") ?: "",
+                        i.getString("niebla") ?: "",
+                        i.getString("lluvia") ?: "",
+                        i.getString("agua") ?: "",
+                        i.getString("incidencias") ?: "",
+                        i.getDouble("m3"),
+                        i.getDouble("litros"),
+                        i.getDouble("ml"),
+                        i.getString("idUsuario") ?: "")
                 }
-                misRegistros.postValue(peliculas)
+                misRegistros.postValue(registro)
             }
         }
         return misRegistros
-    }*/
+    }
 
     fun insertarRegistro(miRegistro: Registro) {
         val registroUsuario = ParseObject("Registros")
@@ -95,53 +94,50 @@ class BBDDParse {
         registroUsuario.put("litros", miRegistro.litros)
         registroUsuario.put("ml", miRegistro.ml)
         registroUsuario.put("idUsuario", miRegistro.idUsuario)
-
         registroUsuario.saveInBackground {
             if (it != null) {
                 it.localizedMessage?.let { message ->
-                    //Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show()
                     throw Exception(message)
                 }
             }
         }
     }
 
-    fun borrarRegistro(miRegistro: Registro){
+    fun borrarRegistro(miRegistro: Registro) {
         val query = ParseQuery.getQuery<ParseObject>("Registros")
         query.whereEqualTo("objectId", miRegistro.id)
-        query.getFirstInBackground{ parseObject, parseException ->
+        query.getFirstInBackground { parseObject, parseException ->
             if (parseException == null) {
                 parseObject.deleteInBackground {
                     if (it != null) {
                         throw Exception(it.localizedMessage)
                     }
                 }
-            }
-            else {
-                throw Exception (parseException.localizedMessage)
+            } else {
+                throw Exception(parseException.localizedMessage)
             }
 
         }
     }
 
-        fun mostrarFranjas(): LiveData<List<Franja>> {
-            val misFranjas: MutableLiveData<List<Franja>> = MutableLiveData()
-            // Configure Query
-            val query = ParseQuery.getQuery<ParseObject>("Franjas")
-            // Sorts the results in ascending order by the itemName field
-            query.orderByAscending("objectId")
-            query.findInBackground { objects, e ->
-                if (e == null) {
-                    val franja = objects.map { i ->
-                        Franja(
-                            i.objectId,
-                            i.getString("hora") ?: ""
-                        )
-                    }
-                    misFranjas.postValue(franja)
+    fun mostrarFranjas(): LiveData<List<Franja>> {
+        val misFranjas: MutableLiveData<List<Franja>> = MutableLiveData()
+        // Configure Query
+        val query = ParseQuery.getQuery<ParseObject>("Franjas")
+        // Sorts the results in ascending order by the itemName field
+        query.orderByAscending("objectId")
+        query.findInBackground { objects, e ->
+            if (e == null) {
+                val franja = objects.map { i ->
+                    Franja(
+                        i.objectId,
+                        i.getString("hora") ?: ""
+                    )
                 }
+                misFranjas.postValue(franja)
             }
-            return misFranjas
         }
+        return misFranjas
+    }
 
 }
