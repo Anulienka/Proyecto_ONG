@@ -2,14 +2,13 @@ package com.example.proyecto_ong
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.flow.Flow
 
 
 //Repositorio va a ser una clase que se va a encargar de manejar las diferentes BBDD que use nuestra aplicación.
 // Por ejemplo, podríamos tener una BBDD en local y otra en la nube.
 class Repositorio(val miBBDD: BBDDParse) {
 
-    val listaRegistros = miBBDD.mostrarRegistrosUsuario()
+    //val listaRegistrosUsuario = miBBDD.mostrarRegistrosUsuario(id)
     val listaFranjas =miBBDD.mostrarFranjas()
 
     //USUARIO
@@ -27,8 +26,8 @@ class Repositorio(val miBBDD: BBDDParse) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun mostrarRegistrosUsuario():LiveData<List<Registro>>{
-        return miBBDD.mostrarRegistrosUsuario()
+    suspend fun mostrarRegistrosUsuario(id: String?):LiveData<List<Registro>>{
+        return miBBDD.mostrarRegistrosUsuario(id)
     }
 
     @Suppress("RedundatSuspendModifier")
@@ -37,10 +36,10 @@ class Repositorio(val miBBDD: BBDDParse) {
         miBBDD.borrarRegistro(miRegistro)
     }
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun mostrarFranjas(): LiveData<List<Franja>> {
+
+    fun mostrarFranjas(): List<Franja> {
         return miBBDD.mostrarFranjas()
     }
+
 
 }

@@ -5,5 +5,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-class Franja(val id: String, var hora: String){}
+class Franja(
+    val id:String = "",
+    var hora: String = ""
+)
 

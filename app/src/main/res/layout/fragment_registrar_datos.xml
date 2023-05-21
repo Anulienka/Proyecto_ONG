@@ -51,6 +51,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Spinner
+                android:id="@+id/sRegion"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp" />
 
             <TextView
                 android:id="@+id/tvCalendario"
@@ -104,19 +111,16 @@
 
             </LinearLayout>
 
+
             <TextView
+                android:id="@+id/tvFranjas"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="Selecciona franja horaria"
-                android:textColor="@color/black"
-                android:textSize="18dp" />
-
-            <Spinner
-                android:id="@+id/sFranjas"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"/>
+                android:layout_marginEnd="10dp"
+                android:hint="Selecciona franja horaria"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvLluvia"
@@ -125,7 +129,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Lluvia"
                 android:textAlignment="center"
-                android:textColor="#28802C"
+                android:textColor="#7F888E"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -146,17 +150,16 @@
                     android:text="Luvia"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/tvHoraLluvia"
+                <EditText
+                    android:id="@+id/etHoraLluvia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_time"
-                    android:focusable="false"
-                    android:hint="Selecciona duración"
+                    android:inputType="time"
+                    android:hint="Duración HH:mm "
                     android:paddingTop="6dp"
                     android:textColor="#000000"
                     android:textSize="18sp" />
@@ -168,11 +171,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
                 android:text="Cortes de agua"
                 android:textAlignment="center"
-                android:textColor="#2196F3"
+                android:textColor="#7F888E"
                 android:textSize="24sp"
-                android:layout_marginEnd="10dp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -192,17 +195,16 @@
                     android:text="Cortes de agua"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/tvHoraAqua"
+                <EditText
+                    android:id="@+id/etHoraAqua"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_time"
-                    android:focusable="false"
-                    android:hint="Selecciona duración"
+                    android:inputType="time"
+                    android:hint="Duración HH:mm "
                     android:paddingTop="6dp"
                     android:textColor="#000000"
                     android:textSize="18sp" />
@@ -216,7 +218,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Incidencias"
                 android:textAlignment="center"
-                android:textColor="#F44336"
+                android:textColor="#7F888E"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -236,7 +238,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Caudalímetro"
                 android:textAlignment="center"
-                android:textColor="#0E0E0E"
+                android:textColor="#CA1A1A"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 

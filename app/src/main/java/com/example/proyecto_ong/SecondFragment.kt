@@ -1,6 +1,7 @@
 package com.example.proyecto_ong
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuHost
@@ -51,14 +52,15 @@ class SecondFragment : Fragment() {
             }
         },viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+
         //datos se anaden con boton
         binding.bAnadirDatos.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_registrarDatosFragment)
         }
 
         //se recogen datos de BD para llenar RecyclerView
-        (activity as MainActivity).miViewModel.mostrarRegistrosUsuario()
-        (activity as MainActivity).miViewModel.listaRegistros.observe(activity as MainActivity){
+        (activity as MainActivity).miViewModel.mostrarRegistrosUsuario(usuarioid())
+        (activity as MainActivity).miViewModel.listaRegistrosUsuario.observe(activity as MainActivity){
             miRecyclerView = binding.rvRegistros
             miRecyclerView.layoutManager = LinearLayoutManager(activity)
             //adaptador de RecyclerView
@@ -73,14 +75,21 @@ class SecondFragment : Fragment() {
         val editor = sharedPreferences.edit()
 
         // Se borran los datos de sharedPreferences
-        editor.putString("nombre_usuario", "")
-        editor.putString("contrasena", "")
+        editor.putString("nombre_usuario", null)
+        editor.putString("contrasena", null)
         editor.apply()
+    }
+
+    private fun usuarioid(): String? {
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("credensiales", Context.MODE_PRIVATE)
+        // Recupera los datos de inicio de sesión
+        val id = sharedPreferences.getString("id", "")
+        return id
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        //(activity as MainActivity).miViewModel.listaRegistrosObjetosUsuario.removeObservers(activity as MainActivity)
+        (activity as MainActivity).miViewModel.listaRegistrosUsuario.removeObservers(activity as MainActivity)
     }
 }

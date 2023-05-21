@@ -13,8 +13,8 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
     //LiveData, que es un dato observable
     lateinit var miRegistro: LiveData<Registro>
     lateinit var miUsuario: LiveData<Usuario>
-    var listaFranjas: LiveData<List<Franja>> = miRepositorio.listaFranjas
-    var listaRegistros: LiveData<List<Registro>> =miRepositorio.listaRegistros
+    var listaFranjas: List<Franja> = miRepositorio.listaFranjas
+    lateinit var listaRegistrosUsuario: LiveData<List<Registro>>
 
 
     //**** USUARIO ****
@@ -29,8 +29,8 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
 
     //**** REGISTROS ****
 
-    fun mostrarRegistrosUsuario() =viewModelScope.launch {
-        listaRegistros= miRepositorio.mostrarRegistrosUsuario()
+    fun mostrarRegistrosUsuario(id: String?) =viewModelScope.launch {
+        listaRegistrosUsuario= miRepositorio.mostrarRegistrosUsuario(id)
     }
 
     fun insertarRegistro(miRegistro: Registro){
@@ -42,7 +42,7 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
     }
 
     //**** FRANJAS ****
-    fun mostrarFranjas()=viewModelScope.launch{
+   fun mostrarFranjas(){
         listaFranjas= miRepositorio.mostrarFranjas()
     }
 

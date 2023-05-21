@@ -2,6 +2,7 @@ package com.example.proyecto_ong
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
@@ -39,16 +40,14 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (usuarioEstaLogeado()) {
+            //si esta logeado, directamente va a 2 fragmento
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
 
         binding.bEntrar.setOnClickListener {
             if (validarDatos()) {
-                if (usuarioEstaLogeado()) {
-                    //si esta logeado, directamente va a 2 fragmento
-                    findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-                } else {
-                    //si no esta logeado, se hace proceso de login
-                    buscarUsuario()
-                }
+                buscarUsuario()
             }
         }
 
@@ -79,17 +78,17 @@ class FirstFragment : Fragment() {
             //*********************esto no funciona
             Toast.makeText(activity, "No existe el usuario", Toast.LENGTH_LONG).show()
 
-    } catch (e: Exception) {
-        //usuaro no existe
-        Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            //usuaro no existe
+            Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
+        }
     }
-}
 
     private fun guardarPreferencias(miUsuario: Usuario) {
 
-        val sharedPreferences =
+        val sharedPreferences: SharedPreferences =
             requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
         // Guarda los datos de inicio de sesión
         editor.putString("nombre_usuario", miUsuario.nombre)
@@ -98,16 +97,17 @@ class FirstFragment : Fragment() {
         editor.apply()
     }
 
+
     private fun usuarioEstaLogeado(): Boolean {
-        val sharedPreferences =
-            requireContext().getSharedPreferences("credensiales", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences =
+            requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
 
         // Recupera los datos de inicio de sesión
-        val nombreUsuario = sharedPreferences.getString("nombre_usuario", "")
-        val contrasena = sharedPreferences.getString("contrasena", "")
+        val nombreUsuario = sharedPreferences.getString("nombre_usuario", null)
+        val contrasena = sharedPreferences.getString("contrasena", null)
 
         //si no devuelve nada, no esta logeado
-        if (nombreUsuario.equals("") && contrasena.equals("")) {
+        if (nombreUsuario == null && contrasena == null) {
             return false
         }
         return true

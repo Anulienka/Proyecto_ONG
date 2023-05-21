@@ -1,25 +1,19 @@
 package com.example.proyecto_ong
 
-import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.fragment.findNavController
-import com.google.type.DateTime
-import java.sql.Time
-import java.text.SimpleDateFormat
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 import com.example.proyecto_ong.databinding.FragmentRegistrarDatosBinding
-import com.google.firebase.firestore.FirebaseFirestore
 
 class RegistrarDatosFragment : Fragment() {
 
@@ -40,17 +34,28 @@ class RegistrarDatosFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.sDensidad.isEnabled = false
-        binding.tvLluvia.isEnabled = false
-        binding.tvAgua.isEnabled = true
+        binding.etHoraLluvia.isEnabled = false
+        binding.etHoraAqua.isEnabled = false
+        binding.tvFranjas.isEnabled = false
+        //objetos seleccionados
+        var selectedObjects: List<Franja>
+
+        //SPINNER REGIONES
+        var regiones = arrayOf("Veladero", "Sivingalito", "Pucuta", "Chaquemarca")
+        val spinnerRegiones = binding.sRegion
+        val arrayAdapter = ArrayAdapter(requireContext(),
+            android.R.layout.simple_spinner_item, regiones)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerRegiones.adapter = arrayAdapter
 
 
         //SPINNER NIEBLA
         var densidadNiebla = arrayOf("Intensa", "Normal", "Poco intensa")
         val spinner = binding.sDensidad
-        val arrayAdapter = ArrayAdapter(requireContext(),
+        val arrayAdapterNiebla = ArrayAdapter(requireContext(),
             android.R.layout.simple_spinner_item, densidadNiebla)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = arrayAdapter
+        arrayAdapterNiebla.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = arrayAdapterNiebla
 
         // Agrega el listener para el text view de fecha de registracion de datos
         binding.tvCalendario.setOnClickListener {
@@ -64,94 +69,90 @@ class RegistrarDatosFragment : Fragment() {
                     val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
                     binding.tvCalendario.setText(selectedDate)
                 }, year, month, day)
-
             // Muestra el DatePickerDialog
             datePickerDialog.show()
         }
 
 
-        // Agrega el listener para el text view de hora de registracion de datos
-        //AGUA
-        binding.tvHoraAqua.setOnClickListener {
-            val currentTime = Calendar.getInstance()
-            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
-            val minute = currentTime.get(Calendar.MINUTE)
-            val timePickerDialog = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                val selectedTime = String.format("%02d:%02d AM", hourOfDay, minute)
-                binding.tvHoraAqua.text = selectedTime
-            }, hour, minute, true)
-
-            timePickerDialog.show()
-        }
-
-        // Agrega el listener para el text view de hora de registracion de datos
-        //LLUVIA
-        binding.tvHoraLluvia.setOnClickListener {
-            val currentTime = Calendar.getInstance()
-            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
-            val minute = currentTime.get(Calendar.MINUTE)
-            val timePickerDialog = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                val selectedTime = String.format("%02d:%02d AM", hourOfDay, minute)
-                binding.tvHoraLluvia.text = selectedTime
-            }, hour, minute, false)
-            timePickerDialog.show()
-        }
-
-
-        //SPINER FRANJAS
+        // FRANJAS
         (activity as MainActivity).miViewModel.mostrarFranjas()
-        (activity as MainActivity).miViewModel.listaFranjas.observe(activity as MainActivity){
-            binding.sFranjas.adapter= AdaptadorFranja(activity as MainActivity, it)
+        var franjas: List<Franja> = (activity as MainActivity).miViewModel.listaFranjas
+
+        binding.tvFranjas.setOnClickListener{
+            val objectNames = franjas.map { it.hora }.toTypedArray()
+            val checkedItems = BooleanArray(franjas.size){false}
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Franjas horarias")
+
+            builder.setMultiChoiceItems(objectNames, checkedItems) { _, which, isChecked ->
+                // Update the checked state of the object
+                checkedItems[which] = isChecked
+            }
+            builder.setPositiveButton("OK") { _, _ ->
+                selectedObjects = franjas.filterIndexed { index, _ -> checkedItems[index] }
+                // Create a string representation of the selected items
+                val selectedItemsText = selectedObjects.joinToString(", ") { it.hora }
+                binding.tvFranjas.setText(selectedItemsText)
+            }
+
+            builder.setNegativeButton("CANCELAR", null)
+            builder.show()
         }
 
+
+
+        //NIEBLA
         binding.cbNiebla.setOnCheckedChangeListener { buttonView, isChecked ->
             //si no esta marcado que hay niebla, se deshabilite spinner de densidad de niebla
             binding.sDensidad.isEnabled = binding.cbNiebla.isChecked
+            binding.tvFranjas.isEnabled = binding.cbNiebla.isChecked
         }
 
-        binding.cblluvia.setOnCheckedChangeListener { buttonView, isChecked ->
-            //si no esta marcado que hay lluvia, se deshabilite textView de hora
-            binding.tvLluvia.isEnabled = binding.cblluvia.isChecked
+        //LLUVIA
+        binding.cblluvia.setOnCheckedChangeListener { _, isChecked ->
+            //si no esta marcado que hay lluvia, se deshabilite editText de hora
+            binding.etHoraLluvia.isEnabled = binding.cblluvia.isChecked
         }
 
+        //AGUA
         binding.cbAgua.setOnCheckedChangeListener { buttonView, isChecked ->
-            //si no esta marcado que hay cortes de agua, se deshabilite textView de hora
-            binding.tvAgua.isEnabled = binding.cbAgua.isChecked
+            //si no esta marcado que hay cortes de agua, se deshabilite editText de hora
+            binding.etHoraAqua.isEnabled = binding.cbAgua.isChecked
         }
 
+        //REGISTRAR DATOS
         binding.bRegistrarDatos.setOnClickListener{
             if(validarDatos()){
                 adjustarDatosGuardarDatos()
 
             }
         }
-
     }
 
     private fun adjustarDatosGuardarDatos() {
-        var niebla: String
-        var lluvia: String
-        var agua: String
+        val niebla: String
+        val lluvia: String
+        val agua: String
 
         if(!binding.cbNiebla.isChecked){
-            niebla = ""
+            niebla = "no"
         }
         else{
             niebla = binding.sDensidad.selectedItem.toString()
         }
 
         if(!binding.cblluvia.isChecked){
-            lluvia = ""
+            lluvia = "no"
         }
         else{
-            lluvia = binding.tvLluvia.text.toString()
+            lluvia = "si"
         }
 
         if(!binding.cbAgua.isChecked){
-            agua = ""
+            agua = "no"
         }
         else{
-            agua = binding.tvAgua.text.toString()
+            agua = "si"
         }
 
         guardarRegistro(niebla, lluvia, agua)
@@ -160,6 +161,7 @@ class RegistrarDatosFragment : Fragment() {
     private fun guardarRegistro(niebla: String, lluvia: String, agua: String ) {
         try {
             (activity as MainActivity).miViewModel.insertarRegistro(Registro(
+                region = binding.sRegion.selectedItem.toString(),
                 fecha = binding.tvCalendario.text.toString(),
                 niebla = niebla,
                 lluvia = lluvia,
@@ -170,6 +172,9 @@ class RegistrarDatosFragment : Fragment() {
                 ml = binding.etMl.text.toString().toDouble(),
                 idUsuario = usuarioid().toString()
             ))
+
+
+
             Toast.makeText(activity,"Datos se han insertado correctamente", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
         }
@@ -179,7 +184,7 @@ class RegistrarDatosFragment : Fragment() {
     }
 
     private fun usuarioid(): String? {
-        val sharedPreferences = requireContext().getSharedPreferences("credensiales", Context.MODE_PRIVATE)
+        val sharedPreferences:SharedPreferences = requireContext().getSharedPreferences("credensiales", Context.MODE_PRIVATE)
         // Recupera los datos de inicio de sesión
         val id = sharedPreferences.getString("id", "")
         return id
@@ -203,18 +208,23 @@ class RegistrarDatosFragment : Fragment() {
             return false
         }
 
-        if(binding.cbNiebla.isChecked && binding.sFranjas.selectedItem == null){
-            showErrorSpinner(binding.sFranjas, "Campo fecha horaria es obligatorio si havia niebla.")
+        if(binding.cbNiebla.isChecked && binding.tvFranjas.text.toString().isEmpty()){
+            showErrorTextView(binding.tvFranjas, "Campo fecha horaria es obligatorio si havia niebla.")
             return false
         }
 
-        if(binding.cblluvia.isChecked && binding.tvLluvia.text.toString() == ""){
-            showErrorTextView(binding.tvCalendario, "Duración de lluvia es obligatoria.")
+        if(binding.cbNiebla.isChecked && binding.sDensidad.selectedItem == null){
+            showErrorSpinner(binding.sDensidad, "Campo densidad de niebla es obligatorio si havia niebla.")
             return false
         }
 
-        if(binding.cbAgua.isChecked && binding.tvAgua.text.toString() == ""){
-            showErrorTextView(binding.tvCalendario, "Duración de cortes de agua es obligatoria.")
+        if(binding.cblluvia.isChecked && binding.etHoraLluvia.text.toString().isEmpty()){
+            showError(binding.etHoraLluvia, "Duración de lluvia es obligatoria.")
+            return false
+        }
+
+        if(binding.cbAgua.isChecked && binding.etHoraAqua.text.toString().isEmpty()){
+            showError(binding.etHoraAqua, "Duración de cortes de agua es obligatoria.")
             return false
         }
 
@@ -222,10 +232,16 @@ class RegistrarDatosFragment : Fragment() {
     }
 
 
-    private fun showErrorTextView(tv: TextView, e: String) {
-        tv.text = e
-        tv.setTextColor(Color.RED)
-        tv.requestFocus()
+    private fun showErrorTextView(input: TextView, e: String) {
+        input.text = e
+        input.setTextColor(Color.RED)
+        input.requestFocus()
+    }
+
+    private fun showError(input: EditText, s: String) {
+        input.setError(s)
+        input.setTextColor(Color.RED)
+        input.requestFocus()
     }
 
     private fun showErrorSpinner(sRegion: Spinner, s: String) {
