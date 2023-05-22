@@ -58,16 +58,23 @@ class RegistrarUsuarioFragment : Fragment() {
                 contrasena = binding.etContrasena1.text.toString(),
                 region = binding.sRegion.selectedItem.toString()))
 
-            var miUsuario = Usuario()
-            //luego busco usuario en BD para recoger su ID
+            //var miUsuario = Usuario()
             (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
-            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity){ usuario->
-                miUsuario = usuario
-                //asigno id de usuario registrado
+            var miUsuario = (activity as MainActivity).miViewModel.miUsuario
+            if (miUsuario != null){
                 guardarPreferencias(miUsuario)
-                Toast.makeText(activity,"Usuario se ha registrado correctamente", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_registrarUsuarioFragment_to_SecondFragment)
             }
+
+            //luego busco usuario en BD para recoger su ID
+//            (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
+//            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity){ usuario->
+//                miUsuario = usuario
+//                //asigno id de usuario registrado
+//                guardarPreferencias(miUsuario)
+//                Toast.makeText(activity,"Usuario se ha registrado correctamente", Toast.LENGTH_LONG).show()
+//                findNavController().navigate(R.id.action_registrarUsuarioFragment_to_SecondFragment)
+//            }
         }
         catch (e:Exception){
             Toast.makeText(activity as MainActivity,e.message,Toast.LENGTH_LONG).show()
@@ -96,6 +103,7 @@ class RegistrarUsuarioFragment : Fragment() {
             return false
         }else if(binding.etContrasena1.text.toString() != binding.etContrasena2.text.toString()){
             showError(binding.etContrasena2, "Contreseñas no son iguales.")
+            binding.etContrasena2.selectAll()
             return false
         }else if(binding.sRegion.selectedItem == null) {
             showErrorSpinner(binding.sRegion, "Campo region es obligatorio.")
@@ -115,17 +123,22 @@ class RegistrarUsuarioFragment : Fragment() {
         //busco en BD si existe usuario
         var usuarioExiste = false
         //buaco si existe usuario con mismo nombre
-        var miUsuario = Usuario()
-        try {
-            //******* no funciona
-            (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
-            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
-                miUsuario = usuario
-                usuarioExiste = true
-            }
-        } catch (e: Exception) {
-            Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
+       // var miUsuario = Usuario()
+        (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
+        var miUsuario = (activity as MainActivity).miViewModel.miUsuario
+        if (miUsuario != null){
+            usuarioExiste = true
         }
+//        try {
+//            //******* no funciona
+//            (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
+//            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
+//                miUsuario = usuario
+//                usuarioExiste = true
+//            }
+//        } catch (e: Exception) {
+//            Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
+//        }
         return usuarioExiste
     }
 

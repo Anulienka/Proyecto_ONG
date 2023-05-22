@@ -16,9 +16,14 @@ class Repositorio(val miBBDD: BBDDParse) {
         miBBDD.insertarUsuario(miUsuario)
     }
 
-    fun buscarUsuario(nombre: String): LiveData<Usuario>{
+
+    fun buscarUsuario(nombre: String): Usuario? {
         return miBBDD.buscarUsuario(nombre)
     }
+
+//    fun buscarUsuario(nombre: String): LiveData<Usuario>{
+//        return miBBDD.buscarUsuario(nombre)
+//    }
 
     fun insertarRegistro(miRegistro: Registro){
         miBBDD.insertarRegistro(miRegistro)
@@ -34,6 +39,12 @@ class Repositorio(val miBBDD: BBDDParse) {
     @WorkerThread
     suspend fun borrarRegistro(miRegistro: Registro){
         miBBDD.borrarRegistro(miRegistro)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun buscarRegistroPorId(id:String):LiveData<Registro>{
+        return miBBDD.buscarRegistroPorId(id)
     }
 
 

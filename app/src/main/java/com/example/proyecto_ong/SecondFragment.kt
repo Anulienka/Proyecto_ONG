@@ -30,27 +30,27 @@ class SecondFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.menuBar.inflateMenu(R.menu.menu_listadatos)
 
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.menu_listadatos, menu)
-            }
+//        val menuHost: MenuHost = requireActivity()
+//        menuHost.addMenuProvider(object : MenuProvider {
+//            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+//                menuInflater.inflate(R.menu.menu_listadatos, menu)
+//            }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                return when (menuItem.itemId) {
-                    R.id.miLogout -> {
-                        guardarPreferencias()
-                        findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-                        true
+                binding.menuBar.setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.miLogout -> {
+                            guardarPreferencias()
+                            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+                            true
+                        }
+                        else -> false
                     }
-                    else -> false
                 }
-            }
-        },viewLifecycleOwner, Lifecycle.State.RESUMED)
 
 
         //datos se anaden con boton
@@ -81,9 +81,9 @@ class SecondFragment : Fragment() {
     }
 
     private fun usuarioid(): String? {
-        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("credensiales", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
         // Recupera los datos de inicio de sesión
-        val id = sharedPreferences.getString("id", "")
+        val id = sharedPreferences.getString("id", null)
         return id
     }
 

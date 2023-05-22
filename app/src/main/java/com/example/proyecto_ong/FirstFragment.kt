@@ -1,6 +1,5 @@
 package com.example.proyecto_ong
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
@@ -9,12 +8,8 @@ import android.view.*
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentFirstBinding
-import com.google.android.gms.tasks.Task
-import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -58,25 +53,42 @@ class FirstFragment : Fragment() {
 
 
     fun buscarUsuario() {
-        var miUsuario = Usuario()
+        //var miUsuario = Usuario()
         try {
             (activity as MainActivity).miViewModel.buscarUsuario(binding.etUsername.text.toString())
-            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
-                miUsuario = usuario
+            var miUsuario = (activity as MainActivity).miViewModel.miUsuario
+            if(miUsuario != null){
                 if (binding.etUsername.text.toString() == miUsuario.nombre && binding.etPassword.text.toString() == miUsuario.contrasena) {
                     //guarda nombre y contrasena de usuario en fichcero credenciales
                     guardarPreferencias(miUsuario)
                     findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-                } else if (binding.etPassword.text.toString() != miUsuario.contrasena) {
-                    Toast.makeText(activity, "Contraseña no esta correcta", Toast.LENGTH_LONG)
-                        .show()
-                    //selecciona la contrasena
-                    binding.etPassword.selectAll()
-                }
+
+                }else {
+                        Toast.makeText(activity, "Contraseña no esta correcta", Toast.LENGTH_LONG).show()
+                        //selecciona la contrasena
+                        binding.etPassword.selectAll()
+                    }
+            }
+            else{
+                Toast.makeText(activity, "No existe el usuario", Toast.LENGTH_LONG).show()
             }
 
+//            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
+//                miUsuario = usuario
+//                if (binding.etUsername.text.toString() == miUsuario.nombre && binding.etPassword.text.toString() == miUsuario.contrasena) {
+//                    //guarda nombre y contrasena de usuario en fichcero credenciales
+//                    guardarPreferencias(miUsuario)
+//                    findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+//                } else if (binding.etPassword.text.toString() != miUsuario.contrasena) {
+//                    Toast.makeText(activity, "Contraseña no esta correcta", Toast.LENGTH_LONG)
+//                        .show()
+//                    //selecciona la contrasena
+//                    binding.etPassword.selectAll()
+//                }
+//            }
+
             //*********************esto no funciona
-            Toast.makeText(activity, "No existe el usuario", Toast.LENGTH_LONG).show()
+            //Toast.makeText(activity, "No existe el usuario", Toast.LENGTH_LONG).show()
 
         } catch (e: Exception) {
             //usuaro no existe

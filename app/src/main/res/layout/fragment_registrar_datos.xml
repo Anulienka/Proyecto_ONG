@@ -47,6 +47,7 @@
         app:layout_constraintTop_toTopOf="@+id/glArriba">
 
         <LinearLayout
+            android:id="@+id/linlayDatos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -59,19 +60,19 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp" />
 
+
             <TextView
                 android:id="@+id/tvCalendario"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:drawableEnd="@drawable/ic_calendario"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
+                android:drawableEnd="@drawable/ic_calendario"
                 android:hint="Selecciona fecha de registro"
                 android:paddingTop="20dp"
                 android:textColor="#000000"
-                android:textSize="18dp" />
-
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/tvNiebla"
@@ -97,7 +98,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:text="Niebla"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     tools:layout_editor_absoluteX="95dp"
                     tools:layout_editor_absoluteY="145dp" />
 
@@ -148,7 +149,7 @@
                     android:layout_weight="1"
                     android:paddingStart="5dp"
                     android:text="Luvia"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/etHoraLluvia"
@@ -158,11 +159,11 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_time"
-                    android:inputType="time"
                     android:hint="Duración HH:mm "
+                    android:inputType="time"
                     android:paddingTop="6dp"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -193,7 +194,7 @@
                     android:layout_weight="1"
                     android:paddingStart="5dp"
                     android:text="Cortes de agua"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/etHoraAqua"
@@ -203,11 +204,11 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_time"
-                    android:inputType="time"
                     android:hint="Duración HH:mm "
+                    android:inputType="time"
                     android:paddingTop="6dp"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -226,10 +227,11 @@
                 android:id="@+id/etComentario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Escribe comentario de incidencia"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"/>
+                android:hint="Escribe comentario de incidencia"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvCaudalimetro"
@@ -256,8 +258,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="00"
-                    android:textSize="18sp" />
+                    android:hint="0.0"
+                    android:inputType="numberDecimal"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvm3"
@@ -266,15 +269,16 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:hint="m3"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/etLitros"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="00"
-                    android:textSize="18sp" />
+                    android:hint="0.0"
+                    android:inputType="numberDecimal"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvlitros"
@@ -283,15 +287,16 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:hint="litros"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/etMl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="00"
-                    android:textSize="18sp" />
+                    android:hint="0.0"
+                    android:inputType="numberDecimal"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvml"
@@ -300,7 +305,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:hint="ml"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

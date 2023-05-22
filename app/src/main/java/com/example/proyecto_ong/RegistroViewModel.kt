@@ -12,7 +12,7 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
 
     //LiveData, que es un dato observable
     lateinit var miRegistro: LiveData<Registro>
-    lateinit var miUsuario: LiveData<Usuario>
+     var miUsuario: Usuario? = null
     var listaFranjas: List<Franja> = miRepositorio.listaFranjas
     lateinit var listaRegistrosUsuario: LiveData<List<Registro>>
 
@@ -22,9 +22,14 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
         miRepositorio.insertarUsuario(miUsuario)
     }
 
-    fun buscarUsuario(nombre: String) =viewModelScope.launch{
+    //aqui da error en registrar usuario
+    fun buscarUsuario(nombre: String){
         miUsuario = miRepositorio.buscarUsuario(nombre)
     }
+
+//    fun buscarUsuario(nombre: String) =viewModelScope.launch{
+//        miUsuario = miRepositorio.buscarUsuario(nombre)
+//    }
 
 
     //**** REGISTROS ****
@@ -39,6 +44,10 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
 
     fun borrarRegistro(miRegistro: Registro) =viewModelScope.launch{
         miRepositorio.borrarRegistro(miRegistro)
+    }
+
+    fun buscarRegistroPorId(id:String) =viewModelScope.launch{
+        miRegistro=miRepositorio.buscarRegistroPorId(id)
     }
 
     //**** FRANJAS ****
