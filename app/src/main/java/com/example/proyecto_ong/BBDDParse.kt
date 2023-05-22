@@ -80,7 +80,6 @@ class BBDDParse {
                 val registro = objects.map { i ->
                     Registro(
                         i.objectId,
-                        i.getString("region") ?: "",
                         i.getString("fecha") ?: "",
                         i.getString("niebla") ?: "",
                         i.getString("lluvia") ?: "",
@@ -99,7 +98,6 @@ class BBDDParse {
 
     fun insertarRegistro(miRegistro: Registro) {
         val registroUsuario = ParseObject("Registros")
-        registroUsuario.put("region", miRegistro.region)
         registroUsuario.put("fecha", miRegistro.fecha)
         registroUsuario.put("niebla", miRegistro.niebla)
         registroUsuario.put("lluvia", miRegistro.lluvia)
@@ -112,6 +110,20 @@ class BBDDParse {
         registroUsuario.saveInBackground {
             if (it != null) {
                 it.localizedMessage?.let { message ->
+                    throw Exception(message)
+                }
+            }
+        }
+    }
+
+    fun insertarRegistroFranja(idRegistro: String, idFranja: String) {
+        val registroUsuario = ParseObject("RegistroFranja")
+        registroUsuario.put("idRegistro", idRegistro)
+        registroUsuario.put("idFranja", idFranja)
+        registroUsuario.saveInBackground {
+            if (it != null) {
+                it.localizedMessage?.let { message ->
+                    //Toast.makeText(this, "Error: " + message, Toast.LENGTH_LONG).show()
                     throw Exception(message)
                 }
             }
@@ -135,6 +147,30 @@ class BBDDParse {
         }
     }
 
+    fun buscarRegistro(fecha: String, id: String): Registro? {
+        val query = ParseQuery.getQuery<ParseObject>("Registros")
+        query.whereEqualTo("fecha", fecha).whereEqualTo("idUsuario", id)
+
+        try {
+            val objeto = query.getFirst()
+            return Registro(
+                objeto.objectId,
+                objeto.getString("fecha") ?: "",
+                objeto.getString("niebla") ?: "",
+                objeto.getString("lluvia") ?: "",
+                objeto.getString("agua") ?: "",
+                objeto.getString("incidencias") ?: "",
+                objeto.getDouble("m3"),
+                objeto.getDouble("litros"),
+                objeto.getDouble("ml"),
+                objeto.getString("idUsuario") ?: "")
+
+        } catch (error: ParseException) {
+            // Manejar el error de Parse según sea necesario
+            return null
+        }
+    }
+
     fun buscarRegistroPorId(id: String): LiveData<Registro> {
         val miRegistro = MutableLiveData<Registro>()
         val query = ParseQuery.getQuery<ParseObject>("Registros")
@@ -145,7 +181,6 @@ class BBDDParse {
             if (parseException == null) {
                 val registro = Registro(
                     i.objectId,
-                    i.getString("region") ?: "",
                     i.getString("fecha") ?: "",
                     i.getString("niebla") ?: "",
                     i.getString("lluvia") ?: "",

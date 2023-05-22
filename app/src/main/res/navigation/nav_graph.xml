@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_SecondFragment_to_registrarDatosFragment"
             app:destination="@id/registrarDatosFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_mostrarRegistro"
+            app:destination="@id/mostrarRegistro" />
     </fragment>
     <fragment
         android:id="@+id/registrarUsuarioFragment"
@@ -45,6 +48,15 @@
         tools:layout="@layout/fragment_registrar_datos" >
         <action
             android:id="@+id/action_registrarDatosFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mostrarRegistro"
+        android:name="com.example.proyecto_ong.MostrarRegistro"
+        android:label="fragment_mostrar_registro"
+        tools:layout="@layout/fragment_mostrar_registro" >
+        <action
+            android:id="@+id/action_mostrarRegistro_to_SecondFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
 

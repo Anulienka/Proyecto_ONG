@@ -3,7 +3,6 @@ package com.example.proyecto_ong
 
 data class Registro(
     var id:String = "" ,
-    var region: String = "",
     var fecha:String = "",
     var niebla:String = "",
     var lluvia:String = "",

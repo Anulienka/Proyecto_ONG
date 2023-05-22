@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData
 // Por ejemplo, podríamos tener una BBDD en local y otra en la nube.
 class Repositorio(val miBBDD: BBDDParse) {
 
-    //val listaRegistrosUsuario = miBBDD.mostrarRegistrosUsuario(id)
     val listaFranjas =miBBDD.mostrarFranjas()
 
     //USUARIO
@@ -28,6 +27,15 @@ class Repositorio(val miBBDD: BBDDParse) {
     fun insertarRegistro(miRegistro: Registro){
         miBBDD.insertarRegistro(miRegistro)
     }
+
+    fun insertarRegistroFranja(idRegistro: String, idFranja:String){
+        miBBDD.insertarRegistroFranja(idRegistro, idFranja)
+    }
+
+    fun buscarRegistro(fecha: String, id:String): Registro? {
+        return miBBDD.buscarRegistro(fecha, id)
+    }
+
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

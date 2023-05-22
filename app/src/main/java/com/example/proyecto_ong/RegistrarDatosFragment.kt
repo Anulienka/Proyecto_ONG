@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -19,7 +18,10 @@ class RegistrarDatosFragment : Fragment() {
 
     private var _binding: FragmentRegistrarDatosBinding? = null
     private val binding get() = _binding!!
-    var idRegistro:String="-1"
+
+    //var idRegistro:String="-1"
+    //objetos seleccionados
+    lateinit var selectedObjects: List<Franja>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,27 +41,30 @@ class RegistrarDatosFragment : Fragment() {
         binding.etHoraAqua.isEnabled = false
         binding.tvFranjas.isEnabled = false
 
-        //objetos seleccionados
-        var selectedObjects: List<Franja>
+        //de menu bar
+        binding.menuBarDatos.inflateMenu(R.menu.menu_guardar)
+        binding.menuBarDatos.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.miAtras -> {
+                    findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
+                    true
+                }
+                else -> false
+            }
+        }
 
         //ver que id tiene registro
         //si es -1, se registra nuevo registro
-        idRegistro=arguments?.getString("id") ?:"-1"
-
-        //SPINNER REGIONES
-        var regiones = arrayOf("Veladero", "Sivingalito", "Pucuta", "Chaquemarca")
-        val spinnerRegiones = binding.sRegion
-        val arrayAdapter = ArrayAdapter(requireContext(),
-            android.R.layout.simple_spinner_item, regiones)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerRegiones.adapter = arrayAdapter
+        //idRegistro=arguments?.getString("id") ?:"-1"
 
 
         //SPINNER NIEBLA
         var densidadNiebla = arrayOf("Intensa", "Normal", "Poco intensa")
         val spinner = binding.sDensidad
-        val arrayAdapterNiebla = ArrayAdapter(requireContext(),
-            android.R.layout.simple_spinner_item, densidadNiebla)
+        val arrayAdapterNiebla = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item, densidadNiebla
+        )
         arrayAdapterNiebla.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = arrayAdapterNiebla
 
@@ -84,9 +89,9 @@ class RegistrarDatosFragment : Fragment() {
         (activity as MainActivity).miViewModel.mostrarFranjas()
         var franjas: List<Franja> = (activity as MainActivity).miViewModel.listaFranjas
 
-        binding.tvFranjas.setOnClickListener{
+        binding.tvFranjas.setOnClickListener {
             val objectNames = franjas.map { it.hora }.toTypedArray()
-            val checkedItems = BooleanArray(franjas.size){false}
+            val checkedItems = BooleanArray(franjas.size) { false }
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Franjas horarias")
 
@@ -126,144 +131,193 @@ class RegistrarDatosFragment : Fragment() {
         }
 
         //REGISTRAR DATOS
-        binding.bRegistrarDatos.setOnClickListener{
-            if(validarDatos()){
+        binding.bRegistrarDatos.setOnClickListener {
+            if (validarDatos()) {
                 adjustarDatosGuardarDatos()
-
             }
         }
 
-        var miRegistro = Registro()
-        if(idRegistro=="-1"){
-            binding.bRegistrarDatos.setText("Registrar datos")
-        }
-        else{
-            binding.bRegistrarDatos.setText("Borrar registro")
-
-            //deshabilito todos componentes en linear layout, porque usuario no puede modificar datos, solo borrar
-            for (i in 0 until binding.linlayDatos.childCount) {
-                val view: View = binding.linlayDatos.getChildAt(i)
-                view.isEnabled = false
-            }
-
-            try {
-                (activity as MainActivity).miViewModel.buscarRegistroPorId(idRegistro)
-                (activity as MainActivity).miViewModel.miRegistro.observe(activity as MainActivity){
-                    miRegistro=it
-                    binding.tvCalendario.setText(it.fecha)
-                    if(!it.niebla.equals("")){
-                      binding.cbNiebla.isChecked = true
-                      //seleccionar franja
-                    }
-                    if(!it.lluvia.equals("")){
-                        binding.cblluvia.isChecked = true
-                        binding.etHoraLluvia.setText(it.lluvia)
-                    }
-                    if(!it.agua.equals("")){
-                        binding.cbAgua.isChecked = true
-                        binding.etHoraAqua.setText(it.agua)
-                    }
-                    if(!binding.tvIncidencias.equals("")){
-                        binding.etComentario.setText(it.incidencias)
-                    }
-                    binding.etM3.setText(it.m3.toString())
-                    binding.etLitros.setText(it.litros.toString())
-                    binding.etMl.setText(it.ml.toString())
-
-                }
-            }
-            catch (e:Exception){
-                Toast.makeText(activity as MainActivity,e.message,Toast.LENGTH_LONG).show()
-            }
-        }
+//        var miRegistro = Registro()
+//        if(idRegistro=="-1"){
+//            binding.bRegistrarDatos.setText("Registrar datos")
+//        }
+//        else{
+//            binding.bRegistrarDatos.setText("Borrar registro")
+//
+//            //deshabilito todos componentes en linear layout, porque usuario no puede modificar datos, solo borrar
+//            for (i in 0 until binding.linlayDatos.childCount) {
+//                val view: View = binding.linlayDatos.getChildAt(i)
+//                view.isEnabled = false
+//            }
+//
+//            try {
+//                (activity as MainActivity).miViewModel.buscarRegistroPorId(idRegistro)
+//                (activity as MainActivity).miViewModel.miRegistro.observe(activity as MainActivity){
+//                    miRegistro=it
+//                    binding.tvCalendario.setText(it.fecha)
+//                    if(!it.niebla.equals("")){
+//                      binding.cbNiebla.isChecked = true
+//                      //seleccionar franja
+//                    }
+//                    if(!it.lluvia.equals("")){
+//                        binding.cblluvia.isChecked = true
+//                        binding.etHoraLluvia.setText(it.lluvia)
+//                    }
+//                    if(!it.agua.equals("")){
+//                        binding.cbAgua.isChecked = true
+//                        binding.etHoraAqua.setText(it.agua)
+//                    }
+//                    if(!binding.tvIncidencias.equals("")){
+//                        binding.etComentario.setText(it.incidencias)
+//                    }
+//                    binding.etM3.setText(it.m3.toString())
+//                    binding.etLitros.setText(it.litros.toString())
+//                    binding.etMl.setText(it.ml.toString())
+//
+//                }
+//            }
+//            catch (e:Exception){
+//                Toast.makeText(activity as MainActivity,e.message,Toast.LENGTH_LONG).show()
+//            }
+//        }
     }
 
     private fun adjustarDatosGuardarDatos() {
         var niebla: String = ""
         var lluvia: String = ""
         var agua: String = ""
+        var comentarios: String = ""
+        var metros3: Double = 0.0
+        var litros: Double = 0.0
+        var mililitros: Double = 0.0
 
-        if(binding.cbNiebla.isChecked){
+        if (binding.cbNiebla.isChecked) {
             niebla = binding.sDensidad.selectedItem.toString()
         }
 
-        if(binding.cblluvia.isChecked){
+        if (binding.cblluvia.isChecked) {
             lluvia = binding.etHoraLluvia.text.toString()
         }
 
-        if(binding.cbAgua.isChecked){
+        if (binding.cbAgua.isChecked) {
             agua = binding.etHoraAqua.text.toString()
         }
 
-        guardarRegistro(niebla, lluvia, agua)
+        if (!binding.etComentario.text.toString().isEmpty()) {
+            comentarios = binding.etComentario.text.toString()
+        }
+
+        if (!binding.etM3.text.toString().isEmpty()) {
+            metros3 = binding.etM3.text.toString().toDouble()
+        }
+
+        if (!binding.etLitros.text.toString().isEmpty()) {
+            litros = binding.etLitros.text.toString().toDouble()
+        }
+
+        if (!binding.etMl.text.toString().isEmpty()) {
+            mililitros = binding.etMl.text.toString().toDouble()
+        }
+
+        guardarRegistro(niebla, lluvia, agua, comentarios, metros3, litros, mililitros)
     }
 
-    private fun guardarRegistro(niebla: String, lluvia: String, agua: String) {
+    private fun guardarRegistro(
+        niebla: String,
+        lluvia: String,
+        agua: String,
+        comentarios: String,
+        metros3: Double,
+        litros: Double,
+        mililitros: Double
+    ) {
         try {
-            (activity as MainActivity).miViewModel.insertarRegistro(Registro(
-                region = binding.sRegion.selectedItem.toString(),
-                fecha = binding.tvCalendario.text.toString(),
-                niebla = niebla,
-                lluvia = lluvia,
-                agua = agua,
-                incidencias = binding.etComentario.text.toString(),
-                m3 = binding.etM3.text.toString().toDouble(),
-                litros = binding.etLitros.text.toString().toDouble(),
-                ml = binding.etMl.text.toString().toDouble(),
-                idUsuario = usuarioid().toString()
-            ))
+            (activity as MainActivity).miViewModel.insertarRegistro(
+                Registro(
+                    fecha = binding.tvCalendario.text.toString(),
+                    niebla = niebla,
+                    lluvia = lluvia,
+                    agua = agua,
+                    incidencias = comentarios,
+                    m3 = metros3,
+                    litros = litros,
+                    ml = mililitros,
+                    idUsuario = usuarioid().toString()
+                )
+            )
 
+            //si existe niebla, hay franjas horarias
+            if (!binding.tvFranjas.text.toString().isEmpty()) {
+                //busco ID de registro segun fecha y ID de usuario
+                (activity as MainActivity).miViewModel.buscarRegistro(
+                    binding.tvCalendario.text.toString(),
+                    usuarioid().toString()
+                )
+                var miRegistro = (activity as MainActivity).miViewModel.miRegistroParaId
+                if (miRegistro != null) {
+                    //insetrar registro con franjas
+                    for (elemento in selectedObjects) {
+                        (activity as MainActivity).miViewModel.insertarRegistroFranja(miRegistro.id, elemento.id)
+                    }
+                }
+            }
 
-
-            Toast.makeText(activity,"Datos se han insertado correctamente", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Datos se han insertado correctamente", Toast.LENGTH_LONG)
+                .show()
             findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
-        }
-        catch (e:Exception){
-            Toast.makeText(activity as MainActivity,e.message,Toast.LENGTH_LONG).show()
+
+        } catch (e: Exception) {
+            Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
         }
     }
 
     private fun usuarioid(): String? {
-        val sharedPreferences:SharedPreferences = requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences =
+            requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
         // Recupera los datos de inicio de sesión
         val id = sharedPreferences.getString("id", null)
         return id
     }
 
-
-    fun borrar(miRegistro:Registro){
+    fun borrar(miRegistro: Registro) {
         try {
             (activity as MainActivity).miViewModel.borrarRegistro(miRegistro)
-            Toast.makeText(activity,"Registro se ha eliminado correctamente", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Registro se ha eliminado correctamente", Toast.LENGTH_LONG)
+                .show()
             findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
-        }
-        catch (e:Exception){
-            Toast.makeText(activity as MainActivity,e.message, Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
         }
     }
 
     private fun validarDatos(): Boolean {
-        if(binding.tvCalendario.text.toString() == "" ) {
+        if (binding.tvCalendario.text.toString() == "") {
             showErrorTextView(binding.tvCalendario, "Campo fecha es obligatorio.")
             return false
         }
 
-        if(binding.cbNiebla.isChecked && binding.tvFranjas.text.toString().isEmpty()){
-            showErrorTextView(binding.tvFranjas, "Campo fecha horaria es obligatorio si havia niebla.")
+        if (binding.cbNiebla.isChecked && binding.tvFranjas.text.toString().isEmpty()) {
+            showErrorTextView(
+                binding.tvFranjas,
+                "Campo fecha horaria es obligatorio si havia niebla."
+            )
             return false
         }
 
-        if(binding.cbNiebla.isChecked && binding.sDensidad.selectedItem == null){
-            showErrorSpinner(binding.sDensidad, "Campo densidad de niebla es obligatorio si havia niebla.")
+        if (binding.cbNiebla.isChecked && binding.sDensidad.selectedItem == null) {
+            showErrorSpinner(
+                binding.sDensidad,
+                "Campo densidad de niebla es obligatorio si havia niebla."
+            )
             return false
         }
 
-        if(binding.cblluvia.isChecked && binding.etHoraLluvia.text.toString().isEmpty()){
+        if (binding.cblluvia.isChecked && binding.etHoraLluvia.text.toString().isEmpty()) {
             showError(binding.etHoraLluvia, "Duración de lluvia es obligatoria.")
             return false
         }
 
-        if(binding.cbAgua.isChecked && binding.etHoraAqua.text.toString().isEmpty()){
+        if (binding.cbAgua.isChecked && binding.etHoraAqua.text.toString().isEmpty()) {
             showError(binding.etHoraAqua, "Duración de cortes de agua es obligatoria.")
             return false
         }

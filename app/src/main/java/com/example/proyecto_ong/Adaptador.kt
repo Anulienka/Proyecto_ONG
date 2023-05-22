@@ -17,7 +17,6 @@ class Adaptador(var registros: List<Registro>) : RecyclerView.Adapter<Adaptador.
         var tvDia: TextView
         var tvNiebla: TextView
         var tvLluvia: TextView
-        var tvAgua: TextView
         var tvCaudalimetro: TextView
 
         //var tvFranja: TextView
@@ -27,13 +26,12 @@ class Adaptador(var registros: List<Registro>) : RecyclerView.Adapter<Adaptador.
             tvDia = v.findViewById(R.id.tvFechaView)
             tvNiebla = v.findViewById(R.id.tvNieblaCV)
             tvLluvia = v.findViewById(R.id.tvLLuviaCV)
-            tvAgua = v.findViewById(R.id.tvAguaCV)
             tvCaudalimetro = v.findViewById(R.id.tvCaudalimetroCV)
             //tvFranja=v.findViewById(R.id.tvFranjaView)
             v.setOnClickListener {
                 val bundle = bundleOf("id" to id)
                 v.findNavController()
-                    .navigate(R.id.action_SecondFragment_to_registrarDatosFragment, bundle)
+                    .navigate(R.id.action_SecondFragment_to_mostrarRegistro, bundle)
             }
         }
     }
@@ -51,9 +49,21 @@ class Adaptador(var registros: List<Registro>) : RecyclerView.Adapter<Adaptador.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvDia.text = "${registros[position].fecha}"
-        holder.tvAgua.text = "Duración de cortes de agua: ${registros[position].agua}"
-        holder.tvNiebla.text = "Densidad de niebla: ${registros[position].niebla}"
-        holder.tvLluvia.text = "Duración de lluvia: ${registros[position].lluvia}"
+
+        if(registros[position].niebla.equals("")){
+            holder.tvNiebla.text = "Nu hubo niebla."
+        }
+        else{
+            holder.tvNiebla.text = "Densidad de niebla: ${registros[position].niebla}"
+        }
+
+        if(registros[position].lluvia.equals("")){
+            holder.tvLluvia.text = "Nu hubo lluvia."
+        }
+        else{
+            holder.tvLluvia.text = "Duración de lluvia: ${registros[position].lluvia}"
+        }
+
         holder.tvCaudalimetro.text = "CAUDALÍMETRO:\n ${registros[position].m3} m3; ${registros[position].litros} l; ${registros[position].ml} ml"
         holder.id = position
     }

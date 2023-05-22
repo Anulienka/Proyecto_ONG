@@ -8,58 +8,31 @@
     android:background="@drawable/fondo3"
     tools:context=".RegistrarDatosFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glArriba"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glAbajo"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/menuBarDatos"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
+        android:background="#33AA37">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glIzquierda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glDerecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
-
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="369dp"
-        android:layout_height="652dp"
-        app:layout_constraintBottom_toTopOf="@+id/glAbajo"
-        app:layout_constraintEnd_toStartOf="@+id/glDerecha"
-        app:layout_constraintStart_toStartOf="@+id/glIzquierda"
-        app:layout_constraintTop_toTopOf="@+id/glArriba">
+        android:layout_width="match_parent"
+        android:layout_height="652dp">
 
         <LinearLayout
             android:id="@+id/linlayDatos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Spinner
-                android:id="@+id/sRegion"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp" />
-
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
             <TextView
                 android:id="@+id/tvCalendario"
@@ -328,6 +301,8 @@
     </ScrollView>
 
     >
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
