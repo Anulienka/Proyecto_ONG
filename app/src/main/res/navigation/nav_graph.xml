@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_registrarUsuarioFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_registrarUsuarioFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrarDatosFragment"

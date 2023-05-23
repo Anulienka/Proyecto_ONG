@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo3"
+    android:background="@drawable/fondo1"
     tools:context=".RegistrarDatosFragment">
 
     <LinearLayout
@@ -24,15 +24,16 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="652dp">
+        android:layout_height="652dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/fondo_datos">
 
         <LinearLayout
             android:id="@+id/linlayDatos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            >
 
             <TextView
                 android:id="@+id/tvCalendario"
@@ -54,9 +55,9 @@
                 android:layout_marginTop="30dp"
                 android:text="Niebla"
                 android:textAlignment="center"
-                android:textColor="#7F888F"
+                android:textColor="#424141"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:id="@+id/llNiebla"
@@ -94,6 +95,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:hint="Selecciona franja horaria"
+                android:textColor="#424141"
                 android:textSize="18sp" />
 
             <TextView
@@ -103,7 +105,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Lluvia"
                 android:textAlignment="center"
-                android:textColor="#7F888E"
+                android:textColor="#424141"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -148,7 +150,7 @@
                 android:layout_marginEnd="10dp"
                 android:text="Cortes de agua"
                 android:textAlignment="center"
-                android:textColor="#7F888E"
+                android:textColor="#424141"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -192,7 +194,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Incidencias"
                 android:textAlignment="center"
-                android:textColor="#7F888E"
+                android:textColor="#424141"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -204,6 +206,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:hint="Escribe comentario de incidencia"
+                android:textColor="#000000"
                 android:textSize="16sp" />
 
             <TextView
@@ -233,6 +236,7 @@
                     android:layout_weight="1"
                     android:hint="0.0"
                     android:inputType="numberDecimal"
+                    android:textColor="#000000"
                     android:textSize="16sp" />
 
                 <TextView
@@ -242,6 +246,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:hint="m3"
+                    android:textColor="#050505"
                     android:textSize="16sp" />
 
                 <EditText
@@ -251,6 +256,7 @@
                     android:layout_weight="1"
                     android:hint="0.0"
                     android:inputType="numberDecimal"
+                    android:textColor="#000000"
                     android:textSize="16sp" />
 
                 <TextView
@@ -260,6 +266,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:hint="litros"
+                    android:textColor="#000000"
                     android:textSize="16sp" />
 
                 <EditText
@@ -269,6 +276,7 @@
                     android:layout_weight="1"
                     android:hint="0.0"
                     android:inputType="numberDecimal"
+                    android:textColor="#000000"
                     android:textSize="16sp" />
 
                 <TextView
@@ -278,6 +286,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:hint="ml"
+                    android:textColor="#000000"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -286,9 +295,9 @@
                 android:id="@+id/bRegistrarDatos"
                 android:layout_width="310dp"
                 android:layout_height="50dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="40dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:textSize="18dp"
                 android:background="@drawable/boton_round"
                 android:text="Registrar datos"

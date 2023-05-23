@@ -25,18 +25,13 @@ class MostrarRegistro : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.menuBarMostrarDatos.inflateMenu(R.menu.menu_guardar)
 
-
-        binding.menuBarMostrarDatos.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.miAtras -> {
-                    findNavController().navigate(R.id.action_mostrarRegistro_to_SecondFragment)
-                    true
-                }
-                else -> false
-            }
+        binding.menuBarMostrarDatos.setNavigationIcon(R.drawable.ic_back)
+        binding.menuBarMostrarDatos.setNavigationOnClickListener { view ->
+            findNavController().navigate(R.id.action_mostrarRegistro_to_SecondFragment)
         }
+
+
 
     //        var miRegistro = Registro()
 //        if(idRegistro=="-1"){

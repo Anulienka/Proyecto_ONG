@@ -61,7 +61,7 @@ class Adaptador(var registros: List<Registro>) : RecyclerView.Adapter<Adaptador.
             holder.tvLluvia.text = "Nu hubo lluvia."
         }
         else{
-            holder.tvLluvia.text = "Duración de lluvia: ${registros[position].lluvia}"
+            holder.tvLluvia.text = "Duración de lluvia: ${registros[position].lluvia} h"
         }
 
         holder.tvCaudalimetro.text = "CAUDALÍMETRO:\n ${registros[position].m3} m3; ${registros[position].litros} l; ${registros[position].ml} ml"

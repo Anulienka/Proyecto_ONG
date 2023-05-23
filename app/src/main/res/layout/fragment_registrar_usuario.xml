@@ -5,123 +5,96 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo3"
+    android:background="@drawable/fondo1"
     tools:context=".RegistrarUsuarioFragment">
 
-    <EditText
-        android:id="@+id/etContrasena1"
-        android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/ic_contrasena"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/etContrasena2"
-        app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toBottomOf="@+id/etNombre" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glArribaRegistrar"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/menuBarUsuario"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        android:background="#33AA37"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glAbajoRegistrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
+    </androidx.appcompat.widget.Toolbar>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glIzguierdaRegistrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="334dp"
+        android:layout_height="395dp"
+        android:background="@drawable/fondo_datos"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        android:paddingTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glDerechaRegistrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_input"
+            android:drawableLeft="@drawable/ic_usuario"
+            android:drawablePadding="10dp"
+            android:hint="Nombre"
+            android:inputType="textPersonName"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/etNombre"
-        android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="176dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/custom_input"
-        android:drawableLeft="@drawable/ic_usuario"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:hint="Nombre"
-        android:inputType="textPersonName"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/etContrasena1"
-        app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toTopOf="@+id/glArribaRegistrar" />
+        <EditText
+            android:id="@+id/etContrasena1"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_contrasena"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/etContrasena2"
-        android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/ic_contrasena"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:hint="Confirmar contraseña"
-        android:inputType="textPassword"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/sRegion"
-        app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
-        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toBottomOf="@+id/etContrasena1" />
+        <EditText
+            android:id="@+id/etContrasena2"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_contrasena"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Confirmar contraseña"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/bRegistrar"
-        android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/boton_round"
-        android:text="Registrar"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/glAbajoRegistrar"
-        app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar" />
+        <Spinner
+            android:id="@+id/sRegion"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp" />
 
-    <Spinner
-        android:id="@+id/sRegion"
-        android:layout_width="310dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/bRegistrar"
-        app:layout_constraintEnd_toStartOf="@+id/glDerechaRegistrar"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="@+id/glIzguierdaRegistrar"
-        app:layout_constraintTop_toBottomOf="@+id/etContrasena2" />
+        <Button
+            android:id="@+id/bRegistrar"
+            android:layout_width="310dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/boton_round"
+            android:text="Registrar"
+            android:textSize="18sp" />
 
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

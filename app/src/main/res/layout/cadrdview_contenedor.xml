@@ -13,13 +13,14 @@
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rlContenedor"
             android:layout_width="407dp"
             android:layout_height="match_parent"
-            android:background="#48B8D5ED">
+            android:background="#3CB3CCB3">
 
             <TextView
                 android:id="@+id/tvFechaView"
@@ -72,7 +73,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
-                android:textColor="#15931A"
+                android:textColor="#3378AF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.779"

@@ -42,21 +42,10 @@ class RegistrarDatosFragment : Fragment() {
         binding.tvFranjas.isEnabled = false
 
         //de menu bar
-        binding.menuBarDatos.inflateMenu(R.menu.menu_guardar)
-        binding.menuBarDatos.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.miAtras -> {
-                    findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
-                    true
-                }
-                else -> false
-            }
+        binding.menuBarDatos.setNavigationIcon(R.drawable.ic_back)
+        binding.menuBarDatos.setNavigationOnClickListener { view ->
+            findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
         }
-
-        //ver que id tiene registro
-        //si es -1, se registra nuevo registro
-        //idRegistro=arguments?.getString("id") ?:"-1"
-
 
         //SPINNER NIEBLA
         var densidadNiebla = arrayOf("Intensa", "Normal", "Poco intensa")
@@ -136,50 +125,6 @@ class RegistrarDatosFragment : Fragment() {
                 adjustarDatosGuardarDatos()
             }
         }
-
-//        var miRegistro = Registro()
-//        if(idRegistro=="-1"){
-//            binding.bRegistrarDatos.setText("Registrar datos")
-//        }
-//        else{
-//            binding.bRegistrarDatos.setText("Borrar registro")
-//
-//            //deshabilito todos componentes en linear layout, porque usuario no puede modificar datos, solo borrar
-//            for (i in 0 until binding.linlayDatos.childCount) {
-//                val view: View = binding.linlayDatos.getChildAt(i)
-//                view.isEnabled = false
-//            }
-//
-//            try {
-//                (activity as MainActivity).miViewModel.buscarRegistroPorId(idRegistro)
-//                (activity as MainActivity).miViewModel.miRegistro.observe(activity as MainActivity){
-//                    miRegistro=it
-//                    binding.tvCalendario.setText(it.fecha)
-//                    if(!it.niebla.equals("")){
-//                      binding.cbNiebla.isChecked = true
-//                      //seleccionar franja
-//                    }
-//                    if(!it.lluvia.equals("")){
-//                        binding.cblluvia.isChecked = true
-//                        binding.etHoraLluvia.setText(it.lluvia)
-//                    }
-//                    if(!it.agua.equals("")){
-//                        binding.cbAgua.isChecked = true
-//                        binding.etHoraAqua.setText(it.agua)
-//                    }
-//                    if(!binding.tvIncidencias.equals("")){
-//                        binding.etComentario.setText(it.incidencias)
-//                    }
-//                    binding.etM3.setText(it.m3.toString())
-//                    binding.etLitros.setText(it.litros.toString())
-//                    binding.etMl.setText(it.ml.toString())
-//
-//                }
-//            }
-//            catch (e:Exception){
-//                Toast.makeText(activity as MainActivity,e.message,Toast.LENGTH_LONG).show()
-//            }
-//        }
     }
 
     private fun adjustarDatosGuardarDatos() {
@@ -299,7 +244,7 @@ class RegistrarDatosFragment : Fragment() {
         if (binding.cbNiebla.isChecked && binding.tvFranjas.text.toString().isEmpty()) {
             showErrorTextView(
                 binding.tvFranjas,
-                "Campo fecha horaria es obligatorio si havia niebla."
+                "Campo franja horaria es obligatorio si havía niebla."
             )
             return false
         }
@@ -307,7 +252,7 @@ class RegistrarDatosFragment : Fragment() {
         if (binding.cbNiebla.isChecked && binding.sDensidad.selectedItem == null) {
             showErrorSpinner(
                 binding.sDensidad,
-                "Campo densidad de niebla es obligatorio si havia niebla."
+                "Campo densidad de niebla es obligatorio si havía niebla."
             )
             return false
         }

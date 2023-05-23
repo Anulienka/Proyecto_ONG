@@ -34,6 +34,11 @@ class RegistrarUsuarioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.menuBarUsuario.setNavigationIcon(R.drawable.ic_back)
+        binding.menuBarUsuario.setNavigationOnClickListener { view ->
+            findNavController().navigate(R.id.action_registrarUsuarioFragment_to_FirstFragment)
+        }
+
         //SPINNER REGIONES
         var regiones = arrayOf("Veladero", "Sivingalito", "Pucuta", "Chaquemarca")
         val spinner = binding.sRegion
