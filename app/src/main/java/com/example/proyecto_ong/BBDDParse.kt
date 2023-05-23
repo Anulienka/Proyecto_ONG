@@ -44,29 +44,6 @@ class BBDDParse {
         }
     }
 
-//    fun buscarUsuario(nombre: String): LiveData<Usuario> {
-//        val miUSuario = MutableLiveData<Usuario>()
-//        val query = ParseQuery.getQuery<ParseObject>("Usuarios")
-//        query.whereEqualTo("nombre", nombre)
-//
-//        query.getFirstInBackground { objeto, error ->
-//            if (error == null) {
-//                // Itera sobre los objetos obtenidos de Parse y los envía uno a uno al Flow
-//                val usuario = Usuario(
-//                    // Parse los datos del objeto y crea un objeto Usuario
-//                    objeto.objectId,
-//                    objeto.getString("nombre") ?: "",
-//                    objeto.getString("contrasena") ?: "",
-//                    objeto.getString("region") ?: ""
-//                )
-//
-//                miUSuario.postValue(usuario)
-//            } else {
-//               //throw Exception(error)
-//            }
-//        }
-//        return miUSuario
-//    }
 
     fun mostrarRegistrosUsuario(idUsuario: String?): LiveData<List<Registro>> {
         val misRegistros: MutableLiveData<List<Registro>> = MutableLiveData()
@@ -212,6 +189,36 @@ class BBDDParse {
             )
         }
         return misFranjas
+    }
+
+    fun mostrarFranjasRegistro(id : String): List<RegistroFranja> {
+        val query = ParseQuery.getQuery<ParseObject>("RegistroFranja")
+        query.whereEqualTo("idRegistro", id)
+        val objects = query.find()
+        val misFranjas = objects.map { i ->
+            RegistroFranja(
+                i.objectId,
+                i.getString("idRegistro") ?: "",
+                i.getString("idFranja") ?: ""
+            )
+        }
+        return misFranjas
+    }
+
+    fun buscarFranjaPorId(id: String): Franja? {
+        val query = ParseQuery.getQuery<ParseObject>("Franjas")
+        query.whereEqualTo("objectId", id)
+
+        try {
+            val objeto = query.getFirst()
+            return Franja(
+                objeto.objectId,
+                objeto.getString("hora") ?: "")
+
+        } catch (error: ParseException) {
+            // Manejar el error de Parse según sea necesario
+            return null
+        }
     }
 
 }

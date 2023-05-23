@@ -14,7 +14,9 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
     lateinit var miRegistro: LiveData<Registro>
      var miUsuario: Usuario? = null
     var miRegistroParaId: Registro? = null
+    var miFranjaRegistro: Franja? = null
     var listaFranjas: List<Franja> = miRepositorio.listaFranjas
+    lateinit var listaFranjasRegistro: List<RegistroFranja>
     lateinit var listaRegistrosUsuario: LiveData<List<Registro>>
 
 
@@ -27,11 +29,6 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
     fun buscarUsuario(nombre: String){
         miUsuario = miRepositorio.buscarUsuario(nombre)
     }
-
-//    fun buscarUsuario(nombre: String) =viewModelScope.launch{
-//        miUsuario = miRepositorio.buscarUsuario(nombre)
-//    }
-
 
     //**** REGISTROS ****
 
@@ -59,9 +56,18 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
         miRegistroParaId = miRepositorio.buscarRegistro(fecha, id)
     }
 
+
     //**** FRANJAS ****
    fun mostrarFranjas(){
         listaFranjas= miRepositorio.mostrarFranjas()
+    }
+
+    fun mostrarFranjasRegistro(id: String){
+        listaFranjasRegistro= miRepositorio.mostrarFranjasRegistro(id)
+    }
+
+    fun buscarFranjaPorId(id: String){
+        miFranjaRegistro =  miRepositorio.buscarFranjaPorId(id)
     }
 
     class RegistroViewModelFactory(private val miRepositorio: Repositorio) :

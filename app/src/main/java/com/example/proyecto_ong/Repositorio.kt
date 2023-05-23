@@ -15,14 +15,9 @@ class Repositorio(val miBBDD: BBDDParse) {
         miBBDD.insertarUsuario(miUsuario)
     }
 
-
     fun buscarUsuario(nombre: String): Usuario? {
         return miBBDD.buscarUsuario(nombre)
     }
-
-//    fun buscarUsuario(nombre: String): LiveData<Usuario>{
-//        return miBBDD.buscarUsuario(nombre)
-//    }
 
     fun insertarRegistro(miRegistro: Registro){
         miBBDD.insertarRegistro(miRegistro)
@@ -34,6 +29,10 @@ class Repositorio(val miBBDD: BBDDParse) {
 
     fun buscarRegistro(fecha: String, id:String): Registro? {
         return miBBDD.buscarRegistro(fecha, id)
+    }
+
+    fun buscarFranjaPorId(id: String): Franja? {
+        return miBBDD.buscarFranjaPorId(id)
     }
 
 
@@ -58,6 +57,10 @@ class Repositorio(val miBBDD: BBDDParse) {
 
     fun mostrarFranjas(): List<Franja> {
         return miBBDD.mostrarFranjas()
+    }
+
+    fun mostrarFranjasRegistro(id: String): List<RegistroFranja> {
+        return miBBDD.mostrarFranjasRegistro(id)
     }
 
 

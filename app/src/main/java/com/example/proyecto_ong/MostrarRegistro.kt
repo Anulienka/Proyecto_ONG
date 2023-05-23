@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.proyecto_ong.databinding.FragmentMostrarRegistroBinding
-import com.example.proyecto_ong.databinding.FragmentRegistrarDatosBinding
 
 class MostrarRegistro : Fragment() {
 
@@ -47,28 +46,46 @@ class MostrarRegistro : Fragment() {
                     binding.tvNieblaIntensidadMostrar.setText("-")
                 }
 
-                //anadir franjas horarias
+                //busco todas las franjas horarias de registro con id de registro
+                (activity as MainActivity).miViewModel.mostrarFranjasRegistro(idRegistro)
+                var franjasRegistro: List<RegistroFranja> =
+                    (activity as MainActivity).miViewModel.listaFranjasRegistro
+
+                //si registro tiene franjas horarias, busco nombres (horas) de cada franja horaria
+                if(franjasRegistro.size != 0){
+                    var nombreFranjasRegistro: MutableList<String> = mutableListOf()
+                    //para cada franja busco que hora tiene
+                    for (franja in franjasRegistro) {
+                        (activity as MainActivity).miViewModel.buscarFranjaPorId(franja.id)
+                        var miFranja = (activity as MainActivity).miViewModel.miFranjaRegistro
+                        if (miFranja != null) {
+                            nombreFranjasRegistro.add(miFranja.hora)
+                        }
+                    }
+                    //strings en la lista nombreFranjaRegistro se separan con (,)
+                    //luego texto añado a textView
+                    val text = nombreFranjasRegistro.joinToString(", ")
+                    binding.tvFranjasDatosMostrar.setText(text)
+                }
 
 
                 if (it.lluvia.equals("")) {
                     binding.tvLluviaDuracionMostrar.setText("0:0")
-                }
-                else {
+                } else {
                     binding.tvLluviaDuracionMostrar.setText(it.lluvia)
                 }
 
 
                 if (it.agua.equals("")) {
                     binding.tvAguaDuracionMostrar.setText("0:0")
-                }else {
+                } else {
                     binding.tvAguaDuracionMostrar.setText(it.agua)
                 }
 
 
                 if (it.incidencias.equals("")) {
                     binding.tvComentariosMostrar.setText("No hay comentarios.")
-                }
-                else {
+                } else {
                     binding.tvComentariosMostrar.setText(it.incidencias)
                 }
 

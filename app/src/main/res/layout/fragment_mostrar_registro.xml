@@ -49,14 +49,16 @@
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Intensidad de niebla: "
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvNieblaIntensidadMostrar"
                     android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -67,18 +69,20 @@
                 android:paddingBottom="20dp">
 
                 <TextView
-                    android:id="@+id/tvNieblaDuracionMostrar"
+                    android:id="@+id/tvFranjasMostrar"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Franjas horarias: "
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvNieblaFranjasMostrar"
+                    android:id="@+id/tvFranjasDatosMostrar"
                     android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -93,14 +97,16 @@
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Duración lluvia:"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvLluviaDuracionMostrar"
                     android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -115,14 +121,16 @@
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="Duración de cortes de agua:"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvAguaDuracionMostrar"
                     android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -152,7 +160,8 @@
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvm3Mostrar"
@@ -160,7 +169,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="m3"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvlitrosNumeroMostrar"
@@ -168,7 +178,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvlitrosMostrar"
@@ -176,7 +187,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="litros"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvmlNumeroMostrar"
@@ -184,7 +196,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvmlMostrar"
@@ -192,7 +205,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="ml"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -202,7 +216,8 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
 
             <Button

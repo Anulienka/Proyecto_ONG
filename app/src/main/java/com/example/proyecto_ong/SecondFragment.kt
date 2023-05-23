@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -65,8 +62,8 @@ class SecondFragment : Fragment() {
             miRecyclerView.layoutManager = LinearLayoutManager(activity)
             //adaptador de RecyclerView
             miRecyclerView.adapter= Adaptador(it)
-        }
 
+        }
     }
 
     private fun guardarPreferencias() {
