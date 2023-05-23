@@ -11,6 +11,7 @@
         android:id="@+id/bEntrar"
         android:layout_width="310dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/boton_round"
         android:backgroundTint="#4D5AA1"
         android:text="Entrar"
@@ -97,6 +98,7 @@
         android:id="@+id/etUsername"
         android:layout_width="310dp"
         android:layout_height="50dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_input"
         android:drawableLeft="@drawable/ic_usuario"
         android:drawablePadding="10dp"
@@ -117,6 +119,7 @@
         android:id="@+id/etPassword"
         android:layout_width="310dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/ic_contrasena"
         android:drawablePadding="10dp"
@@ -148,12 +151,13 @@
         android:id="@+id/ivZabalketa"
         android:layout_width="294dp"
         android:layout_height="114dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintBottom_toTopOf="@+id/tvBienvenido"
         app:layout_constraintEnd_toStartOf="@+id/glDerecha"
         app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="@+id/glIzquierda"
         app:layout_constraintTop_toTopOf="@+id/glArriba"
+        app:layout_constraintVertical_bias="0.49"
         tools:srcCompat="@drawable/zabalketa" />
 
     <ImageView

@@ -193,7 +193,7 @@ class BBDDParse {
 
                 miRegistro.postValue(registro)
             } else {
-                throw Exception(parseException)
+               // throw Exception(parseException)
 
             }
         }

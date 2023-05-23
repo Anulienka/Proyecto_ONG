@@ -19,7 +19,6 @@ class RegistrarDatosFragment : Fragment() {
     private var _binding: FragmentRegistrarDatosBinding? = null
     private val binding get() = _binding!!
 
-    //var idRegistro:String="-1"
     //objetos seleccionados
     lateinit var selectedObjects: List<Franja>
 

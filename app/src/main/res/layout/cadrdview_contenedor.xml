@@ -14,13 +14,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
+        app:cardBackgroundColor="#BEFFFFFF"
+        app:cardElevation="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rlContenedor"
             android:layout_width="407dp"
-            android:layout_height="match_parent"
-            android:background="#3CB3CCB3">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tvFechaView"
