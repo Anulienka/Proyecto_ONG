@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,24 +31,19 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.menuBar.inflateMenu(R.menu.menu_listadatos)
-
-//        val menuHost: MenuHost = requireActivity()
-//        menuHost.addMenuProvider(object : MenuProvider {
-//            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-//                menuInflater.inflate(R.menu.menu_listadatos, menu)
-//            }
-
-                binding.menuBar.setOnMenuItemClickListener { menuItem ->
-                    when (menuItem.itemId) {
-                        R.id.miLogout -> {
-                            guardarPreferencias()
-                            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-                            true
-                        }
-                        else -> false
-                    }
+        //binding.menuBar.title = "Mis registros"
+        binding.menuBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.miLogout -> {
+                    guardarPreferencias()
+                    findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+                    true
                 }
+                else -> false
+            }
+        }
 
 
         //datos se anaden con boton
@@ -57,18 +53,19 @@ class SecondFragment : Fragment() {
 
         //se recogen datos de BD para llenar RecyclerView
         (activity as MainActivity).miViewModel.mostrarRegistrosUsuario(usuarioid())
-        (activity as MainActivity).miViewModel.listaRegistrosUsuario.observe(activity as MainActivity){
+        (activity as MainActivity).miViewModel.listaRegistrosUsuario.observe(activity as MainActivity) {
             miRecyclerView = binding.rvRegistros
             miRecyclerView.layoutManager = LinearLayoutManager(activity)
             //adaptador de RecyclerView
-            miRecyclerView.adapter= Adaptador(it)
+            miRecyclerView.adapter = Adaptador(it)
 
         }
     }
 
     private fun guardarPreferencias() {
 
-        val sharedPreferences = requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
         // Se borran los datos de sharedPreferences
@@ -78,7 +75,8 @@ class SecondFragment : Fragment() {
     }
 
     private fun usuarioid(): String? {
-        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences =
+            requireContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE)
         // Recupera los datos de inicio de sesión
         val id = sharedPreferences.getString("id", null)
         return id
@@ -90,3 +88,4 @@ class SecondFragment : Fragment() {
         (activity as MainActivity).miViewModel.listaRegistrosUsuario.removeObservers(activity as MainActivity)
     }
 }
+

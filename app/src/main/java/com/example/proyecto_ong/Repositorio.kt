@@ -3,9 +3,6 @@ package com.example.proyecto_ong
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 
-
-//Repositorio va a ser una clase que se va a encargar de manejar las diferentes BBDD que use nuestra aplicación.
-// Por ejemplo, podríamos tener una BBDD en local y otra en la nube.
 class Repositorio(val miBBDD: BBDDParse) {
 
     val listaFranjas =miBBDD.mostrarFranjas()

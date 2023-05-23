@@ -16,7 +16,9 @@
         android:background="#33AA37"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Registrar usuario"
+        app:titleTextColor="@color/white">
 
     </androidx.appcompat.widget.Toolbar>
 

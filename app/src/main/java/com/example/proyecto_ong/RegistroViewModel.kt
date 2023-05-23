@@ -4,10 +4,6 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import java.util.*
 
-//Para conseguir que los datos se mantengan usamos un viewModel.
-//Su principal ventaja es que almacena en caché el estado y lo conserva durante los cambios de configuración.
-//definir los datos que queremos que persistan y la lógica de negocio de estas.
-//hay irán los datos que vamos a usar en nuestra aplicación, en este caso todos los métodos de consultas a la BBDD.
 class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
 
     //LiveData, que es un dato observable

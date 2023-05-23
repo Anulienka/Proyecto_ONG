@@ -51,7 +51,6 @@ class FirstFragment : Fragment() {
         }
     }
 
-
     fun buscarUsuario() {
         //var miUsuario = Usuario()
         try {
@@ -72,23 +71,6 @@ class FirstFragment : Fragment() {
             else{
                 Toast.makeText(activity, "No existe el usuario", Toast.LENGTH_LONG).show()
             }
-
-//            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
-//                miUsuario = usuario
-//                if (binding.etUsername.text.toString() == miUsuario.nombre && binding.etPassword.text.toString() == miUsuario.contrasena) {
-//                    //guarda nombre y contrasena de usuario en fichcero credenciales
-//                    guardarPreferencias(miUsuario)
-//                    findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//                } else if (binding.etPassword.text.toString() != miUsuario.contrasena) {
-//                    Toast.makeText(activity, "Contraseña no esta correcta", Toast.LENGTH_LONG)
-//                        .show()
-//                    //selecciona la contrasena
-//                    binding.etPassword.selectAll()
-//                }
-//            }
-
-            //*********************esto no funciona
-            //Toast.makeText(activity, "No existe el usuario", Toast.LENGTH_LONG).show()
 
         } catch (e: Exception) {
             //usuaro no existe

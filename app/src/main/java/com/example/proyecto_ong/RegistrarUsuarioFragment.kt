@@ -63,7 +63,7 @@ class RegistrarUsuarioFragment : Fragment() {
                 contrasena = binding.etContrasena1.text.toString(),
                 region = binding.sRegion.selectedItem.toString()))
 
-            //var miUsuario = Usuario()
+            //luego busco usuario en BD para recoger su ID
             (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
             var miUsuario = (activity as MainActivity).miViewModel.miUsuario
             if (miUsuario != null){
@@ -71,15 +71,6 @@ class RegistrarUsuarioFragment : Fragment() {
                 findNavController().navigate(R.id.action_registrarUsuarioFragment_to_SecondFragment)
             }
 
-            //luego busco usuario en BD para recoger su ID
-//            (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
-//            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity){ usuario->
-//                miUsuario = usuario
-//                //asigno id de usuario registrado
-//                guardarPreferencias(miUsuario)
-//                Toast.makeText(activity,"Usuario se ha registrado correctamente", Toast.LENGTH_LONG).show()
-//                findNavController().navigate(R.id.action_registrarUsuarioFragment_to_SecondFragment)
-//            }
         }
         catch (e:Exception){
             Toast.makeText(activity as MainActivity,e.message,Toast.LENGTH_LONG).show()
@@ -134,16 +125,6 @@ class RegistrarUsuarioFragment : Fragment() {
         if (miUsuario != null){
             usuarioExiste = true
         }
-//        try {
-//            //******* no funciona
-//            (activity as MainActivity).miViewModel.buscarUsuario(binding.etNombre.text.toString())
-//            (activity as MainActivity).miViewModel.miUsuario.observe(activity as MainActivity) { usuario ->
-//                miUsuario = usuario
-//                usuarioExiste = true
-//            }
-//        } catch (e: Exception) {
-//            Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
-//        }
         return usuarioExiste
     }
 

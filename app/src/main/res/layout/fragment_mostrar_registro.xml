@@ -16,7 +16,9 @@
             android:id="@+id/menuBarMostrarDatos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#33AA37">
+            android:background="#33AA37"
+            app:title="Mi registro"
+            app:titleTextColor="@color/white">
 
         </androidx.appcompat.widget.Toolbar>
 

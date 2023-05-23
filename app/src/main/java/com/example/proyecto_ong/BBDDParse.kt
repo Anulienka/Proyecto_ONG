@@ -7,8 +7,6 @@ import com.parse.ParseException
 import com.parse.ParseObject
 import com.parse.ParseQuery
 
-
-//El DAO será la clase donde mapeamos todas nuestras querys a funciones.
 class BBDDParse {
 
     fun insertarUsuario(miUsuario: Usuario) {
