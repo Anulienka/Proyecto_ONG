@@ -223,17 +223,6 @@ class RegistrarDatosFragment : Fragment() {
         return id
     }
 
-    fun borrar(miRegistro: Registro) {
-        try {
-            (activity as MainActivity).miViewModel.borrarRegistro(miRegistro)
-            Toast.makeText(activity, "Registro se ha eliminado correctamente", Toast.LENGTH_LONG)
-                .show()
-            findNavController().navigate(R.id.action_registrarDatosFragment_to_SecondFragment)
-        } catch (e: Exception) {
-            Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
-        }
-    }
-
     private fun validarDatos(): Boolean {
         if (binding.tvCalendario.text.toString() == "") {
             showErrorTextView(binding.tvCalendario, "Campo fecha es obligatorio.")

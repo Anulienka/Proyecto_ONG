@@ -16,6 +16,8 @@ class Repositorio(val miBBDD: BBDDParse) {
         return miBBDD.buscarUsuario(nombre)
     }
 
+
+    //REGISTRO
     fun insertarRegistro(miRegistro: Registro){
         miBBDD.insertarRegistro(miRegistro)
     }
@@ -28,29 +30,26 @@ class Repositorio(val miBBDD: BBDDParse) {
         return miBBDD.buscarRegistro(fecha, id)
     }
 
-    fun buscarFranjaPorId(id: String): Franja? {
-        return miBBDD.buscarFranjaPorId(id)
-    }
-
-
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun mostrarRegistrosUsuario(id: String?):LiveData<List<Registro>>{
         return miBBDD.mostrarRegistrosUsuario(id)
     }
 
-    @Suppress("RedundatSuspendModifier")
-    @WorkerThread
-    suspend fun borrarRegistro(miRegistro: Registro){
-        miBBDD.borrarRegistro(miRegistro)
-    }
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun buscarRegistroPorId(id:String):LiveData<Registro>{
+    fun buscarRegistroPorId(id:String): LiveData<Registro>{
         return miBBDD.buscarRegistroPorId(id)
     }
 
+    fun borrarRegistro(miRegistro: Registro){
+        miBBDD.borrarRegistro(miRegistro)
+    }
+
+
+//FRANJAS HORARIAS
+    fun buscarFranjaPorId(id: String): Franja? {
+        return miBBDD.buscarFranjaPorId(id)
+    }
 
     fun mostrarFranjas(): List<Franja> {
         return miBBDD.mostrarFranjas()

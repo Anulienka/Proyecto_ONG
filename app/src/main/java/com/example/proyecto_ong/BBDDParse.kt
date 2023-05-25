@@ -154,7 +154,7 @@ class BBDDParse {
         // How we need retrive exactly one result we can use the getFirstInBackground method
         query.getFirstInBackground { i, parseException ->
             if (parseException == null) {
-                val registro = Registro(
+            val registro = Registro(
                     i.objectId,
                     i.getString("fecha") ?: "",
                     i.getString("niebla") ?: "",
@@ -165,11 +165,9 @@ class BBDDParse {
                     i.getDouble("litros"),
                     i.getDouble("ml"),
                     i.getString("idUsuario") ?: "")
-
                 miRegistro.postValue(registro)
             } else {
-               // throw Exception(parseException)
-
+                throw Exception(parseException)
             }
         }
         return miRegistro

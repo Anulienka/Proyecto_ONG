@@ -9,7 +9,6 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
-
 //PARA RECYCLEDVIEW
 class Adaptador(var registros: List<Registro>) : RecyclerView.Adapter<Adaptador.ViewHolder>() {
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -18,8 +17,6 @@ class Adaptador(var registros: List<Registro>) : RecyclerView.Adapter<Adaptador.
         var tvNiebla: TextView
         var tvLluvia: TextView
         var tvCaudalimetro: TextView
-
-        //var tvFranja: TextView
         var id: Int = -1
 
         init {
@@ -27,9 +24,8 @@ class Adaptador(var registros: List<Registro>) : RecyclerView.Adapter<Adaptador.
             tvNiebla = v.findViewById(R.id.tvNieblaCV)
             tvLluvia = v.findViewById(R.id.tvLLuviaCV)
             tvCaudalimetro = v.findViewById(R.id.tvCaudalimetroCV)
-            //tvFranja=v.findViewById(R.id.tvFranjaView)
             v.setOnClickListener {
-                val bundle = bundleOf("id" to id)
+                val bundle = bundleOf("id" to registros[id].id)
                 v.findNavController()
                     .navigate(R.id.action_SecondFragment_to_mostrarRegistro, bundle)
             }
