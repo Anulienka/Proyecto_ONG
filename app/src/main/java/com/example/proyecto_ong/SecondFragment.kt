@@ -4,12 +4,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_ong.databinding.FragmentSecondBinding
+import okhttp3.internal.notify
 
 
 class SecondFragment : Fragment() {
@@ -33,7 +35,6 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.menuBar.inflateMenu(R.menu.menu_listadatos)
-        //binding.menuBar.title = "Mis registros"
         binding.menuBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.miLogout -> {
@@ -58,6 +59,8 @@ class SecondFragment : Fragment() {
             miRecyclerView.layoutManager = LinearLayoutManager(activity)
             //adaptador de RecyclerView
             miRecyclerView.adapter = Adaptador(it)
+            Toast.makeText(activity as MainActivity,"ha llegado",Toast.LENGTH_LONG).show()
+
         }
     }
 

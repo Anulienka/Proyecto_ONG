@@ -111,6 +111,7 @@ class MostrarRegistro : Fragment() {
             Toast.makeText(activity, "Registro se ha eliminado correctamente", Toast.LENGTH_LONG)
                 .show()
             findNavController().navigate(R.id.action_mostrarRegistro_to_SecondFragment)
+
         } catch (e: Exception) {
             Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
         }

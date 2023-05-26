@@ -16,7 +16,6 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
     var listaFranjas: List<Franja> = miRepositorio.listaFranjas
     lateinit var listaFranjasRegistro: List<RegistroFranja>
 
-
     //**** USUARIO ****
     fun insertarUsuario(miUsuario:Usuario){
         miRepositorio.insertarUsuario(miUsuario)
@@ -27,8 +26,8 @@ class RegistroViewModel(private val miRepositorio: Repositorio): ViewModel() {
         miUsuario = miRepositorio.buscarUsuario(nombre)
     }
 
-    //**** REGISTROS ****
 
+    //**** REGISTROS ****
     fun mostrarRegistrosUsuario(id: String?) =viewModelScope.launch {
         listaRegistrosUsuario= miRepositorio.mostrarRegistrosUsuario(id)
     }
