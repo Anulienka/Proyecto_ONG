@@ -59,8 +59,6 @@ class SecondFragment : Fragment() {
             miRecyclerView.layoutManager = LinearLayoutManager(activity)
             //adaptador de RecyclerView
             miRecyclerView.adapter = Adaptador(it)
-            Toast.makeText(activity as MainActivity,"ha llegado",Toast.LENGTH_LONG).show()
-
         }
     }
 
