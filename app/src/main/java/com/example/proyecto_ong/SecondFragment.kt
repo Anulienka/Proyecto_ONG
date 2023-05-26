@@ -58,7 +58,6 @@ class SecondFragment : Fragment() {
             miRecyclerView.layoutManager = LinearLayoutManager(activity)
             //adaptador de RecyclerView
             miRecyclerView.adapter = Adaptador(it)
-
         }
     }
 

@@ -38,8 +38,7 @@ class MostrarRegistro : Fragment() {
         var miRegistro = Registro()
         try {
             (activity as MainActivity).miViewModel.buscarRegistroPorId(idRegistro)
-            var miRegistro =
-                (activity as MainActivity).miViewModel.miRegistro.observe(activity as MainActivity) {
+            (activity as MainActivity).miViewModel.miRegistro.observe(activity as MainActivity) {
                     miRegistro = it
                     binding.tvFecha.setText(miRegistro.fecha)
                     if (miRegistro.niebla.equals("")) {
@@ -49,7 +48,7 @@ class MostrarRegistro : Fragment() {
                     }
 
                     //busco todas las franjas horarias de registro con id de registro
-                    (activity as MainActivity).miViewModel.mostrarFranjasRegistro(idRegistro)
+                    (activity as MainActivity).miViewModel.mostrarFranjasRegistro(miRegistro.id)
                     var franjasRegistro: List<RegistroFranja> =
                         (activity as MainActivity).miViewModel.listaFranjasRegistro
 
@@ -57,8 +56,8 @@ class MostrarRegistro : Fragment() {
                     if (franjasRegistro.size != 0) {
                         var nombreFranjasRegistro: MutableList<String> = mutableListOf()
                         //para cada franja busco que hora tiene
-                        for (franja in franjasRegistro) {
-                            (activity as MainActivity).miViewModel.buscarFranjaPorId(franja.id)
+                        for (franjaRegistro in franjasRegistro) {
+                            (activity as MainActivity).miViewModel.buscarFranjaPorId(franjaRegistro.idFranja)
                             var miFranja = (activity as MainActivity).miViewModel.miFranjaRegistro
                             if (miFranja != null) {
                                 nombreFranjasRegistro.add(miFranja.hora)
@@ -69,6 +68,7 @@ class MostrarRegistro : Fragment() {
                         val text = nombreFranjasRegistro.joinToString(", ")
                         binding.tvFranjasDatosMostrar.setText(text)
                     }
+
 
                     if (miRegistro.lluvia.equals("")) {
                         binding.tvLluviaDuracionMostrar.setText("0:0 horas")
@@ -114,5 +114,11 @@ class MostrarRegistro : Fragment() {
         } catch (e: Exception) {
             Toast.makeText(activity as MainActivity, e.message, Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        if (idRegistro!="-1") (activity as MainActivity).miViewModel.miRegistro.removeObservers(activity as MainActivity)
     }
 }

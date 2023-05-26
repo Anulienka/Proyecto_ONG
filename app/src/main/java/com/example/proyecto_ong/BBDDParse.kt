@@ -1,6 +1,7 @@
 package com.example.proyecto_ong
 
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.parse.ParseException
@@ -146,6 +147,7 @@ class BBDDParse {
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun buscarRegistroPorId(id: String): LiveData<Registro> {
         val miRegistro = MutableLiveData<Registro>()
         val query = ParseQuery.getQuery<ParseObject>("Registros")
